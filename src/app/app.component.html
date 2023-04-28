@@ -38,6 +38,7 @@
       </div>
     </nav>
     <div class="tab-content" id="myTabContent">
+
       <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
           <div id="carouselExampleCaptions" class="carousel slide">
               <div class="carousel-indicators">
@@ -79,16 +80,50 @@
             </div>
       </div>
 
-
       <div class="tab-pane fade" id="tour-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" href="#" id="selectA">Select<span class="caret"></span></a>
-<ul class="dropdown-menu">
-     <li class="dropdown-item"><a href="#">Item I</a></li>
-     <li class="dropdown-item"><a href="#">Item II</a></li>
-     <li class="dropdown-item"><a href="#">Item III</a></li>
-     <li class="dropdown-item"><a href="#">Item IV</a></li>
-</ul>
-        <toure-card></toure-card>
+        <div class="sections">
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>От куда</option>
+            <option value="1"></option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Куда</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Периуд вылета</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Ночей</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck1">Скидки</label>
+          </div><br>
+          <button type="button" class="btn btn-primary btn-search">Найти</button>
+        </div>
+        <div class="row col-lg-8 col.xs-8 col-sm-8">
+          <toure-card></toure-card>    
+          <toure-card></toure-card>
+          <toure-card></toure-card>
+          <toure-card></toure-card>
+          <toure-card></toure-card>
+          <toure-card></toure-card>
+        </div>
       </div>
 
       <div class="tab-pane fade" id="stock-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"></div>

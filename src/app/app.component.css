@@ -16,3 +16,31 @@ body{
 .dropdown-menu a:hover{
     background-color: #c9c9c9;
 }
+.sections{
+    margin-top: 10px;
+    display: block;
+    max-width: 275px;
+    float: left;
+    position: fixed;
+    border: solid 1px #d2d2d2;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 22px;
+    text-align: center;
+}
+.form-select-lg{
+    margin: 0px !important;
+    margin: 17px 0 !important;
+}
+.btn-search{
+    margin-top: 10px;
+}
+.row{
+    margin-top: 10px;
+    margin-left: 285px;
+    justify-content: center;
+}
+toure-card{
+    max-width: max-content;
+    margin: 10px 0;
+}
