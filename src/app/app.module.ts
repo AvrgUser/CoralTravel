@@ -1,15 +1,21 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 
 import { AppComponent } from './app.component';
 import { ToureCardComponent } from './component/toure-card/toure-card.component';
-import * as coral_api from '../api';
+import { ResetPaswordComponent } from './component/reset-pasword/reset-pasword.component';
+import { LoginComponent } from './component/login/login.component';
+import { RegisterComponent } from './component/register/register.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToureCardComponent
+    ToureCardComponent,
+    ResetPaswordComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -18,12 +24,6 @@ import * as coral_api from '../api';
     AppComponent,
   ],
   providers: [],
-  
   bootstrap: [AppComponent]
 })
-export class AppModule implements OnInit {
-  
-  ngOnInit(){
-    console.log(coral_api.GetCities())
-  }
-}
+export class AppModule { }
