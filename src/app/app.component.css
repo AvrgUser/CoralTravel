@@ -32,6 +32,9 @@ body{
     margin: 0px !important;
     margin: 17px 0 !important;
 }
+option{
+    display:flex;
+}
 .btn-search{
     margin-top: 10px;
 }
