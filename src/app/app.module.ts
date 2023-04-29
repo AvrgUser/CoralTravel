@@ -7,6 +7,7 @@ import { ToureCardComponent } from './component/toure-card/toure-card.component'
 import { ResetPaswordComponent } from './component/reset-pasword/reset-pasword.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { RegisterComponent } from './component/register/register.component';
     ToureCardComponent,
     ResetPaswordComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
