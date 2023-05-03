@@ -1,3 +1,33 @@
 .footer{
+    box-shadow: 0 -5px 5px -5px rgb(0 0 0 / 50%);
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.f-copyright{
+    max-width: fit-content;
+    margin-left: 20px;
+    float: left;
+    text-align: left;
+    margin-top: 10px;
+}
+.f-contact{
+    margin: 10px 0px;
+}
+.f-contact img{
+    margin: 0px 10px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.5s;
+}
+.f-contact img:hover{
+    transform: translateY(-30px);
+}
+.f-support{
+    max-width: fit-content;
+    margin-right: 20px;
+    float: right;
+    text-align: center;
+    margin-bottom: 10px;
 }
