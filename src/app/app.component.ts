@@ -10,8 +10,8 @@ import {Api} from '../coral-api/api'
 export class AppComponent implements OnInit {
   title = 'CoralTravel';
   ngOnInit() {
-    Api.GetCities().then(res=>{
-      let cities = res.split(' ')
+    Api.getCities().then(res=>{
+      let cities = res.split(' ') as String[]
       let text = ''
       cities.forEach(element => {
         text+=element+' '
