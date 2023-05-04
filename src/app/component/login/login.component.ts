@@ -28,5 +28,6 @@ export class LoginComponent {
     // body_.removeAttribute("class");
     body_.removeAttribute('class')
     body_.removeAttribute('style')
+    body_.removeAttribute('wfd-invisible')
   }
 }
