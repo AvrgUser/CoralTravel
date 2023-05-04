@@ -12,7 +12,7 @@ export class LoginComponent {
     const info_ = document.getElementById('info') as HTMLElement;
 
     const exampleModalToggle_ = document.getElementById("exampleModalToggle") as HTMLElement;
-    const loginButton = document.getElementById("login") as HTMLButtonElement;
+    const shadow = document.getElementsByClassName("modal-backdrop fade show")[0];
     const body_ = document.getElementsByTagName("body")[0] as HTMLElement;
 
     if(username_.value == ""){ info_.textContent = "Введите логин!";  return; }
@@ -24,7 +24,7 @@ export class LoginComponent {
     exampleModalToggle_.style.display = "none";
     exampleModalToggle_.setAttribute('class','modal fade');
 
-    
+    shadow.remove()
     // body_.removeAttribute("class");
     body_.removeAttribute('class')
     body_.removeAttribute('style')
