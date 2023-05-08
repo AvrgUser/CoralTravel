@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { disableForms } from 'src/app/method';
 
 @Component({
   selector: 'app-login',
@@ -18,16 +19,6 @@ export class LoginComponent {
     if(username_.value == ""){ info_.textContent = "Введите логин!";  return; }
     if(password_.value == "") { info_.textContent = "Введите пороль!"; return; }
 
-    exampleModalToggle_.removeAttribute("role");
-    exampleModalToggle_.removeAttribute("aria-modal");
-    exampleModalToggle_.setAttribute('aria-hidden', 'true');
-    exampleModalToggle_.style.display = "none";
-    exampleModalToggle_.setAttribute('class','modal fade');
-
-    shadow.remove()
-    // body_.removeAttribute("class");
-    body_.removeAttribute('class')
-    body_.removeAttribute('style')
-    body_.removeAttribute('wfd-invisible')
+    disableForms('exampleModalToggle');    
   }
 }
