@@ -8,6 +8,8 @@ import { ResetPaswordComponent } from './component/reset-pasword/reset-pasword.c
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { PopularTourComponent } from './component/popular-tour/popular-tour.component';
+import { AccountComponent } from './page/account/account.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { FooterComponent } from './component/footer/footer.component';
     ResetPaswordComponent,
     LoginComponent,
     RegisterComponent,
-    FooterComponent
+    FooterComponent,
+    PopularTourComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
