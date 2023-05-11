@@ -37,7 +37,7 @@ app.post('/auth', (request, response)=>{
     }
     console.log(result)
     let answer = 'not authorized'
-    if(result[0].password == password) answer = 'authorized'
+    if(result!=undefined)if(result[0].password == password) answer = 'authorized'
     response.end(`{"message":"${answer}"}`)
   }, 'password')
 })

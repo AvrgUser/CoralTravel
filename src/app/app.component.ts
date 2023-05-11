@@ -9,6 +9,10 @@ import {Api} from '../coral-api/api'
 
 export class AppComponent implements OnInit {
   title = 'CoralTravel';
+  get isAuth() { 
+    return AppComponent.IsAuth
+  }
+  static IsAuth = false;
   ngOnInit() {
     Api.getCities().then(res=>{
       let cities = res.split(' ') as String[]
@@ -17,6 +21,21 @@ export class AppComponent implements OnInit {
         text+=element+' '
       });
       console.log('cities: '+text)
+    })
+
+    let cookies = document.cookie.split(';')
+    let login = '', password = ''
+    for(let i = 0;i<cookies.length;i++){
+      let data = cookies[i].split('=')
+      if(data[0]=='login')login = data[1]
+      if(data[0]=='password')password = data[1]
+    }
+    if(login!=''&&password!='')Api.tryAuth(login, password).then(result=>{
+      if(result.message=='authorized') {
+        AppComponent.IsAuth = true
+        console.log('yy')
+      }
+      
     })
   }
 }

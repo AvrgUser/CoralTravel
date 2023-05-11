@@ -11,7 +11,7 @@ export class Api {
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
             },
-            body: `login: ${login}, password: ${password}`
+            body: `{"login": "${login}", "password": "${password}"}`
           }).
         then(res=>res.json())
     }

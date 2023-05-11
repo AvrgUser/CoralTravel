@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { disableForms } from 'src/app/method';
+import { Api } from 'src/coral-api/api';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,16 @@ export class LoginComponent {
     if(username_.value == ""){ info_.textContent = "Введите логин!";  return; }
     if(password_.value == "") { info_.textContent = "Введите пороль!"; return; }
 
-    disableForms('exampleModalToggle');    
+    Api.tryAuth(username_.value, password_.value).then(response=>{
+      if(response.message=='authorized') {
+        console.log('y')
+        document.cookie = `login=${username_.value}`
+        document.cookie = `password=${password_.value}`
+        disableForms('exampleModalToggle');
+        
+      }
+      else info_.textContent = "Неверный логин или пароль!";
+    })
+  
   }
 }
