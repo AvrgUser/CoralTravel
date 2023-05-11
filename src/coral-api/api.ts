@@ -15,4 +15,6 @@ export class Api {
           }).
         then(res=>res.json())
     }
+
+    //static getClientInfo()
 }
