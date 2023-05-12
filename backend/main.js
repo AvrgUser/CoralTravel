@@ -42,6 +42,37 @@ app.post('/auth', (request, response)=>{
   }, 'password')
 })
 
+app.post('/adduser', (request, response)=>{
+  let login = request.body.login
+  let password = request.body.password
+  dbconnector.getClientInfo(login, (error, result)=>{
+    if(error) {
+      console.log(error)
+      response.end(`{"result":"failed"}`)
+      return
+    }
+    if(result.length==0){
+      dbconnector.addUser(login, password, (error, result)=>{
+        console.log('registered0')
+        if(error) {
+          // console.log(error)
+          response.end(`{"result":"failed"}`)
+          return
+        }
+        console.log('registered')
+        // console.log(result)
+        response.end(`{"result":"success"}`)
+      })
+    }
+    else
+    {
+      console.log('result '+result)
+      response.end(`{"result":"failed"}`)
+      return
+    }
+  }, 'password')
+})
+
 // Запускаем сервер на порту 3000
 app.listen(3000, () => {
   console.log('Сервер запущен: http://localhost:3000')

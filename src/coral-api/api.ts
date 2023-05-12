@@ -5,6 +5,7 @@ export class Api {
         then(res=>res.text())
     }
     
+    //message: "authorized"/"not authorized"
     static tryAuth(login:string,password:string){
         return fetch('/auth', {
             method: 'POST',
@@ -14,6 +15,17 @@ export class Api {
             body: `{"login": "${login}", "password": "${password}"}`
           }).
         then(res=>res.json())
+    }
+
+    //message: "success"/"fail"
+    static LogUp(login:string,password:string){
+      return fetch("/adduser", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: `{"login": "${login}", "password": "${password}"}`
+    }).then(res=>res.json())
     }
 
     //static getClientInfo()

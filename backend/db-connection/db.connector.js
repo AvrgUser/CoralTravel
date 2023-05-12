@@ -7,7 +7,7 @@ let sql = require('mysql').createConnection({
     
 })
 
-function sendQuery(board, column, params, callback){
+function selectionQuery(board, column, params, callback){
     let query = `SELECT ${column} FROM \`${board}\``
     if(params!=''){
         query+=' WHERE '
@@ -17,6 +17,22 @@ function sendQuery(board, column, params, callback){
         }
     }
     console.log(query)
+    return sql.query(query, callback)
+}
+
+function insertQuery(board, params, callback){
+    let query = `INSERT INTO \`${board}\` (`
+    let values = 'VALUES ('
+    for(let i=0;i<params.length;i++){
+        query += `${params[i].name}`
+        values += `${params[i].value}`
+        if(i<params.length-1) {
+            query +=', '
+            values +=', '
+        }
+    }
+    query+=`) ${values})`
+    console.log(query, callback)
     return sql.query(query, callback)
 }
 
@@ -30,16 +46,28 @@ module.exports = {
     },
 
     getClientsList(callback){
-        sendQuery('clients', '*', '', callback)
+        selectionQuery('clients', '*', '', callback)
     },
 
     getClientInfo(login, callback, column='*'){
-        sendQuery('clients', column, [
+        selectionQuery('clients', column, [
             {
                 name: 'name',
                 value: `"${login}"`
             }
         ],
         callback)
+    },
+
+    addUser(login, password, callback){
+        insertQuery('clients', [{
+            name: 'name',
+            value: `"${login}"`
+        },
+        {
+            name: 'password',
+            value: `"${password}"`
+        }
+        ], callback )
     },
 }
