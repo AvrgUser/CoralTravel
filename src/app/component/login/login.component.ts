@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { disableForms } from 'src/app/method';
 import { Api } from 'src/coral-api/api';
 
@@ -26,7 +27,7 @@ export class LoginComponent {
         document.cookie = `login=${username_.value}`
         document.cookie = `password=${password_.value}`
         disableForms('exampleModalToggle');
-        
+        AppComponent.IsAuth = true
       }
       else info_.textContent = "Неверный логин или пароль!";
     })

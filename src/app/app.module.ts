@@ -13,6 +13,7 @@ import { AccountComponent } from './page/account/account.component';
 
 
 @NgModule({
+
   declarations: [
     AppComponent,
     ToureCardComponent,
@@ -21,10 +22,10 @@ import { AccountComponent } from './page/account/account.component';
     RegisterComponent,
     FooterComponent,
     PopularTourComponent,
-    AccountComponent
+    AccountComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule
   ],
   entryComponents: [
     AppComponent,

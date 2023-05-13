@@ -30,10 +30,14 @@
                         <li><a class="dropdown-item" href="#">Полезная информация</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#" >Город</a></li>
-                        <li><a class="dropdown-item" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Войти/Регистрация</a></li>
+                        <li><a class="dropdown-item" *ngIf="!isAuth" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Войти/Регистрация</a></li>
+                        <li><a class="dropdown-item" *ngIf="isAuth">Выйти</a></li>
                       </ul>
                   </li>
               </ul>
+              <div *ngIf="isAuth">
+                <a href="">Name</a>
+              </div>
           </div>
       </div>
   </nav>
