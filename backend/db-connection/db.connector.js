@@ -68,6 +68,6 @@ module.exports = {
             name: 'password',
             value: `"${password}"`
         }
-        ], callback )
+        ], callback)
     },
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Api} from '../coral-api/api'
+import {Cookie} from '../cookie/cookieRW'
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,17 @@ import {Api} from '../coral-api/api'
 })
 
 export class AppComponent implements OnInit {
-  title = 'CoralTravel';
+  title = 'CoralTravel'
   get isAuth() { 
     return AppComponent.IsAuth
   }
-  static IsAuth = false;
+  static IsAuth = false
+
+  logOut(){
+    Cookie.clear('login')
+    Cookie.clear('password')
+  }
+
   ngOnInit() {
     Api.getCities().then(res=>{
       let cities = res.split(' ') as String[]
@@ -22,13 +29,8 @@ export class AppComponent implements OnInit {
       });
       console.log('cities: '+text)
     })
-    let cookies = document.cookie.split(';')
-    let login = '', password = ''
-    for(let i = 0;i<cookies.length;i++){
-      let data = cookies[i].split('=')
-      if(data[0].includes ('login'))login = data[1]
-      else if(data[0].includes ('password'))password = data[1]
-    }
+    let login = Cookie.get('login')
+    let password = Cookie.get('password')
     if(login!=''&&password!='')Api.tryAuth(login, password).then(result=>{
       if(result.message=='authorized') {
         AppComponent.IsAuth = true
