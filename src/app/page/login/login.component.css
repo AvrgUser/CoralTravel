@@ -1,0 +1,11 @@
+.login-content{
+    width: 402px;
+    border: solid 1px #d1d1d1;
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
+    padding: 20px;
+    position: relative;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    border-radius: 6px;
+}

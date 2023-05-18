@@ -1,0 +1,48 @@
+.nav-panel{
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
+    display: flex;
+    
+  }
+  .nav-tabs{
+    flex-wrap: nowrap !important;
+    flex: 1;
+    justify-content: center;
+    font-size: 1.2em;
+    border-bottom: none;
+  }
+  .navbar {
+    box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
+  .user{
+    height: fit-content;
+    margin-top: 5px;
+    justify-content: end !important;
+    margin-right: 15px !important;
+  }
+  .nav-filter{
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #d2d2d2;
+    padding: 10px !important;
+    height: fit-content;
+    border-radius: 6px;
+    position: fixed;
+  }
+  .btn{
+    margin-top: 10px;
+  }
+  .section{
+    margin-top: 25px;
+    display: flex;
+  }
+  .c-card{
+    flex: 1;
+    margin-left: 180px !important;
+  }
+  .row{
+    justify-content: center;
+  }
+  

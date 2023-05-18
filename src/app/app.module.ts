@@ -10,6 +10,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { PopularTourComponent } from './component/popular-tour/popular-tour.component';
 import { AccountComponent } from './page/account/account.component';
+import { AdminPanelComponent } from './page/admin-panel/admin-panel.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AccountComponent } from './page/account/account.component';
     FooterComponent,
     PopularTourComponent,
     AccountComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule
