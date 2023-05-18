@@ -53,13 +53,11 @@ app.post('/adduser', (request, response)=>{
     }
     if(result.length==0){
       dbconnector.addUser(login, password, (error, result)=>{
-        console.log('registered0')
         if(error) {
           // console.log(error)
           response.end(`{"result":"failed"}`)
           return
         }
-        console.log('registered')
         // console.log(result)
         response.end(`{"result":"success"}`)
       })

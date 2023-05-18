@@ -31,6 +31,5 @@ export class LoginComponent {
       }
       else info_.textContent = "Неверный логин или пароль!";
     })
-  
   }
 }
