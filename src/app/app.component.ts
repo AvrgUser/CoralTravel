@@ -14,7 +14,9 @@ export class AppComponent implements OnInit {
     return AppComponent.IsAuth
   }
   static IsAuth = false
-
+  goToLink(url: string){
+    window.open(url, "_blank");
+}
   logOut(){
     Cookie.clear('login')
     Cookie.clear('password')
