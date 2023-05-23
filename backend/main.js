@@ -4,17 +4,24 @@ const path = require('path')
 const dbconnector = require('./db-connection/db.connector')
 app.set('view engine', 'ejs')
 
+let directory = path.resolve(__dirname, '..')+'\\dist'
+
 // Указываем папку, в которой находятся статические файлы сайта (html, css, js и т.д.)
-app.use(express.static(path.resolve(__dirname, '..')+'/dist/coral-travel'))
+app.use(express.static(directory))
 
 app.use(express.json())
 
-// Обработка GET-запроса на главную страницу
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..')+'/dist/coral-travel/index.html')
+console.log(directory)
+
+app.get('/',(req,res)=>{
+  res.sendFile(directory+'/index.html')
 })
 
-app.get('/cities',(req, res) => {
+app.get('/admin',(req,res)=>{
+  res.sendFile(directory+'/adminPanel.html')
+})
+
+app.get('/cities',(req, res) => { 
   res.setHeader('Content-Type', 'text/plain')
   res.end(dbconnector.getCitiesList())
 })
@@ -52,7 +59,7 @@ app.post('/adduser', (request, response)=>{
       return
     }
     if(result.length==0){
-      dbconnector.addUser(login, password, (error, result)=>{
+      dbconnector.addUser(login, password, (error)=>{
         if(error) {
           // console.log(error)
           response.end(`{"result":"failed"}`)

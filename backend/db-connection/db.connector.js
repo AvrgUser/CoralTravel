@@ -1,3 +1,4 @@
+//#region 
 let sql = require('mysql').createConnection({
     host: '194.190.152.244',
     port: '3308',
@@ -35,7 +36,7 @@ function insertQuery(board, params, callback){
     console.log(query, callback)
     return sql.query(query, callback)
 }
-
+//#endregion
 module.exports = {
     getCitiesList(){
 

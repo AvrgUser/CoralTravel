@@ -6,7 +6,7 @@ export class Api {
     }
     
     //message: "authorized"/"not authorized"
-    static tryAuth(login:string,password:string){
+    static tryAuth( login:string,password:string){
         return fetch('/auth', {
             method: 'POST',
             headers: {

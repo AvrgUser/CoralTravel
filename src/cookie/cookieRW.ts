@@ -1,4 +1,4 @@
-let cookies : string[][] = []
+const cookies : string[][] = []
 console.log('cookie: '+document.cookie.replace(' ', ''))
 function refresh(){
     if(document.cookie.length>1)
