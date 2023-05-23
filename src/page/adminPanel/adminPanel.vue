@@ -23,18 +23,27 @@
     </nav>
     <div class="container c-card">
       <div class="row">
-
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
+        <cardAdmin></cardAdmin>
       </div>
     </div>
   </div>
 </template>
   
   <script lang="ts">
-  
+  import cardAdmin from '@/components/cardAdmin/cardAdmin.vue';
+
   export default {
     name: "AdminPanel",
     components: { 
-      
+      cardAdmin
     }
   }
   </script>
