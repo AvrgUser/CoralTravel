@@ -21,7 +21,11 @@ app.get('/admin',(req,res)=>{
   res.sendFile(directory+'/adminPanel.html')
 })
 
-app.get('/cities',(req, res) => { 
+app.get('/admin',(req,res)=>{
+  res.sendFile(directory+'/adminPanel.html')
+})
+
+app.get('/cities',(req, res) => {
   res.setHeader('Content-Type', 'text/plain')
   res.end(dbconnector.getCitiesList())
 })

@@ -41,7 +41,7 @@
                 <li><a class="dropdown-item" href="#">Город</a></li>
                 <li><a class="dropdown-item" v-if="!isAuth" data-bs-target="#exampleModalToggle"
                     data-bs-toggle="modal">Войти/Регистрация</a></li>
-                <li><a class="dropdown-item" v-if="isAuth" onclick="logOut()">Выйти</a></li>
+                <li><a class="dropdown-item" v-if="isAuth" @click="logOut">Выйти</a></li>
               </ul>
             </li>
           </ul>
@@ -262,23 +262,36 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import FooterComponent from "./components/footer/footerComponent.vue";
 import LoginComponent from "./components/login/login.vue"
 import RegisterComponent from "./components/register/register.vue"
 import ResetPasswordComponent from "./components/reset-password/reset-password.vue"
 import PopularTourComponent from "./components/popular-tour/popular-tour.vue"
 import ToureCardComponent from "./components/toure-card/toure-card.vue"
-// import { Cookie } from "./cookie/cookieRW";
-// import { Api } from "./coral-api/api";
+import { Cookie } from "./cookie/cookieRW";
+import { Api } from "./coral-api/api";
+import { User } from "./userdata";
 // import { User } from "./userdata";
 
-export default {
+export default defineComponent({
   name: "App",
+
   data(){
     return{
-      isAuth: false,
+      isAuth: false
     }
   },
+  
+  methods:{
+    logOut(){
+        console.log('clearing')
+        Cookie.clear('login')
+        Cookie.clear('password')
+        User.isAuth = false
+      },
+  },
+
   components: { 
     FooterComponent,
     LoginComponent,
@@ -287,7 +300,31 @@ export default {
     PopularTourComponent,
     ToureCardComponent
   },
-  onBeforeMount(){
+  beforeCreate(){
+    User.isAuth = (value:boolean)=>{
+      if(value==undefined)return this.isAuth
+      else this.isAuth = value
+      console.log('f')
+    }
+    Api.getCities().then(res=>{
+      let cities = res.split(' ') as String[]
+      let text = ''
+      cities.forEach(element => {
+        text+=element+' '
+      });
+      console.log('cities: '+text)
+    })
+    let login = Cookie.get('login')
+    let password = Cookie.get('password')
+    if(login!=''&&password!='')Api.tryAuth(login, password).then(result=>{
+      if(result.message=='authorized') {
+        this.isAuth = true
+        console.log('yy')
+      }
+      else{
+        console.log('nn')
+      }
+    })
   }
 
 //   get isAuth() { 
@@ -321,7 +358,7 @@ export default {
       
 //     })
 //   }
-}
+})
 </script>
 
 <style src="./main.css"></style>

@@ -5,6 +5,9 @@ module.exports = defineConfig({
     index: 'src/main.ts',
     adminPanel: 'src/page/adminPanel/adminPanel.ts',
     loginPanel: 'src/page/loginPanel/loginPanel.ts',
-    account: 'src/page/account/account.ts'
+    account: 'src/page/account/account.ts',
+
+    editToure: 'src/page/editToure/editToure.ts',
+    fullInfoToure: 'src/page/fullInfoToure/fullInfoToure.ts'
   }
 })

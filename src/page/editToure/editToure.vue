@@ -26,5 +26,5 @@
     }
     </script>
     
-    <style src="./fullInfoToure.css"></style>
+    <style src="./editToure.css"></style>
     

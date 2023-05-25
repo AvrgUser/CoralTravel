@@ -5,7 +5,6 @@ let sql = require('mysql').createConnection({
     user: 'root2',
     password: 'mtMDk5COMlwfuCvRsHX0pMYFZr87P8e3RT8BPt7Vws8e3KMpBIy83zepSFzXzN3E',
     database: 'coral_data',
-    
 })
 
 function selectionQuery(board, column, params, callback){
@@ -18,7 +17,7 @@ function selectionQuery(board, column, params, callback){
         }
     }
     console.log(query)
-    return sql.query(query, callback)
+    return sendQuery(query, callback)
 }
 
 function insertQuery(board, params, callback){
@@ -34,8 +33,18 @@ function insertQuery(board, params, callback){
     }
     query+=`) ${values})`
     console.log(query, callback)
-    return sql.query(query, callback)
+    return sendQuery(query, callback)
 }
+
+function sendQuery(query, callback){
+    try{
+        sql.query(query, callback)
+    }
+    catch(e){
+        callback(e)
+    }
+}
+
 //#endregion
 module.exports = {
     getCitiesList(){
@@ -43,8 +52,8 @@ module.exports = {
         return 'Moscow Saint-Petersburg Bryansk'
     },
 
-    getToursList(params){
-    },
+    // getToursList(params){
+    // },
 
     getClientsList(callback){
         selectionQuery('clients', '*', '', callback)
