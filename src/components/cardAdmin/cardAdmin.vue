@@ -28,5 +28,5 @@
   }
   </script>
   
-  <style></style>
+  <style src="./cardAdmin.css"></style>
   

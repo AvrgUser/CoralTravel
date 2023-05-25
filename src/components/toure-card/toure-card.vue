@@ -11,7 +11,7 @@
             <li class="list-group-item">A third item</li>
         </ul>
         <div class="card-body">
-            <button type="button" class="btn btn-outline-primary">Купить</button>
+            <button type="button" class="btn btn-outline-primary">Подробнее</button>
         </div>
     </div>
 </template>
