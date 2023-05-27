@@ -1,0 +1,36 @@
+.navbar{
+    padding: 0  !important;
+    box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
+}
+.row{
+    margin: 0 !important;
+}
+.title{
+    margin-top: 30px;
+}
+.title h4{
+    max-width: fit-content;
+    float: left;
+}
+.option{
+    float: right;
+    margin-right: 20px;
+}
+
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.galeryinfo{
+    min-width: 410px;
+    flex: 1;
+    margin-bottom: 20px;
+}
+.hotelinfo{
+    min-width: 300px;
+    width: 400px;
+    flex: 1;
+    margin-left: 20px;
+    margin-right: 20px;
+}

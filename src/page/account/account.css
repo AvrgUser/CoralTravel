@@ -1,0 +1,24 @@
+.navbar {
+    box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
+  .user-c{
+    justify-content: end !important;
+    margin-right: 15px !important;
+  }
+  .d-flex{
+    margin-top: 25px;
+    margin-left: 20px;
+  }
+  .input-group strong, .uEmail, .male{
+    position: relative;
+    top: 20%;
+    padding: 7px 10px;
+    border: solid 1px #dee2e6;
+    background-color: #f8f9fa;
+  }
+  .famaly, .mail, .male{
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
