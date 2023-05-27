@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const dbconnector = require('./db-connection/db.connector')
+const { error } = require('console')
 app.set('view engine', 'ejs')
 
 let directory = path.resolve(__dirname, '..')+'\\dist'
@@ -18,7 +19,22 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/admin',(req,res)=>{
-  res.sendFile(directory+'/adminPanel.html')
+  let login, password
+  if(req.cookies){
+    login = req.cookies.login
+    password = req.cookies.password
+    dbconnector.getClientInfo(login, (err, result)=>{
+      if(result[0].password==password){
+        res.sendFile(directory+'/adminPanel.html')
+      }
+      else{
+        res.sendFile(directory+'/loginPanel.html')
+      }
+    })
+  }
+  else{
+    res.sendFile(directory+'/loginPanel.html')
+  }
 })
 
 app.get('/admin',(req,res)=>{

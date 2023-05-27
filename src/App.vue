@@ -46,7 +46,7 @@
             </li>
           </ul>
           <div v-if="isAuth">
-            <a href="">Name</a>
+            <a href="http://localhost:3000/account.html">Name</a>
           </div>
         </div>
       </div>
