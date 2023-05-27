@@ -6,7 +6,7 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div>
-            <a href=""><strong>Профиль:</strong> Name</a>
+            <strong>Профиль: Name</strong>
           </div>
         </div>
       </div>

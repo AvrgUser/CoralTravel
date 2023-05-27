@@ -12,7 +12,9 @@
             <li class="list-group-item">A third item</li>
         </ul>
         <div class="card-body">
-            <button type="button" class="btn btn-primary">Редактировать</button>
+            <a href="http://localhost:3000/editToure.html">
+                <button type="button" class="btn btn-primary">Редактировать</button>
+            </a>
             <button type="button" class="btn btn-danger">Удалить</button>
         </div>
     </div>
