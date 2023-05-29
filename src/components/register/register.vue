@@ -46,7 +46,7 @@
           <strong id="infoR"></strong>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle2">Зарегестрироваться</button>
+          <button class="btn btn-primary" @click="logup" data-bs-target="#exampleModalToggle2">Зарегестрироваться</button>
         </div>
       </div>
     </div>
@@ -54,9 +54,42 @@
 </template>
   
   <script>
-  
+  import { Api } from '@/coral-api/api';
+  import { User } from '@/userdata';
+  import { Cookie } from '@/cookie/cookieRW';
+  import { disableForms } from '@/DOMserv';
+
   export default {
     name: "registerComponent",
+    methods:{
+      logup(){
+        const loginR_ = document.getElementById('loginR')
+    const firstName_ = document.getElementById('firstName')
+    const lastName_ = document.getElementById('lastName')
+    const email_ = document.getElementById('email')
+    const passwordR_ = document.getElementById('passwordR')
+    const politics_ = document.getElementById('politics')
+    const infoR_ = document.getElementById('infoR')
+
+    if(loginR_.value == ""){ infoR_.textContent = "Введите логин!";  return; }
+    if(firstName_.value == "") { infoR_.textContent = "Введите имя!"; return; }
+    if(lastName_.value == ""){ infoR_.textContent = "Введите фамилию!";  return; }
+    if(email_.value == "") { infoR_.textContent = "Введите адрес элетронной почты!"; return; }
+    if(passwordR_.value == "") { infoR_.textContent = "Введите пороль!"; return; }
+    if(!politics_.checked) { infoR_.textContent = "Примите соглашение"; return; }
+
+    Api.LogUp(loginR_.value, passwordR_.value).then(response=>{
+      if(response.result=='success') {
+        User.isAuth = true
+        disableForms('exampleModalToggle2');
+        Cookie.set('login', loginR_.value)
+        Cookie.set('password', passwordR_.value)
+        this.$forceUpdate();
+      }
+      else infoR_.textContent = "fail!";
+    })
+      }
+    },
     components: { 
     }
   }

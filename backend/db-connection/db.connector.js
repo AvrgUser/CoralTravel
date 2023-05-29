@@ -1,10 +1,10 @@
 //#region 
 let sql = require('mysql').createConnection({
-    host: '194.190.152.244',
-    port: '3308',
-    user: 'root2',
-    password: 'mtMDk5COMlwfuCvRsHX0pMYFZr87P8e3RT8BPt7Vws8e3KMpBIy83zepSFzXzN3E',
-    database: 'coral_data',
+    host: '78.46.109.73',
+    port: '3311',
+    user: 'reil',
+    password: 'gK3cI1zV6r',
+    database: 'reil',
 })
 
 function selectionQuery(board, column, params, callback){

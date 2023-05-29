@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const dbconnector = require('./db-connection/db.connector')
-const { error } = require('console')
 app.set('view engine', 'ejs')
 
 let directory = path.resolve(__dirname, '..')+'\\dist'
@@ -20,25 +19,28 @@ app.get('/',(req,res)=>{
 
 app.get('/admin',(req,res)=>{
   let login, password
-  if(req.cookies){
-    login = req.cookies.login
-    password = req.cookies.password
+
+  if(req.query.login&&req.query.password){
+
+    login = req.query.login
+    password = req.query.password
+
     dbconnector.getClientInfo(login, (err, result)=>{
-      if(result[0].password==password){
+
+      if(result&&result[0].password==password){
         res.sendFile(directory+'/adminPanel.html')
       }
+
       else{
+        console.log('incorrect user')
         res.sendFile(directory+'/loginPanel.html')
       }
     })
   }
   else{
+    console.log('no data')
     res.sendFile(directory+'/loginPanel.html')
   }
-})
-
-app.get('/admin',(req,res)=>{
-  res.sendFile(directory+'/adminPanel.html')
 })
 
 app.get('/cities',(req, res) => {
@@ -52,6 +54,10 @@ app.get('/users',(request, response) => {
     if(error)console.log(error)
     response.end(JSON.stringify(result))
   })
+})
+
+app.get('/rrr', (req,res)=>{
+  res.sendFile(directory+'/editToure.html')
 })
 
 app.post('/auth', (request, response)=>{

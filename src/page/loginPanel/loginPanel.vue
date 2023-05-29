@@ -6,7 +6,7 @@
     <div class="modal-body">
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1"><img src="" width="14px" alt=""></span>
-        <input type="text" class="form-control" id="username" placeholder="Логин" aria-label="Login" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" id="login" placeholder="Логин" aria-label="Login" aria-describedby="basic-addon1">
       </div>
 
       <div class="input-group mb-3">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" data-bs-target="#exampleModalToggle" id="login" >Войти</button>
+      <button class="btn btn-primary" @click="logIn" data-bs-target="#exampleModalToggle" id="login" >Войти</button>
     </div>
   </div>
 </template>
@@ -24,6 +24,15 @@
   
   export default {
     name: "loginPanel",
+    methods:{
+      logIn(){
+        let url = window.location.href+
+        `?login=${(document.getElementById('login') as HTMLInputElement).value}`
+        + `&password=${(document.getElementById('password') as HTMLInputElement).value}`
+        console.log(url)
+        window.location.replace(url)
+      }
+    },
     components: { 
       
     }
