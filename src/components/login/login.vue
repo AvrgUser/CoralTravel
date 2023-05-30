@@ -30,7 +30,7 @@
 </template>
   
   <script>
-    import { Api } from '@/coral-api/api';
+    import { Api } from '@/coral-api/apilib';
     import { User } from '@/userdata';
     import { disableForms } from '@/DOMserv';
 
@@ -66,5 +66,5 @@
   }
   </script>
   
-  <style src=""></style>
+  <style src="./login.css"></style>
   

@@ -46,7 +46,7 @@
             </li>
           </ul>
           <div v-if="isAuth">
-            <a href="http://localhost:3000/account.html">Name</a>
+            <a href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
           </div>
         </div>
       </div>
@@ -155,8 +155,9 @@
                   <span>Почему выбирают нас</span>
                 </h2>
                 <h3 class="header-s text-center sh2 hi2">
-                  <a class="Sadvantages" href="">Все приемущества <img src="@/assets/Sadvantages/right-arrow.svg"
-                      width="18px" wialt=""></a>
+                  <a class="Sadvantages" href="">Все приемущества 
+                    <img src="@/assets/Sadvantages/right-arrow.svg" width="18px" wialt="">
+                  </a>
                 </h3>
               </div>
             </div>
@@ -279,7 +280,9 @@ export default defineComponent({
 
   data(){
     return{
-      isAuth: false
+      isAuth: false,
+      firstName: "",
+      lastName: ""
     }
   },
   
@@ -306,6 +309,11 @@ export default defineComponent({
       else this.isAuth = value
       console.log('f')
     }
+    Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
+      this.firstName = res.name;
+      this.lastName = res.lastname;
+      this.$forceUpdate;
+    })
     Api.getCities().then(res=>{
       let cities = res.split(' ') as String[]
       let text = ''
@@ -326,39 +334,8 @@ export default defineComponent({
       }
     })
   }
-
-//   get isAuth() { 
-//     return AppComponent.IsAuth
-//   }
-//   static IsAuth = false
-//   goToLink(url: string){
-//     window.open(url, "_blank");
-// }
-//   logOut(){
-//     Cookie.clear('login')
-//     Cookie.clear('password')
-//   }
-
-//   ngOnInit() {
-//     Api.getCities().then(res=>{
-//       let cities = res.split(' ') as String[]
-//       let text = ''
-//       cities.forEach(element => {
-//         text+=element+' '
-//       });
-//       console.log('cities: '+text)
-//     })
-//     let login = Cookie.get('login')
-//     let password = Cookie.get('password')
-//     if(login!=''&&password!='')Api.tryAuth(login, password).then(result=>{
-//       if(result.message=='authorized') {
-//         AppComponent.IsAuth = true
-//         console.log('yy')
-//       }
-      
-//     })
-//   }
 })
+
 </script>
 
 <style src="./main.css"></style>

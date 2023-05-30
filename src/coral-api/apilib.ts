@@ -6,28 +6,31 @@ export class Api {
     }
     
     //message: "authorized"/"not authorized"
-    static tryAuth( login:string, password:string, name:string, lname:string) : Promise<any>{
+    static tryAuth( login:string, password:string) : Promise<any>{
         return fetch('/auth', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(
-              {login:login, password:password, name:name, lastname:lname})
+              {login:login, password:password})
           }).
         then(res=>res.json())
     }
 
     //message: "success"/"fail"
-    static LogUp(login:string,password:string) : Promise<any>{
+    static LogUp(login:string, password:string, name:string, lname:string, email: string) : Promise<any>{
       return fetch("/adduser", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
-        body: `{"login": "${login}", "password": "${password}"}`
+        body: JSON.stringify(
+          {login:login, password:password, name:name, lastname:lname, email:email})
     }).then(res=>res.json())
     }
 
-    //static getClientInfo()
+    static getClientInfo(login:string, password:string){
+      return fetch(`/account?login=${login}&password=${password}`).then(res=>res.json())
+    }
 }

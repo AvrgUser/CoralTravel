@@ -8,8 +8,8 @@
       <div class="container user-c">
         <div class="user">
           <strong>Личный кабинет: </strong>
-          <strong id="uFirstName">Vladimir</strong>
-          <strong id="uLastName">Rassamahin</strong>
+          <strong id="uFirstName">{{LastName}}</strong>&nbsp;
+          <strong id="uLastName">{{firstName}}</strong>
         </div>
       </div>
     </nav>
@@ -40,15 +40,15 @@
               <div class="row">
                 <div class="input-group" >
                   <label for="">Фамилия</label>
-                  <input type="text" class="form-last-name" value="last-name">
+                  <input type="text" class="form-last-name" :value="LastName">
                 </div>
                 <div class="input-group" >
                   <label for="">Имя</label>
-                  <input type="text" class="form-first-name"  value="first-name">
+                  <input type="text" class="form-first-name" :value="firstName">
                 </div>
                 <div class="input-group" >
                   <label for="">Почта</label>
-                  <input type="email" class="form-email" disabled  value="Rassamahin_vladimir@mail.ru">
+                  <input type="email" class="form-email" disabled :value="email">
                 </div>
                 <div class="input-group" >
                   <label for="">Дата рождения</label>
@@ -67,7 +67,7 @@
                       <option value="3">+995</option>
                       <option value="3">Другое</option>
                     </select>
-                    <input type="text" class="form-number" value="996 130 34 89">
+                    <input type="text" class="form-number" :value="phone">
                   </div>
                 </div>
                 <div class="button-save " >
@@ -94,13 +94,35 @@
   
   <script lang="ts">
   import footerComponent from '@/components/footer/footerComponent.vue';
+  import { Api } from '@/coral-api/apilib';
+  import { Cookie } from '@/cookie/cookieRW';
+import { defineComponent } from 'vue';
 
-  export default {
+  export default defineComponent({
     name: "accountPanel",
     components: { 
       footerComponent
+    },
+    data(){
+      return{
+        firstName: "",
+        LastName: "",
+        email: "",
+        phone: ""
+      }
+     },
+    beforeCreate(){
+      Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
+        this.firstName = res.name;
+        this.LastName = res.lastname;
+        this.email = res.email;
+        this.phone = res.phone;
+        this.$forceUpdate;
+      })
+      
     }
-  }
+  
+  })
   </script>
   
   <style src="./account.css"></style>

@@ -56,6 +56,19 @@ app.get('/users',(request, response) => {
   })
 })
 
+app.get('/account', (request, response)=>{
+  if(request.query.login&&request.query.password){
+    dbconnector.getClientInfo(request.query.login, (err, result)=>{
+      if(err) console.log(err)
+      if(request.query.password == result[0].password) response.end(JSON.stringify(result[0]))
+      else response.end(`{"result": "fail", message: 'incorrect password'}`)
+    })
+  }
+  else{
+    response.sendFile(directory+'/account.html')
+  }
+})
+
 app.get('/rrr', (req,res)=>{
   res.sendFile(directory+'/editToure.html')
 })
@@ -80,6 +93,7 @@ app.post('/adduser', (request, response)=>{
   let password = request.body.password
   let name = request.body.name
   let lastname = request.body.lastname
+  let email = request.body.email
   dbconnector.getClientInfo(login, (error, result)=>{
     if(error) {
       console.log(error)
@@ -87,7 +101,7 @@ app.post('/adduser', (request, response)=>{
       return
     }
     if(result.length==0){
-      dbconnector.addUser(login, password, name, lastname, (error)=>{
+      dbconnector.addUser(login, password, name, lastname, email, (error)=>{
         if(error) {
           // console.log(error)
           response.end(`{"result":"failed"}`)

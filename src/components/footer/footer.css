@@ -4,12 +4,16 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.f-copyright{
+.f-logo{
     max-width: fit-content;
     margin-left: 20px;
     float: left;
     text-align: left;
     margin-top: 10px;
+}
+.f-logo a{
+    color: black;
+    font-weight: 600;
 }
 .f-contact{
     margin: 10px 0px;
