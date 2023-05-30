@@ -67,11 +67,12 @@
   outline: none;
 }
 
-.form-last-name::placeholder,
-.form-first-name::placeholder,
-.form-email::placeholder,
-.numb::placeholder {
-  padding-left: 150px !important;
+.form-last-name,
+.form-first-name,
+.form-email,
+.form-number,
+.form-date {
+  padding-left: 10px !important;
 }
 
 .input-group {
