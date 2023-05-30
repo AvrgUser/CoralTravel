@@ -78,6 +78,8 @@ app.post('/auth', (request, response)=>{
 app.post('/adduser', (request, response)=>{
   let login = request.body.login
   let password = request.body.password
+  let name = request.body.name
+  let lastname = request.body.lastname
   dbconnector.getClientInfo(login, (error, result)=>{
     if(error) {
       console.log(error)
@@ -85,7 +87,7 @@ app.post('/adduser', (request, response)=>{
       return
     }
     if(result.length==0){
-      dbconnector.addUser(login, password, (error)=>{
+      dbconnector.addUser(login, password, name, lastname, (error)=>{
         if(error) {
           // console.log(error)
           response.end(`{"result":"failed"}`)

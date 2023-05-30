@@ -62,22 +62,34 @@ module.exports = {
     getClientInfo(login, callback, column='*'){
         selectionQuery('clients', column, [
             {
-                name: 'name',
+                name: 'login',
                 value: `"${login}"`
-            }
+            },
         ],
         callback)
     },
 
-    addUser(login, password, callback){
+    addUser(login, password, name, lastname, phone, callback){
         insertQuery('clients', [{
-            name: 'name',
+            name: 'login',
             value: `"${login}"`
         },
         {
             name: 'password',
             value: `"${password}"`
-        }
+        },
+        {
+            name: 'name',
+            value: `"${name}"`
+        },
+        {
+            name: 'lastname',
+            value: `"${lastname}"`
+        },
+        {
+            name: 'phone',
+            value: `"${phone}"`
+        },
         ], callback)
     },
 }
