@@ -155,7 +155,7 @@
                   <span>Почему выбирают нас</span>
                 </h2>
                 <h3 class="header-s text-center sh2 hi2">
-                  <a class="Sadvantages" href="">Все приемущества <img src="../src/assets/Sadvantages/right-arrow.svg"
+                  <a class="Sadvantages" href="">Все приемущества <img src="@/assets/Sadvantages/right-arrow.svg"
                       width="18px" wialt=""></a>
                 </h3>
               </div>
@@ -270,7 +270,7 @@ import ResetPasswordComponent from "./components/reset-password/reset-password.v
 import PopularTourComponent from "./components/popular-tour/popular-tour.vue"
 import ToureCardComponent from "./components/toure-card/toure-card.vue"
 import { Cookie } from "./cookie/cookieRW";
-import { Api } from "./coral-api/api";
+import { Api } from "./coral-api/apilib";
 import { User } from "./userdata";
 // import { User } from "./userdata";
 

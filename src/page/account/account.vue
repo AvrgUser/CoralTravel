@@ -89,13 +89,16 @@
         </div>
       </div>
     </div>
+    <footerComponent></footerComponent>
 </template>
   
   <script lang="ts">
+  import footerComponent from '@/components/footer/footerComponent.vue';
 
   export default {
     name: "accountPanel",
     components: { 
+      footerComponent
     }
   }
   </script>
