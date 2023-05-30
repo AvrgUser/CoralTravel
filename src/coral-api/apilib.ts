@@ -6,14 +6,14 @@ export class Api {
     }
     
     //message: "authorized"/"not authorized"
-    static tryAuth( login:string, password:string, phone:string, name:string, lname:string) : Promise<any>{
+    static tryAuth( login:string, password:string, name:string, lname:string) : Promise<any>{
         return fetch('/auth', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(
-              {login:login, password:password, 'phone-number':phone, name:name, lastname:lname})
+              {login:login, password:password, name:name, lastname:lname})
           }).
         then(res=>res.json())
     }
