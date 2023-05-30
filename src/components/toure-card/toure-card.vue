@@ -11,7 +11,9 @@
             <li class="list-group-item">A third item</li>
         </ul>
         <div class="card-body">
-            <button type="button" class="btn btn-outline-primary">Подробнее</button>
+            <a href="http://localhost:3000/fullInfoToure.html">
+              <button type="button" class="btn btn-outline-primary">Подробнее</button>
+            </a>
         </div>
     </div>
 </template>
