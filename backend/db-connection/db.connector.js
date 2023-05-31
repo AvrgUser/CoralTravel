@@ -69,7 +69,7 @@ module.exports = {
         callback)
     },
 
-    addUser(login, password, name, lastname, email, callback){
+    addUser(login, password, name, lastname, email, birth, gender, phone, callback){
         insertQuery('clients', [{
             name: 'login',
             value: `"${login}"`
@@ -89,6 +89,18 @@ module.exports = {
         {
             name: 'email',
             value: `"${email}"`
+        },
+        {
+            name: 'phone',
+            value: `"${phone}"`
+        },
+        {
+            name: 'birthdate',
+            value: `"${birth}"`
+        },
+        {
+            name: 'gender',
+            value: `"${gender}"`
         },
         ], callback)
     },

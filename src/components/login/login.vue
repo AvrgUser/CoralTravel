@@ -53,7 +53,7 @@
             document.cookie = `login=${username_.value}`
             document.cookie = `password=${password_.value}`
             disableForms('exampleModalToggle');
-            User.isAuth = true
+            User.value('isAuth', true)
             this.$forceUpdate();
             
           }

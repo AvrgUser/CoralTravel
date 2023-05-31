@@ -18,12 +18,14 @@
   </template>
     
     <script>
+import { defineComponent } from "vue"
+
     
-    export default {
+    export default defineComponent({
       name: 'footerComponent',
       components: {
       }
-    }
+    })
     </script>
     
     <style src="./footer.css"></style>

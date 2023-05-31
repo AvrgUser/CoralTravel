@@ -26,15 +26,6 @@
 
           <div class="input-group mb-3 form-date-groupe">
             <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/phone.svg" width="14px" alt=""></span>
-            <select class="select-number" id="code" aria-label="Default select example">
-              <option value="1">+7</option>
-              <option value="2">+375</option>
-              <option value="3">+380</option>
-              <option value="3">+374</option>
-              <option value="3">+994</option>
-              <option value="3">+995</option>
-              <option value="3">Другое</option>
-            </select>
             <input type="text" class="form-control" id="phone" placeholder="Номер телефона" aria-label="phone">
           </div>
 
@@ -50,11 +41,11 @@
 
           <label for="basic-url" class="form-label">Пол:</label><br>
           <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio1">Мужской</label>
+            <input type="radio" class="btn-check" name="btnradio" id="man" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="man">Мужской</label>
           
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio3">Женский</label>
+            <input type="radio" class="btn-check" name="btnradio" id="woman" autocomplete="off">
+            <label class="btn btn-outline-primary" for="woman">Женский</label>
           </div>
           <br><br>
           <div class="form-check">
@@ -93,7 +84,12 @@
         const politics_ = document.getElementById('politics')
         const date_ = document.getElementById('date')
         const phone_ = document.getElementById('phone')
+        const woman_ = document.getElementById('woman')
         const infoR_ = document.getElementById('infoR')
+        
+        let gender = "male";
+
+        if(woman_.checked){ gender = "woman"}
 
         if(loginR_.value == ""){ infoR_.textContent = "Введите логин!";  return; }
         if(firstName_.value == "") { infoR_.textContent = "Введите имя!"; return; }
@@ -105,7 +101,7 @@
         if(passwordR_.value == "") { infoR_.textContent = "Введите пороль!"; return; }
         if(!politics_.checked) { infoR_.textContent = "Примите соглашение"; return; }
 
-        Api.LogUp(loginR_.value, passwordR_.value, firstName_.value, lastName_.value, email_.value).then(response=>{
+        Api.LogUp(loginR_.value, passwordR_.value, firstName_.value, lastName_.value, email_.value, date_.value, gender, phone_.value).then(response=>{
             if(response.result=='success') {
               User.isAuth = true
               disableForms('exampleModalToggle2');

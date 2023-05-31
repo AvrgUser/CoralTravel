@@ -19,14 +19,15 @@ export class Api {
     }
 
     //message: "success"/"fail"
-    static LogUp(login:string, password:string, name:string, lname:string, email: string) : Promise<any>{
+    static LogUp(login:string, password:string, name:string, lname:string, email: string,
+      birthdate:string, gender:string, phone: string) : Promise<any>{
       return fetch("/adduser", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
         body: JSON.stringify(
-          {login:login, password:password, name:name, lastname:lname, email:email})
+          {login:login, password:password, name:name, lastname:lname, email:email, birthdate:birthdate, gender: gender=='male'?0:1, phone:phone})
     }).then(res=>res.json())
     }
 

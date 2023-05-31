@@ -69,6 +69,8 @@ app.get('/account', (request, response)=>{
   }
 })
 
+
+
 app.get('/rrr', (req,res)=>{
   res.sendFile(directory+'/editToure.html')
 })
@@ -94,17 +96,20 @@ app.post('/adduser', (request, response)=>{
   let name = request.body.name
   let lastname = request.body.lastname
   let email = request.body.email
+  let birth = request.body.birthdate
+  let gender = request.body.gender == 'male'?0:1
+  let phone = request.body.phone
   dbconnector.getClientInfo(login, (error, result)=>{
     if(error) {
       console.log(error)
-      response.end(`{"result":"failed"}`)
+      response.end(`{"result":"failed", "message": "wrong auth  data"}`)
       return
     }
     if(result.length==0){
-      dbconnector.addUser(login, password, name, lastname, email, (error)=>{
+      dbconnector.addUser(login, password, name, lastname, email, birth, gender, phone, (error)=>{
         if(error) {
-          // console.log(error)
-          response.end(`{"result":"failed"}`)
+          console.log(error)
+          response.end(`{"result":"failed", "message": "server error"}`)
           return
         }
         // console.log(result)

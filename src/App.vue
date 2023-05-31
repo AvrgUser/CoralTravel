@@ -278,7 +278,6 @@ import userAgreement from "./components/user-agreement/userAgreement.vue";
 import { Cookie } from "./cookie/cookieRW";
 import { Api } from "./coral-api/apilib";
 import { User } from "./userdata";
-// import { User } from "./userdata";
 
 export default defineComponent({
   name: "App",
@@ -286,8 +285,8 @@ export default defineComponent({
   data(){
     return{
       isAuth: false,
-      firstName: "",
-      lastName: ""
+      firstName: "f",
+      lastName: "f"
     }
   },
   
@@ -296,7 +295,7 @@ export default defineComponent({
         console.log('clearing')
         Cookie.clear('login')
         Cookie.clear('password')
-        User.isAuth = false
+        window.location.replace(window.location.href)
       },
   },
 
@@ -311,15 +310,12 @@ export default defineComponent({
     userAgreement
   },
   beforeCreate(){
-    User.isAuth = (value:boolean)=>{
-      if(value==undefined)return this.isAuth
-      else this.isAuth = value
-      console.log('f')
-    }
+    User.listen('isAuth', (value: any)=>{
+      this.isAuth = value
+    })
     Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
       this.firstName = res.name;
       this.lastName = res.lastname;
-      this.$forceUpdate;
     })
     Api.getCities().then(res=>{
       let cities = res.split(' ') as String[]
@@ -333,7 +329,7 @@ export default defineComponent({
     let password = Cookie.get('password')
     if(login!=''&&password!='')Api.tryAuth(login, password).then(result=>{
       if(result.message=='authorized') {
-        this.isAuth = true
+        User.value('isAuth', true)
         console.log('yy')
       }
       else{

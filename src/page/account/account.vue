@@ -30,47 +30,41 @@
               <div class="fmale">
                 <label for="basic-url" class="form-label">Пол:</label><br>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" :checked="man">
                   <label class="btn btn-outline-primary" for="btnradio1">Мужской</label>
                 
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" :checked="woman">
                   <label class="btn btn-outline-primary" for="btnradio3">Женский</label>
                 </div>
               </div>
               <div class="row">
-                <div class="input-group" >
+
+                <div class="input-group">
                   <label for="">Фамилия</label>
                   <input type="text" class="form-last-name" :value="LastName">
                 </div>
-                <div class="input-group" >
+
+                <div class="input-group">
                   <label for="">Имя</label>
                   <input type="text" class="form-first-name" :value="firstName">
                 </div>
-                <div class="input-group" >
+
+                <div class="input-group">
                   <label for="">Почта</label>
                   <input type="email" class="form-email" disabled :value="email">
                 </div>
-                <div class="input-group" >
+
+                <div class="input-group">
                   <label for="">Дата рождения</label>
-                  <input id="startDate" class="form-date" type="date">
+                  <input id="startDate" class="form-date" type="date" :value="date">
                 </div>
                 
-                <div class="input-group number-group" >
+                <div class="input-group">
                   <label for="">Мобильный телефон</label>
-                  <div class="numb">
-                    <select class="select-number number" aria-label="Default select example">
-                      <option value="1">+7</option>
-                      <option value="2">+375</option>
-                      <option value="3">+380</option>
-                      <option value="3">+374</option>
-                      <option value="3">+994</option>
-                      <option value="3">+995</option>
-                      <option value="3">Другое</option>
-                    </select>
                     <input type="text" class="form-number" :value="phone">
-                  </div>
                 </div>
-                <div class="button-save " >
+
+                <div class="button-save">
                   <button type="button" class="btn btn-primary">Сохранить</button>
                 </div>
 
@@ -108,7 +102,10 @@ import { defineComponent } from 'vue';
         firstName: "",
         LastName: "",
         email: "",
-        phone: ""
+        phone: "",
+        date: "",
+        man: 'false',
+        woman: 'false',
       }
      },
     beforeCreate(){
@@ -117,9 +114,11 @@ import { defineComponent } from 'vue';
         this.LastName = res.lastname;
         this.email = res.email;
         this.phone = res.phone;
+        this.date = res.birthdate;
+        if(res.gender == 0){ this.man = 'true'; this.woman = 'false'}
+        if(res.gender == 1){ this.man = 'false'; this.woman = 'true'}
         this.$forceUpdate;
       })
-      
     }
   
   })
