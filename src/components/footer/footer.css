@@ -14,6 +14,7 @@
 .f-logo a{
     color: black;
     font-weight: 600;
+    text-decoration: underline !important;
 }
 .f-contact{
     margin: 10px 0px;

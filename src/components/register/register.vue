@@ -13,9 +13,29 @@
           </div>
 
           <div class="input-group mb-3">
-            <input type="text" class="form-control" id="firstName" placeholder="Имя" aria-label="FirstName">
+            <input type="text" class="form-control firstName" id="firstName" placeholder="Имя" aria-label="FirstName">
             <span class="input-group-text">/</span>
             <input type="text" class="form-control" id="lastName" placeholder="Фамилия" aria-label="LastName">
+          </div>
+
+          <div class="input-group mb-3 form-date-groupe">
+            <label for="" style="width: inherit;">Дата рождения</label><br>
+            <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/date.svg" width="14px" alt=""></span>
+            <input type="date" class="form-control" id="date" placeholder="Фамилия" aria-label="LastName">
+          </div>
+
+          <div class="input-group mb-3 form-date-groupe">
+            <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/phone.svg" width="14px" alt=""></span>
+            <select class="select-number" id="code" aria-label="Default select example">
+              <option value="1">+7</option>
+              <option value="2">+375</option>
+              <option value="3">+380</option>
+              <option value="3">+374</option>
+              <option value="3">+994</option>
+              <option value="3">+995</option>
+              <option value="3">Другое</option>
+            </select>
+            <input type="text" class="form-control" id="phone" placeholder="Номер телефона" aria-label="phone">
           </div>
 
           <div class="input-group mb-3">
@@ -40,7 +60,9 @@
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="politics">
             <label class="form-check-label" for="flexCheckDefault">
-              Я принимаю условия <a href="">пользовательского соглашения</a> и <a href="">политики конфиденциальности</a>
+              Я принимаю условия 
+              <a href="" data-bs-target="#userAgreement" data-bs-toggle="modal">обработки данных</a> и 
+              <a href="" data-bs-target="#privacyPolicy" data-bs-toggle="modal">политики конфиденциальности</a>
             </label>
           </div>
           <strong id="infoR"></strong>
@@ -64,31 +86,35 @@
     methods:{
       logup(){
         const loginR_ = document.getElementById('loginR')
-    const firstName_ = document.getElementById('firstName')
-    const lastName_ = document.getElementById('lastName')
-    const email_ = document.getElementById('email')
-    const passwordR_ = document.getElementById('passwordR')
-    const politics_ = document.getElementById('politics')
-    const infoR_ = document.getElementById('infoR')
+        const firstName_ = document.getElementById('firstName')
+        const lastName_ = document.getElementById('lastName')
+        const email_ = document.getElementById('email')
+        const passwordR_ = document.getElementById('passwordR')
+        const politics_ = document.getElementById('politics')
+        const date_ = document.getElementById('date')
+        const phone_ = document.getElementById('phone')
+        const infoR_ = document.getElementById('infoR')
 
-    if(loginR_.value == ""){ infoR_.textContent = "Введите логин!";  return; }
-    if(firstName_.value == "") { infoR_.textContent = "Введите имя!"; return; }
-    if(lastName_.value == ""){ infoR_.textContent = "Введите фамилию!";  return; }
-    if(email_.value == "") { infoR_.textContent = "Введите адрес элетронной почты!"; return; }
-    if(passwordR_.value == "") { infoR_.textContent = "Введите пороль!"; return; }
-    if(!politics_.checked) { infoR_.textContent = "Примите соглашение"; return; }
+        if(loginR_.value == ""){ infoR_.textContent = "Введите логин!";  return; }
+        if(firstName_.value == "") { infoR_.textContent = "Введите имя!"; return; }
+        if(lastName_.value == ""){ infoR_.textContent = "Введите фамилию!";  return; }
+        if(date_.value == ""){ infoR_.textContent = "Введите дату рождения!";  return; }
+        if(phone_.value == ""){ infoR_.textContent = "Введите номер телефона!";  return; }
 
-    Api.LogUp(loginR_.value, passwordR_.value, 
-    firstName_.value, lastName_.value, email_.value).then(response=>{
-      if(response.result=='success') {
-        User.isAuth = true
-        disableForms('exampleModalToggle2');
-        Cookie.set('login', loginR_.value)
-        Cookie.set('password', passwordR_.value)
-        this.$forceUpdate();
-      }
-      else infoR_.textContent = "fail!";
-    })
+        if(email_.value == "") { infoR_.textContent = "Введите адрес элетронной почты!"; return; }
+        if(passwordR_.value == "") { infoR_.textContent = "Введите пороль!"; return; }
+        if(!politics_.checked) { infoR_.textContent = "Примите соглашение"; return; }
+
+        Api.LogUp(loginR_.value, passwordR_.value, firstName_.value, lastName_.value, email_.value).then(response=>{
+            if(response.result=='success') {
+              User.isAuth = true
+              disableForms('exampleModalToggle2');
+              Cookie.set('login', loginR_.value)
+              Cookie.set('password', passwordR_.value)
+              this.$forceUpdate();
+            }
+            else infoR_.textContent = "fail!";
+        })
       }
     },
     components: {

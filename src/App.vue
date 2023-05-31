@@ -33,8 +33,8 @@
                 Меню
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Страны</a></li>
-                <li><a class="dropdown-item" href="#">Полезная информация</a></li>
+                <li><a type="button" data-bs-target="#userAgreement" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Правила обработки данных</a></li>
+                <li><a type="button" data-bs-target="#privacyPolicy" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Политика конфиденциальности</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
@@ -250,16 +250,19 @@
 
     <div class="tab-pane fade" id="stock-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
       <FooterComponent></FooterComponent>
+    </div>
+
+    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+      <FooterComponent></FooterComponent>
+    </div>
   </div>
 
-  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
-    <FooterComponent></FooterComponent>
-  </div>
-</div>
+  <LoginComponent></LoginComponent>
+  <RegisterComponent></RegisterComponent>
+  <ResetPasswordComponent></ResetPasswordComponent>
 
-<LoginComponent></LoginComponent>
-<RegisterComponent></RegisterComponent>
-<ResetPasswordComponent></ResetPasswordComponent>
+  <privacyPolicy></privacyPolicy>
+  <userAgreement></userAgreement>
 </template>
 
 <script lang="ts">
@@ -270,6 +273,8 @@ import RegisterComponent from "./components/register/register.vue"
 import ResetPasswordComponent from "./components/reset-password/reset-password.vue"
 import PopularTourComponent from "./components/popular-tour/popular-tour.vue"
 import ToureCardComponent from "./components/toure-card/toure-card.vue"
+import privacyPolicy from "./components/privacy-policy/privacyPolicy.vue";
+import userAgreement from "./components/user-agreement/userAgreement.vue";
 import { Cookie } from "./cookie/cookieRW";
 import { Api } from "./coral-api/apilib";
 import { User } from "./userdata";
@@ -301,7 +306,9 @@ export default defineComponent({
     RegisterComponent,
     ResetPasswordComponent,
     PopularTourComponent,
-    ToureCardComponent
+    ToureCardComponent,
+    privacyPolicy,
+    userAgreement
   },
   beforeCreate(){
     User.isAuth = (value:boolean)=>{
