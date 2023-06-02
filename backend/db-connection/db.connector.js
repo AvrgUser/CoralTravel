@@ -36,6 +36,18 @@ function insertQuery(board, params, callback){
     return sendQuery(query, callback)
 }
 
+function updateQuery(board, login, params, callback){
+    let query = `UPDATE \`${board}\` SET `
+    if(params!=''){
+        for(let i=0;i<params.length;i++){
+            query += `\`${params[i].name}\` = ${params[i].value}`
+            if(i<params.length-1) query +=', '
+        }
+    }
+    query+=` WHERE \`login\`="${login}"`
+    return sendQuery(query, callback)
+}
+
 function sendQuery(query, callback){
     try{
         sql.query(query, callback)
@@ -78,6 +90,35 @@ module.exports = {
             name: 'password',
             value: `"${password}"`
         },
+        {
+            name: 'name',
+            value: `"${name}"`
+        },
+        {
+            name: 'lastname',
+            value: `"${lastname}"`
+        },
+        {
+            name: 'email',
+            value: `"${email}"`
+        },
+        {
+            name: 'phone',
+            value: `"${phone}"`
+        },
+        {
+            name: 'birthdate',
+            value: `"${birth}"`
+        },
+        {
+            name: 'gender',
+            value: `"${gender}"`
+        },
+        ], callback)
+    },
+
+    updateUser(login, name, lastname, email, birth, gender, phone, callback){
+        updateQuery('clients', login, [
         {
             name: 'name',
             value: `"${name}"`

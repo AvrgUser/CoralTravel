@@ -8,7 +8,9 @@
         </div>
         <div class="modal-body">
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/login.svg" width="14px" alt=""></span>
+            <span class="input-group-text" id="basic-addon1">
+              <img src="@/assets/auth/login.svg" width="14px" alt="">
+            </span>
             <input type="text" class="form-control" id="loginR" placeholder="Логин" aria-label="Login" aria-describedby="basic-addon1">
           </div>
 
@@ -20,13 +22,17 @@
 
           <div class="input-group mb-3 form-date-groupe">
             <label for="" style="width: inherit;">Дата рождения</label><br>
-            <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/date.svg" width="14px" alt=""></span>
+            <span class="input-group-text" id="basic-addon1" style="    border-top-left-radius: 6px; border-bottom-left-radius: 6px;">
+              <img src="@/assets/auth/date.svg" width="14px" alt="">
+            </span>
             <input type="date" class="form-control" id="date" placeholder="Фамилия" aria-label="LastName">
           </div>
 
           <div class="input-group mb-3 form-date-groupe">
-            <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/phone.svg" width="14px" alt=""></span>
-            <input type="text" class="form-control" id="phone" placeholder="Номер телефона" aria-label="phone">
+            <span class="input-group-text" id="basic-addon1">
+              <img src="@/assets/auth/phone.svg" width="14px" alt="">
+            </span>
+            <input type="text" class="form-control" id="phone" placeholder="Номер телефона" aria-label="phone" value="+7">
           </div>
 
           <div class="input-group mb-3">
@@ -35,7 +41,9 @@
           </div>
 
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/password.svg" width="14px" alt=""></span>
+            <span class="input-group-text" id="basic-addon1">
+              <img src="@/assets/auth/password.svg" width="14px" alt="">
+            </span>
             <input type="password" class="form-control" id="passwordR" placeholder="Пароль" aria-label="Password" aria-describedby="basic-addon1">
           </div>
 
@@ -56,9 +64,9 @@
               <a href="" data-bs-target="#privacyPolicy" data-bs-toggle="modal">политики конфиденциальности</a>
             </label>
           </div>
-          <strong id="infoR"></strong>
         </div>
         <div class="modal-footer">
+          <strong id="infoR"></strong>
           <button class="btn btn-primary" @click="logup" data-bs-target="#exampleModalToggle2">Зарегестрироваться</button>
         </div>
       </div>
@@ -89,7 +97,7 @@
         
         let gender = "male";
 
-        if(woman_.checked){ gender = "woman"}
+        if(woman_.checked == true){ gender = "female"}
 
         if(loginR_.value == ""){ infoR_.textContent = "Введите логин!";  return; }
         if(firstName_.value == "") { infoR_.textContent = "Введите имя!"; return; }
@@ -103,11 +111,11 @@
 
         Api.LogUp(loginR_.value, passwordR_.value, firstName_.value, lastName_.value, email_.value, date_.value, gender, phone_.value).then(response=>{
             if(response.result=='success') {
-              User.isAuth = true
+              User.value('isAuth', true)
               disableForms('exampleModalToggle2');
               Cookie.set('login', loginR_.value)
               Cookie.set('password', passwordR_.value)
-              this.$forceUpdate();
+              User.value('update-user-name')()
             }
             else infoR_.textContent = "fail!";
         })

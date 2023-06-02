@@ -310,13 +310,15 @@ export default defineComponent({
     userAgreement
   },
   beforeCreate(){
-    User.listen('isAuth', (value: any)=>{
-      this.isAuth = value
-    })
-    Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
-      this.firstName = res.name;
-      this.lastName = res.lastname;
-    })
+    User.listen('isAuth', (value: any)=>this.isAuth = value)
+    User.listen('firstName', (value: any)=>this.firstName = value)
+    User.listen('lastName', (value: any)=>this.lastName = value)
+    User.value('update-user-name', ()=>Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
+      User.value('firstName', res.name)
+      User.value('lastName', res.lastname)
+      this.$forceUpdate()
+    }))
+    User.value('update-user-name')()
     Api.getCities().then(res=>{
       let cities = res.split(' ') as String[]
       let text = ''

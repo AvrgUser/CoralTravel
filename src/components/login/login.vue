@@ -54,8 +54,7 @@
             document.cookie = `password=${password_.value}`
             disableForms('exampleModalToggle');
             User.value('isAuth', true)
-            this.$forceUpdate();
-            
+            User.value('update-user-name')()
           }
           else info_.textContent = "Неверный логин или пароль!";
         })
