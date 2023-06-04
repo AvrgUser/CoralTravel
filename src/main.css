@@ -1,5 +1,9 @@
+*{
+    color: #1c8bcb;
+}
 body{
     min-width: 490px;
+    background-color: #0c1324 !important;
 }
 .header{
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
@@ -24,9 +28,26 @@ body{
 .nav-button{
     display: flex;
 }
+.nav-link{
+    height: 48px;
+    border: none !important;
+    color: #1c8bcb !important;
+} 
+.nav-link:hover{
+    border: none !important;
+    color: #00a2ff !important;
+} 
+.active{
+    background-color: #0c1324 !important;
+    border: none !important;
+    color: #1c8bcb !important;
+}
 
 .dropdown-menu a:hover{
     background-color: #c9c9c9;
+}
+.container-fluid{
+    background-color: #161e32 !important;
 }
 .tab-pane{
     margin-top: 20px;

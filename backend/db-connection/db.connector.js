@@ -145,4 +145,18 @@ module.exports = {
         },
         ], callback)
     },
+
+    getTourInfo(id, callback, column='*'){
+        selectionQuery('tours', column, [
+            {
+                name: 'id',
+                value: `${id}`
+            },
+        ],
+        callback)
+    },
+
+    getToursList(callback){
+        selectionQuery('tours', 'id', '', callback)
+    },
 }

@@ -2,3 +2,12 @@
     box-shadow: 0 3px 3px #5755553d inset;
     margin: 20px;
 }
+.card-body{
+    text-align: center;
+}
+.list-group-flush{
+    text-align: center;
+}
+.card-title{
+    margin-bottom: 0px !important;
+}

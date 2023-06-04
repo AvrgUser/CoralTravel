@@ -46,4 +46,16 @@ export class Api {
     static getClientInfo(login:string, password:string){
       return fetch(`/account?login=${login}&password=${password}`).then(res=>res.json())
     }
+
+    static getTourInfo(id:Number){
+      return fetch(`/tourinfo?id=${id}`).then(res=>res.json())
+    }
+
+    static getToursList(...args : string[]){
+      let query = " "
+      args.forEach(element=>{
+        query+=element[0]+':'+element[1]+';'
+      })
+      return fetch(`/tours?filters=${query}`).then(res=>res.json())
+    }
 }

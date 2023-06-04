@@ -1,8 +1,9 @@
 const path = require('path')
 
-let directory = path.resolve(__dirname, '..')+'\\dist'
+const directory = path.resolve(__dirname, '..')+'\\dist'
+const dbconnector = require('./db-connection/db.connector')
 
 module.exports ={
     directory,
-
+    dbconnector
 }

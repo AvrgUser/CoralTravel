@@ -1,6 +1,6 @@
-const dbconnector = require('../../db-connection/db.connector')
 const data = require('../../server.data')
 const directory = data.directory
+const dbconnector = data.dbconnector
 
 module.exports = {
   init(app){
