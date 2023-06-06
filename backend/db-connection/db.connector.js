@@ -11,9 +11,10 @@ function selectionQuery(board, column, params, callback){
     let query = `SELECT ${column} FROM \`${board}\``
     if(params!=''){
         query+=' WHERE '
-        for(let i=0;i<params.length;i++){
-            query += `${params[i].name} = ${params[i].value}`
-            if(i<params.length-1) query +=' AND '
+        let keys = Object.keys(params)
+        for(let i=0;i<keys.length;i++){
+            query += `${keys[i]} = ${params[keys[i]]}`
+            if(i<keys.length-1) query +=' AND '
         }
     }
     console.log(query)
@@ -23,10 +24,11 @@ function selectionQuery(board, column, params, callback){
 function insertQuery(board, params, callback){
     let query = `INSERT INTO \`${board}\` (`
     let values = 'VALUES ('
-    for(let i=0;i<params.length;i++){
-        query += `${params[i].name}`
-        values += `${params[i].value}`
-        if(i<params.length-1) {
+    let keys = Object.keys(params)
+    for(let i=0;i<keys.length;i++){
+        query += `${keys[i]}`
+        values += `${params[keys[i]]}`
+        if(i<keys.length-1) {
             query +=', '
             values +=', '
         }
@@ -36,15 +38,23 @@ function insertQuery(board, params, callback){
     return sendQuery(query, callback)
 }
 
-function updateQuery(board, login, params, callback){
+function updateQuery(board, conditions, params, callback){
     let query = `UPDATE \`${board}\` SET `
     if(params!=''){
-        for(let i=0;i<params.length;i++){
-            query += `\`${params[i].name}\` = ${params[i].value}`
-            if(i<params.length-1) query +=', '
+        let keys = Object.keys(params)
+        for(let i=0;i<keys.length;i++){
+            query += `\`${keys[i]}\` = ${params[keys[i]]}`
+            if(i<keys.length-1) query +=', '
         }
     }
-    query+=` WHERE \`login\`="${login}"`
+    if(conditions!=''){
+        query+=' WHERE '
+        let keys = Object.keys(conditions)
+        for(let i=0;i<keys.length;i++){
+            query += `${keys[i]} = ${conditions[keys[i]]}`
+            if(i<keys.length-1) query +=' AND '
+        }
+    }
     return sendQuery(query, callback)
 }
 
@@ -72,91 +82,66 @@ module.exports = {
     },
 
     getClientInfo(login, callback, column='*'){
-        selectionQuery('clients', column, [
+        selectionQuery('clients', column, 
             {
-                name: 'login',
-                value: `"${login}"`
+                login: `"${login}"`
             },
-        ],
         callback)
     },
 
     addUser(login, password, name, lastname, email, birth, gender, phone, callback){
-        insertQuery('clients', [{
-            name: 'login',
-            value: `"${login}"`
-        },
-        {
-            name: 'password',
-            value: `"${password}"`
-        },
-        {
-            name: 'name',
-            value: `"${name}"`
-        },
-        {
-            name: 'lastname',
-            value: `"${lastname}"`
-        },
-        {
-            name: 'email',
-            value: `"${email}"`
-        },
-        {
-            name: 'phone',
-            value: `"${phone}"`
-        },
-        {
-            name: 'birthdate',
-            value: `"${birth}"`
-        },
-        {
-            name: 'gender',
-            value: `"${gender}"`
-        },
-        ], callback)
+        insertQuery('clients', {
+            login: `"${login}"`,
+            password: `"${password}"`,
+            name: `"${name}"`,
+            lastname: `"${lastname}"`,
+            email: `"${email}"`,
+            phone: `"${phone}"`,
+            birthdate: `"${birth}"`,
+            gender: `"${gender}"`,
+        }, callback)
     },
 
     updateUser(login, name, lastname, email, birth, gender, phone, callback){
-        updateQuery('clients', login, [
+        updateQuery('clients',
         {
-            name: 'name',
-            value: `"${name}"`
+            login: `"${login}"`
         },
         {
-            name: 'lastname',
-            value: `"${lastname}"`
-        },
-        {
-            name: 'email',
-            value: `"${email}"`
-        },
-        {
-            name: 'phone',
-            value: `"${phone}"`
-        },
-        {
-            name: 'birthdate',
-            value: `"${birth}"`
-        },
-        {
-            name: 'gender',
-            value: `"${gender}"`
-        },
-        ], callback)
+            login: `"${login}"`,
+            name: `"${name}"`,
+            lastname: `"${lastname}"`,
+            email: `"${email}"`,
+            phone: `"${phone}"`,
+            birthdate: `"${birth}"`,
+            gender: `"${gender}"`,
+        }, callback)
     },
 
     getTourInfo(id, callback, column='*'){
-        selectionQuery('tours', column, [
+        selectionQuery('tours', column,
             {
-                name: 'id',
-                value: `${id}`
+                id: `${id}`
             },
-        ],
         callback)
     },
 
     getToursList(callback){
         selectionQuery('tours', 'id', '', callback)
+    },
+
+    updateTour( id, name, city, hotel, service, description, price, callback){
+        updateQuery('tours',
+        {
+            id: `"${id}"`,
+        },
+        {
+            name: `"${name}"`,
+            city: `"${city}"`,
+            hotel: `"${hotel}"`,
+            service: `"${service}"`,
+            description: `"${description}"`,
+            price: `"${price}"`,
+        }, callback)
     },
 }

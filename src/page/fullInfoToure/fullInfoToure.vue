@@ -1,22 +1,21 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
-          </a>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <div>
-              <strong>Профиль: Name</strong>
+            <a class="navbar-brand" href="#">
+                <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <div>
+                    <strong>Профиль: Name</strong>
+                </div>
             </div>
-          </div>
         </div>
-      </nav>
+    </nav>
       <div class="section1">
         <div class="row">
             <div class="title">
-                <h4>OTIUM FAMILY ECO CLUB</h4>
+                <h4>{{title}}</h4>
                 <div class="option">
-
                     <strong >Добавить в избраное (0)</strong>
                     <strong>Поделиться</strong>
                 </div>
@@ -64,34 +63,41 @@
                 </div>
 
                 <div class="hotelinfo">
-                    <h6>OTIUM FAMILY ECO CLUB</h6>
-                    <p>
-                        Отель входит в концепцию <strong>Otium Family Hotels</strong>
-                        гарантирует высокие стандарты качества и идеальный отдых. Во всех отелях концепции 
-                        гостей ждет русскоязычный персонал, комфортабельные номера, обилие развлечений.
-                        Качество обслуживания под контролем Otium Hotels и Coral Travel.
-                    </p>
+                    <h6>{{title}}</h6>
+                    <p>{{description}}</p>
                     <div class="featuresWrap ">
 
                     </div>
                 </div>
             </div>
         </div>
-      </div>
-  </template>
+    </div>
+</template>
     
-    <script lang="ts">
-  
-    export default {
-      name: "fullInfoToure",
-      data(){
-      return{
-        isAuth: false,
-      }
-    },
-      components: {
-      }
-    }
+<script lang="ts">
+    import { defineComponent } from 'vue';
+    import { Api } from '@/coral-api/apilib';
+
+    export default defineComponent({
+        
+        name: "fullInfoToure",
+        
+        data(){
+        return{
+            isAuth: false,
+            title: '',
+            description: '',
+        }
+        },
+        components: {
+        },
+        beforeCreate(){
+            Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
+                        this.title = res.name;
+                        this.description = res.description;
+                    })
+        }
+    })
     </script>
     
     <style src="./fullInfoToure.css"></style>

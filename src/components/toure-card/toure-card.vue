@@ -15,7 +15,7 @@
             <li class="list-group-item"><b>{{price}}₽</b></li>
         </ul>
         <div class="card-body">
-            <a href="http://localhost:3000/fullInfoToure.html">
+            <a :href="link" id="linkCard">
               <button type="button" class="btn btn-outline-primary">Подробнее</button>
             </a>
         </div>
@@ -41,37 +41,38 @@ export default defineComponent({
           length: '',
           service: '',
           price: '',
+          link: 'http://localhost:3000/tour?id=' + this.id,
         }
     },
     methods:{
     },
     props:['id'],
     created(){
-        console.log(this.id)
-        Api.getTourInfo(this.id).then(res=>{
-          this.name = res.name;
-          this.hotel = res.hotel;
-          this.city = res.city;
-          this.date = res.date;
-          this.length = res.length;
-          switch(res.service){
-            case 0:
-              this.service = 'Самообслуживание'
-              break;
-            case 1:
-              this.service = 'Завтрак'
-              break;
-            case 2:
-              this.service = 'Все включено'
-              break;
-            case 3:
-              this.service = 'Все включено ультра'
-              break;
-          }
-          
-          this.price = res.price;
-          
-        })
+
+      Api.getTourInfo(this.id).then(res=>{
+        this.name = res.name;
+        this.hotel = res.hotel;
+        this.city = res.city;
+        this.date = res.date;
+        this.length = res.length;
+        switch(res.service){
+          case 0:
+            this.service = 'Самообслуживание'
+            break;
+          case 1:
+            this.service = 'Завтрак'
+            break;
+          case 2:
+            this.service = 'Все включено'
+            break;
+          case 3:
+            this.service = 'Все включено ультра'
+            break;
+        }
+        
+        this.price = res.price;
+        
+      })
     }
   })
 </script>

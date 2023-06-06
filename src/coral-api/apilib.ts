@@ -58,4 +58,15 @@ export class Api {
       })
       return fetch(`/tours?filters=${query}`).then(res=>res.json())
     }
+
+    static updateTourInfo(id:Number, name:string, city:string, hotel:Number, service:Number, description:string, price:Number){
+      return fetch("/updtour", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(
+          {id: id, name: name, city: city, hotel: hotel, service: service, description: description, price: price})
+    }).then(res=>res.json())
+    }
 }
