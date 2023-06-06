@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 app.set('view engine', 'ejs')
 
+app.use(express.json())
+
 const data = require('./server.data')
 const directory = data.directory
 
@@ -18,7 +20,7 @@ const dbconnector = data.dbconnector
 
 app.use(express.static(directory))
 
-app.use(express.json())
+
 
 console.log(directory)
 
