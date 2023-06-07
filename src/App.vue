@@ -33,15 +33,24 @@
                 Меню
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a type="button" data-bs-target="#userAgreement" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Правила обработки данных</a></li>
-                <li><a type="button" data-bs-target="#privacyPolicy" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Политика конфиденциальности</a></li>
+                <li>
+                  <a type="button" data-bs-target="#userAgreement" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Правила обработки данных</a>
+                </li>
+                <li>
+                  <a type="button" data-bs-target="#privacyPolicy" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Политика конфиденциальности</a>
+                </li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Город</a></li>
-                <li><a class="dropdown-item" v-if="!isAuth" data-bs-target="#exampleModalToggle"
-                    data-bs-toggle="modal">Войти/Регистрация</a></li>
-                <li><a class="dropdown-item" v-if="isAuth" @click="logOut">Выйти</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Город</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" v-if="!isAuth" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Войти/Регистрация</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" v-if="isAuth" @click="logOut">Выйти</a>
+                </li>
               </ul>
             </li>
           </ul>

@@ -22,30 +22,36 @@
       <button type="button" class="btn btn-primary">Добавить тур</button>
     </nav>
     <div class="container c-card">
-      <div class="row">
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-        <cardAdmin></cardAdmin>
-      </div>
+      <div class="row col-lg-8 col.xs-8 col-sm-8 container-tour" >
+            <cardAdmin v-for="index in idToure" :key="index" :id="index"></cardAdmin>
+        </div>
     </div>
   </div>
 </template>
   
   <script lang="ts">
   import cardAdmin from '@/components/cardAdmin/cardAdmin.vue';
+  import { Api } from '@/coral-api/apilib';
+import { defineComponent } from 'vue';
 
-  export default {
+  export default defineComponent({
     name: "AdminPanel",
+    data(){
+      return{
+        idToure: new Array()
+      }
+    },
     components: { 
       cardAdmin
+    },
+    beforeCreate(){
+        Api.getToursList().then(res=>{
+            for(let i = 0; i < res.length;i++){
+                this.idToure[i] = res[i].id
+            }
+        })
     }
-  }
+  })
   </script>
   
   <style src="./adminPanel.css"></style>

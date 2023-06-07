@@ -80,7 +80,7 @@
   import { Cookie } from '@/cookie/cookieRW';
   import { disableForms } from '@/DOMserv';
 
-  export default {
+  export default{
     name: "registerComponent",
     methods:{
       logup(){
@@ -103,7 +103,8 @@
         if(firstName_.value == "") { infoR_.textContent = "Введите имя!"; return; }
         if(lastName_.value == ""){ infoR_.textContent = "Введите фамилию!";  return; }
         if(date_.value == ""){ infoR_.textContent = "Введите дату рождения!";  return; }
-        if(phone_.value == ""){ infoR_.textContent = "Введите номер телефона!";  return; }
+        if(phone_.value == "" | 
+        phone_.value.length != 12){ infoR_.textContent = "Введите номер телефона!";  return; }
 
         if(email_.value == "") { infoR_.textContent = "Введите адрес элетронной почты!"; return; }
         if(passwordR_.value == "") { infoR_.textContent = "Введите пороль!"; return; }
