@@ -66,10 +66,10 @@
                     <h6>{{title}}</h6>
                     <p>{{description}}</p>
                     <div class="featuresWrap">
-                        <div v-if="comforts.includes(`/kpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детское меню в ресторане">
+                        <div v-if="comforts.includes(`/kfood;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детское меню в ресторане">
                             <img src="@/assets/comfort/menu.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/kfood;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детские бассейны">
+                        <div v-if="comforts.includes(`/kpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детские бассейны">
                             <img src="@/assets/comfort/pool.svg" alt="">
                         </div>
                         <div v-if="comforts.includes(`/disco;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Дискотека">

@@ -111,16 +111,31 @@
                             </label>
                         </div>
                         <div class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детский аквапарк">
-                            <input type="checkbox" class="btn-check" id="r10" autocomplete="off">
-                            <label class="btn btn-outline-primary comfortLabel" for="r10">
+                            <input type="checkbox" class="btn-check" id="r9" autocomplete="off">
+                            <label class="btn btn-outline-primary comfortLabel" for="r9">
                                 <img src="@/assets/comfort/childrens-aquapark.svg"  class="comfortImg" alt="">
                             </label>
                         </div>
                         <div class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Wi-Fi">
-                            <input type="checkbox" class="btn-check" id="r11" autocomplete="off">
-                            <label class="btn btn-outline-primary comfortLabel" for="r11">
+                            <input type="checkbox" class="btn-check" id="r10" autocomplete="off">
+                            <label class="btn btn-outline-primary comfortLabel" for="r10">
                                 <img src="@/assets/comfort/wi-fi.svg" class="comfortImg" alt="">
                             </label>
+                        </div>
+                        <div class="save">
+                            <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                                <option value="0">China</option>
+                                <option value="1">Malayasia</option>
+                                <option value="2">Singapore</option>
+                            </select>   
+                            <select class="form-control selectpicker" id="select-servise" :value="service" data-live-search="true">
+                                <option value="0">Самообслуживание</option>
+                                <option value="1">Завтрак</option>
+                                <option value="2">Все включено</option>
+                                <option value="3">Все включено ультра</option>
+                            </select>
+                            <input type="number" class="editPrice" id="price" placeholder="цена" :value="price">
+                            <button type="button" class="btn btn-outline-primary">Сохранить</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +167,12 @@
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab" tabindex="0">
-                        general
+                        <ul class="ulInfo">
+                            <div class="title">
+                                <input type="text" class="ulInfo-input title"  id="ulInfo-input-title" placeholder="Заголовок">
+                                <button type="button" class="btn btn-outline-info" data-bs-placement="top" title="Новый список" onclick="plusTitle()">+</button>
+                            </div>
+                        </ul>
                     </div>
 
                     <div class="tab-pane fade" id="pills-services" role="tabpanel" aria-labelledby="pills-services-tab" tabindex="0">
@@ -183,32 +203,188 @@
         </div>
         <footerComponent></footerComponent>
     </div>
+
   </template>
     
-  <script lang="ts">
+<script lang="ts">
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib';
 
-    export default defineComponent({
+    let chapters : {self: HTMLUListElement, title:HTMLDivElement, addContent: HTMLLIElement, contents:Number[]}[] = []
+
+    const title_ = document.getElementById("ulInfo-input-title")
+export default defineComponent({
         
-      name: "fullInfoToure",
+    name: "fullInfoToure",
         
-      data(){
+    data(){
         return{
             isAuth: false,
             title: '',
             description: '',
+            city: '',
+            date: '',
+            length: 0,
+            hotel: 0,
+            service: 0,
+            price: 0,
+
+
+            menu: document.getElementById("r1") as HTMLInputElement,
+            pool: document.getElementById("r2") as HTMLInputElement,
+            disco: document.getElementById("r3") as HTMLInputElement,
+            indoorPool: document.getElementById("r4") as HTMLInputElement,
+            miniClub: document.getElementById("r5") as HTMLInputElement,
+            heatedSwimmingPool: document.getElementById("r6") as HTMLInputElement,
+            pool88: document.getElementById("r7") as HTMLInputElement,
+            aquapark: document.getElementById("r8") as HTMLInputElement,
+            childrensAquapark:  document.getElementById("r9") as HTMLInputElement,
+            wiFi: document.getElementById("r10") as HTMLInputElement,
+
         }
-      },
-      components: {
-      },
-      beforeCreate(){
-          Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
-            this.title = res.name;
-            this.description = res.description;
-          })
-      }
-    })
+    },
+    components: {
+    },
+    props:['id'],
+    beforeCreate(){
+        Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
+                this.title = res.name;
+                this.description = res.description;
+                this.city = res.city;
+                this.date = res.date;
+                this.length = res.length;
+                this.hotel = res.hotel;
+                this.service = res.service;
+                this.price = res.price;
+
+                this.menu.checked = res.comforts.includes(`/kfood;`);
+                this.pool.checked = res.comforts.includes(`/kpool;`);
+                this.disco.checked = res.comforts.includes(`/disco;`);
+                this.indoorPool = res.comforts.includes(`/cpool;`);
+                this.miniClub.checked = res.comforts.includes(`/mclub;`);
+                this.heatedSwimmingPool.checked = res.comforts.includes(`/nurse;`);
+                this.pool88.checked = res.comforts.includes(`/hpool;`);
+                this.aquapark.checked = res.comforts.includes(`/aqua;`);
+                this.childrensAquapark.checked = res.comforts.includes(`/kaqua;`);
+                this.wiFi.checked = res.comforts.includes(`/wifi;`);
+        })
+    },
+    methods:{
+        save(){
+            let comforts = ''
+            if(this.menu.checked) comforts+=`/kfood;`
+            if(this.pool.checked) comforts+=`/kpool;`
+            if(this.disco.checked) comforts+=`/disco;`
+            if(this.indoorPool.checked) comforts+=`/cpool;`
+            if(this.miniClub.checked) comforts+=`/mclub;`
+            if(this.heatedSwimmingPool.checked) comforts+=`/nurse;`
+            if(this.pool88.checked) comforts+=`/hpool;`
+            if(this.aquapark.checked) comforts+=`/aqua;`
+            if(this.childrensAquapark.checked) comforts+=`/kaqua;`
+            if(this.wiFi.checked) comforts+=`/wifi;`
+
+            let info = ''
+            chapters.forEach(chapter=>{
+                info+='/'+chapter.title.
+            })
+            Api.updateTourInfo(this.id, this.title, this.city, this.hotel, this.date, 
+            this.length, this.service, this.description, this.price, comforts, info)
+        },
+        plusTitle() {
+            let index = chapters.length
+            
+            const ul = document.createElement("ul");
+            const li = document.createElement("li");
+            const div = document.createElement("div");
+            const inputTitle = document.createElement("input");
+            const inputContent = document.createElement("input");
+            const btnTitle = document.createElement("button");
+            const btnContent = document.createElement("button");
+            
+            chapters[index] = {
+                self: ul,
+                title: div,
+                addContent: li,
+                contents: []
+            }
+
+            ul.id = 'ulId_' + index;
+            ul.className = 'ulInfo'
+
+            div.id = 'divId_' + index;
+            div.className = 'title'
+            ul.appendChild(div)
+
+            inputTitle.id = 'inputTitleId_' + index;
+            inputTitle.type = "text";
+            inputTitle.placeholder = "Заголовок";
+            inputTitle.className = 'ulInfo-input';
+            inputTitle.value = title_.value;
+            inputTitle.style.fontWeight = "bold";
+
+            title_.value = '';
+
+            btnTitle.textContent = "-";
+            btnTitle.id = 'btnTitle_' + index;
+            btnTitle.className = 'btn';
+            btnTitle.onclick = () =>{
+                ul.remove()
+            }
+
+            div.appendChild(inputTitle);
+            div.appendChild(btnTitle);
+
+            li.id = 'liId_' + index;
+            li.className = 'ulInfo-item'
+
+            inputContent.id = 'inputContentId_' + index;
+            inputContent.type = "text";
+            inputContent.placeholder = "Содержание";
+            inputContent.className = 'ulInfo-input';
+
+            btnContent.textContent = "+";
+            btnContent.id = 'btnTitle_' + index;
+            btnContent.className = 'btn';
+            btnContent.onclick = () =>{
+                plusContent(index);
+            }
+            li.appendChild(inputContent)
+            li.appendChild(btnContent)
+
+            ul.appendChild(li)
+
+            document.body.appendChild(ul);
+        },
+        plusContent(chapter) {
+            let index = chapters[chapter].contents.length
+            const ul = document.getElementById("ulId_" + chapter); 
+            const li = document.createElement("li");
+            const inputContent = document.createElement("input");
+            const btnContent = document.createElement("button");
+
+            li.id = 'contId_' + index;
+            li.className = 'ulInfo-item'
+
+            inputContent.id = 'inputContentId_' + index;
+            inputContent.type = "text";
+            inputContent.className = 'ulInfo-input';
+            inputContent.placeholder = "Содержание";
+            
+            btnContent.textContent = "-";
+            btnContent.id = 'btnContentId_' + index;
+            btnContent.className = 'btn';
+            btnContent.onclick = () =>{
+                chapters[chapter].contents.splice(index, 1)
+                li.remove()
+            }
+            
+            li.appendChild(inputContent);
+            li.appendChild(btnContent);
+            
+            ul.appendChild(li)
+        }
+    }
+})
     </script>
     
     <style src="./editToure.css"></style>

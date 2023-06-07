@@ -15,7 +15,7 @@
             <li class="list-group-item"><b>{{price}}₽</b></li>
         </ul>
         <div class="card-body">
-            <a href="http://localhost:3000/editToure.html">
+            <a :href="link">
                 <button type="button" class="btn btn-primary">Редактировать</button>
             </a>
             <button type="button" class="btn btn-danger">Удалить</button>
@@ -41,7 +41,7 @@ import { defineComponent } from 'vue';
           length: '',
           service: '',
           price: '',
-          link: 'http://localhost:3000/tour?id=' + this.id,
+          link: 'http://localhost:3000/edtour?id=' + this.id,
         }
     },
     methods:{

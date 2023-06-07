@@ -15,7 +15,7 @@
             <li class="list-group-item"><b>{{price}}₽</b></li>
         </ul>
         <div class="card-body">
-            <a :href="link" id="linkCard">
+            <a :href="link">
               <button type="button" class="btn btn-outline-primary">Подробнее</button>
             </a>
         </div>

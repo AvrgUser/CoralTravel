@@ -1,4 +1,4 @@
-const data = require('../../server.data')
+const data = require('../../../server.data')
 const directory = data.directory
 const dbconnector = data.dbconnector
 

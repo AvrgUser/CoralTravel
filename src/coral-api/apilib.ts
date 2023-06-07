@@ -59,14 +59,25 @@ export class Api {
       return fetch(`/tours?filters=${query}`).then(res=>res.json())
     }
 
-    static updateTourInfo(id:Number, name:string, city:string, hotel:Number, service:Number, description:string, price:Number){
+    static updateTourInfo(id:Number, name:string, city:string, hotel:Number, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
       return fetch("/updtour", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
         body: JSON.stringify(
-          {id: id, name: name, city: city, hotel: hotel, service: service, description: description, price: price})
+          {id: id, name: name, city: city, hotel: hotel, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
+    }).then(res=>res.json())
+    }
+
+    static addTour(name:string, city:string, hotel:Number, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
+      return fetch("/addtour", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(
+          {name: name, city: city, hotel: hotel, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
     }).then(res=>res.json())
     }
 }

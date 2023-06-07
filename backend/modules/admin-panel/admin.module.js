@@ -14,8 +14,8 @@ module.exports = {
       
           dbconnector.getClientInfo(login, (err, result)=>{
       
-            if(result&&result[0].password==password){
-              res.sendFile(directory+'/adminPanel.html')
+            if(result){
+              if(result[0].password==password)res.sendFile(directory+'/adminPanel.html')
             }
       
             else{
