@@ -1,7 +1,15 @@
+*{
+  color: #1c8bcb;
+}
+body{
+  min-width: 490px;
+  background-color: #0c1324 !important;
+}
 .navbar {
   box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
   display: flex !important;
   flex-wrap: nowrap !important;
+  background-color: #161e32 !important;
 }
 
 .navbar-brand img{
@@ -19,7 +27,7 @@
 }
 
 .content {
-  border: 1px solid #d2d2d2;
+  border: 1px solid #0d6efd !important;
   border-radius: 6px;
   padding: 20px !important;
   margin-right: 20px;
@@ -34,7 +42,10 @@
 .form-email,
 .form-date,
 .form-number {
-  border: 1px solid #d2d2d2;
+  color: #28abf7;
+  border: none;
+  border: 1px solid #327fc3!important;
+  background-color: #15213f;
   border-radius: 6px !important;
   max-width: max-content !important;
   min-width: 260px;
@@ -45,7 +56,7 @@
 .form-last-name:focus,
 .form-first-name:focus,
 .form-date:focus {
-  border: 2px solid #0d6efd;
+  border: 2px solid #0d6efd !important;
   outline: none;
 }
 

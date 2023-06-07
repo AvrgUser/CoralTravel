@@ -66,34 +66,34 @@
                     <h6>{{title}}</h6>
                     <p>{{description}}</p>
                     <div class="featuresWrap">
-                        <div v-if="comforts.includes(`/kfood;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детское меню в ресторане">
+                        <div v-if="comforts.includes(`-kfood;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детское меню в ресторане">
                             <img src="@/assets/comfort/menu.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/kpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детские бассейны">
+                        <div v-if="comforts.includes(`-kpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детские бассейны">
                             <img src="@/assets/comfort/pool.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/disco;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Дискотека">
+                        <div v-if="comforts.includes(`-disco;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Дискотека">
                             <img src="@/assets/comfort/disco.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/cpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Крытый Бассейн">
+                        <div v-if="comforts.includes(`-cpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Крытый Бассейн">
                             <img src="@/assets/comfort/Indoor-pool.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/mclub;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Мини-Клуб">
+                        <div v-if="comforts.includes(`-mclub;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Мини-Клуб">
                             <img src="@/assets/comfort/mini-club.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/nurse;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Услуги няни">
+                        <div v-if="comforts.includes(`-nurse;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Услуги няни">
                             <img src="@/assets/comfort/heated-swimming-pool.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/hpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Бассейн с подогревом">
+                        <div v-if="comforts.includes(`-hpool;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Бассейн с подогревом">
                             <img src="@/assets/comfort/pool_88580.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/aqua;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Наличие аквапарка">
+                        <div v-if="comforts.includes(`-aqua;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Наличие аквапарка">
                             <img src="@/assets/comfort/aquapark.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/kaqua;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детский аквапарк">
+                        <div v-if="comforts.includes(`-kaqua;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детский аквапарк">
                             <img src="@/assets/comfort/childrens-aquapark.svg" alt="">
                         </div>
-                        <div v-if="comforts.includes(`/wifi;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Wi-Fi">
+                        <div v-if="comforts.includes(`-wifi;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Wi-Fi">
                             <img src="@/assets/comfort/wi-fi.svg" alt="">
                         </div>
                     </div>

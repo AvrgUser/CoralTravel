@@ -1,6 +1,16 @@
 .card{
+    box-shadow: 0 3px 3px #5755553d inset;
     margin: 20px;
+    width: 18rem;
+    border: 1px solid #0d6efd !important;
+    background-color: #161e32;
+    color: #1c8bcb;
 }
 .btn-danger{
     margin-left: 10px;
+}
+.list-group-item{
+    background-color: #161e32;
+    color: #1c8bcb;
+    border-color: #0d6efd;
 }

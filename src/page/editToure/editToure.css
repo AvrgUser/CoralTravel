@@ -49,9 +49,38 @@ body{
     width: 44px;
     height: 44px;
 }
+
+.selectpicker, .editPrice{
+    width: 170px !important;
+    height: 30px !important;
+    margin: 5px !important;
+    color: #28abf7;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    border: 1px solid #327fc3!important;
+    background-color: #15213f;
+    padding: 0 6px;
+}
+.selectpicker::-webkit-outer-spin-button,
+.selectpicker::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+.select-country label, .select-servise label,
+.iprice label{
+    margin-left: 5px !important;
+}
+.subMain{
+    display: grid;
+    width: 100%;
+}
 .save{
-    margin-top: 10px;
-    float: right;
+    align-self: flex-end;
+    justify-self: right;
+    margin-right: 10px;
+    margin-top: 20px;
 }
 .comfortLabel{
     width: 44px;
@@ -61,6 +90,12 @@ body{
 .comfortLabel img{
     width: 32px!important;
     height: 32px!important;
+}
+.cardinfo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: flex-end;
 }
 .fullInfo{
     padding: 0px;
@@ -115,4 +150,54 @@ body{
     outline: none;
     border: 1px solid #0088ff !important;
     background-color: #15213f;
+}
+.tab-pane{
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+.ulinfo{
+    margin-top: 30px;
+}
+ul{
+    list-style-type: none;
+}
+.tComfort{
+    display: flex;
+    flex-wrap: wrap;
+}
+.ulInfo-input{
+    margin: 5px;
+    height: 35px !important;
+    width: 200px !important;
+    color: #28abf7;
+    margin: 0px;
+    border: 1px solid #327fc3 !important;
+    background-color: #15213f;
+    padding: 0px 6px;
+}
+.ulInfo-input:focus{
+    outline: none;
+    border: none !important;
+    border: 1px solid #0d6efd !important;
+}
+.ulInfo-input::placeholder{
+    color: #28abf7;
+}
+.titleComfort{
+    display: flex;
+}
+.btnComfort{
+    border-radius: 0 !important;
+    border: 1px solid #327fc3 !important;
+    background-color: #1b3b6b;
+    height: 35px;
+    width: 35px;
+    padding: 0px
+}
+.btnComfort:active{
+    background-color: #418dff;
+}
+.ulInfo-item{
+    margin-top: 8px;
+    display: flex;
 }

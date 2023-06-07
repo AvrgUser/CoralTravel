@@ -122,22 +122,35 @@
                                 <img src="@/assets/comfort/wi-fi.svg" class="comfortImg" alt="">
                             </label>
                         </div>
-                        <div class="save">
-                            <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                                <option value="0">China</option>
-                                <option value="1">Malayasia</option>
-                                <option value="2">Singapore</option>
-                            </select>   
-                            <select class="form-control selectpicker" id="select-servise" :value="service" data-live-search="true">
-                                <option value="0">Самообслуживание</option>
-                                <option value="1">Завтрак</option>
-                                <option value="2">Все включено</option>
-                                <option value="3">Все включено ультра</option>
-                            </select>
-                            <input type="number" class="editPrice" id="price" placeholder="цена" :value="price">
-                            <button type="button" class="btn btn-outline-primary">Сохранить</button>
-                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="subMain">
+                <div class="cardinfo">
+                    <div class="select-country">
+                        <label for="">Город</label>
+                        <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                            <option value="0">China</option>
+                            <option value="1">Malayasia</option>
+                            <option value="2">Singapore</option>
+                        </select>  
+                    </div>
+                    <div class="select-servise">
+                        <label for="">Сервис</label>
+                        <select class="form-control selectpicker" id="select-servise" :value="service" data-live-search="true">
+                            <option value="0">Самообслуживание</option>
+                            <option value="1">Завтрак</option>
+                            <option value="2">Все включено</option>
+                            <option value="3">Все включено ультра</option>
+                        </select>
+                    </div>
+                    <div class="iprice">
+                        <label for="">Цена</label><br>
+                        <input type="number" class="editPrice" id="price" placeholder="цена" :value="price">
+                    </div>
+                </div>
+                <div class="save">
+                    <button type="button" @click="save" class="btn btn-outline-primary">Сохранить</button>
                 </div>
             </div>
             <div class="fullInfo">
@@ -168,9 +181,9 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab" tabindex="0">
                         <ul class="ulInfo">
-                            <div class="title">
+                            <div class="tComfort">
                                 <input type="text" class="ulInfo-input title"  id="ulInfo-input-title" placeholder="Заголовок">
-                                <button type="button" class="btn btn-outline-info" data-bs-placement="top" title="Новый список" onclick="plusTitle()">+</button>
+                                <button type="button" class="btn btn-outline-info btnComfort" data-bs-placement="top" title="Новый список" @click="plusTitle">+</button>
                             </div>
                         </ul>
                     </div>
@@ -210,15 +223,16 @@
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib';
 
-    let chapters : {self: HTMLUListElement, title:HTMLDivElement, addContent: HTMLLIElement, contents:Number[]}[] = []
+    let chapters : {self: HTMLUListElement, title:HTMLInputElement, addContent: HTMLInputElement, contents:HTMLInputElement[]}[] = []
 
-    const title_ = document.getElementById("ulInfo-input-title")
+    let title_ : HTMLInputElement
 export default defineComponent({
         
     name: "fullInfoToure",
         
     data(){
         return{
+            id: new URL(window.location.href).searchParams.get('id') as unknown as Number,
             isAuth: false,
             title: '',
             description: '',
@@ -245,8 +259,8 @@ export default defineComponent({
     },
     components: {
     },
-    props:['id'],
-    beforeCreate(){
+    mounted(){
+        title_ = document.getElementById("ulInfo-input-title") as HTMLInputElement
         Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
                 this.title = res.name;
                 this.description = res.description;
@@ -257,42 +271,100 @@ export default defineComponent({
                 this.service = res.service;
                 this.price = res.price;
 
-                this.menu.checked = res.comforts.includes(`/kfood;`);
-                this.pool.checked = res.comforts.includes(`/kpool;`);
-                this.disco.checked = res.comforts.includes(`/disco;`);
-                this.indoorPool = res.comforts.includes(`/cpool;`);
-                this.miniClub.checked = res.comforts.includes(`/mclub;`);
+                this.menu = document.getElementById("r1") as HTMLInputElement
+                this.pool = document.getElementById("r2") as HTMLInputElement
+                this.disco = document.getElementById("r3") as HTMLInputElement
+                this.indoorPool = document.getElementById("r4") as HTMLInputElement
+                this.miniClub = document.getElementById("r5") as HTMLInputElement
+                this.heatedSwimmingPool = document.getElementById("r6") as HTMLInputElement
+                this.pool88 = document.getElementById("r7") as HTMLInputElement
+                this.aquapark = document.getElementById("r8") as HTMLInputElement
+                this.childrensAquapark = document.getElementById("r9") as HTMLInputElement
+                this.wiFi = document.getElementById("r10") as HTMLInputElement
+
+                this.menu.checked = res.comforts.includes(`-kfood;`);
+                this.pool.checked = res.comforts.includes(`-kpool;`);
+                this.disco.checked = res.comforts.includes(`-disco;`);
+                this.indoorPool = res.comforts.includes(`-cpool;`);
+                this.miniClub.checked = res.comforts.includes(`-mclub;`);
                 this.heatedSwimmingPool.checked = res.comforts.includes(`/nurse;`);
-                this.pool88.checked = res.comforts.includes(`/hpool;`);
-                this.aquapark.checked = res.comforts.includes(`/aqua;`);
-                this.childrensAquapark.checked = res.comforts.includes(`/kaqua;`);
-                this.wiFi.checked = res.comforts.includes(`/wifi;`);
+                this.pool88.checked = res.comforts.includes(`-hpool;`);
+                this.aquapark.checked = res.comforts.includes(`-aqua;`);
+                this.childrensAquapark.checked = res.comforts.includes(`-kaqua;`);
+                this.wiFi.checked = res.comforts.includes(`-wifi;`);
+
+                if(res.info){
+                    let titles = (res.info as string).split('t/')
+                    for(let t = 0;t<titles.length;t++){
+                        let contents = titles[t].split(';')
+                        this.plusTitle(contents[0])
+                        for(let i =1; i<contents.length;i++){
+                            if(contents[i].length>0)
+                            this.plusContent(i-1, contents[i])
+                        }
+                    }
+                }
         })
     },
     methods:{
         save(){
             let comforts = ''
-            if(this.menu.checked) comforts+=`/kfood;`
-            if(this.pool.checked) comforts+=`/kpool;`
-            if(this.disco.checked) comforts+=`/disco;`
-            if(this.indoorPool.checked) comforts+=`/cpool;`
-            if(this.miniClub.checked) comforts+=`/mclub;`
-            if(this.heatedSwimmingPool.checked) comforts+=`/nurse;`
-            if(this.pool88.checked) comforts+=`/hpool;`
-            if(this.aquapark.checked) comforts+=`/aqua;`
-            if(this.childrensAquapark.checked) comforts+=`/kaqua;`
-            if(this.wiFi.checked) comforts+=`/wifi;`
+            if(this.menu.checked) {
+                if(! comforts.includes(`-kfood;`))comforts+=`-kfood;`
+            }
+            else comforts.replace(`-kfood;`,'')
+            if(this.pool.checked) {
+                if(! comforts.includes(`-kpool;`))comforts+=`-kpool;`
+            }
+            else comforts.replace(`-kpool;`,'')
+            if(this.disco.checked) {
+                if(! comforts.includes(`-disco;`))comforts+=`-disco;`
+            }
+            else comforts.replace(`-disco;`,'')
+            if(this.indoorPool.checked) {
+                if(! comforts.includes(`-cpool;`))comforts+=`-cpool;`
+            }
+            else comforts.replace(`-cpool;`,'')
+            if(this.miniClub.checked) {
+                if(! comforts.includes(`-mclub;`))comforts+=`-mclub;`
+            }
+            else comforts.replace(`-mclub;`,'')
+            if(this.heatedSwimmingPool.checked) {
+                if(! comforts.includes(`-nurse;`))comforts+=`-nurse;`
+            }
+            else comforts.replace(`-nurse;`,'')
+            if(this.pool88.checked) {
+                if(! comforts.includes(`-hpool;`))comforts+=`-hpool;`
+            }
+            else comforts.replace(`-hpool;`,'')
+            if(this.aquapark.checked) {
+                if(! comforts.includes(`-aqua;`))comforts+=`-aqua;`
+            }
+            else comforts.replace(`-aqua;`,'')
+            if(this.childrensAquapark.checked) {
+                if(! comforts.includes(`-kaqua;`))comforts+=`-kaqua;`
+            }
+            else comforts.replace(`-kaqua;`,'')
+            if(this.wiFi.checked) {
+                if(!comforts.includes(`-wifi;`))comforts+=`-wifi;`
+            }
+            else comforts.replace(`-wifi;`,'')
 
             let info = ''
             chapters.forEach(chapter=>{
-                info+='/'+chapter.title.
+                info+='t/'+chapter.title.value+';'
+                chapter.contents.forEach(content => {
+                    info+=content.value+';'
+                });
             })
             Api.updateTourInfo(this.id, this.title, this.city, this.hotel, this.date, 
             this.length, this.service, this.description, this.price, comforts, info)
         },
-        plusTitle() {
-            let index = chapters.length
-            
+        plusTitle(text = '') {
+            let index = chapters.length;
+
+            const general = document.getElementById("pills-general");
+
             const ul = document.createElement("ul");
             const li = document.createElement("li");
             const div = document.createElement("div");
@@ -303,8 +375,8 @@ export default defineComponent({
             
             chapters[index] = {
                 self: ul,
-                title: div,
-                addContent: li,
+                title: inputTitle,
+                addContent: inputContent,
                 contents: []
             }
 
@@ -312,22 +384,24 @@ export default defineComponent({
             ul.className = 'ulInfo'
 
             div.id = 'divId_' + index;
-            div.className = 'title'
+            div.className = 'titleComfort'
             ul.appendChild(div)
 
             inputTitle.id = 'inputTitleId_' + index;
             inputTitle.type = "text";
             inputTitle.placeholder = "Заголовок";
             inputTitle.className = 'ulInfo-input';
-            inputTitle.value = title_.value;
+            if(typeof text != typeof String)inputTitle.value = title_.value;
+            else inputTitle.value = text;
             inputTitle.style.fontWeight = "bold";
 
             title_.value = '';
 
             btnTitle.textContent = "-";
             btnTitle.id = 'btnTitle_' + index;
-            btnTitle.className = 'btn';
+            btnTitle.className = 'btnComfort';
             btnTitle.onclick = () =>{
+                chapters.slice(index, 1)
                 ul.remove()
             }
 
@@ -344,23 +418,24 @@ export default defineComponent({
 
             btnContent.textContent = "+";
             btnContent.id = 'btnTitle_' + index;
-            btnContent.className = 'btn';
+            btnContent.className = 'btnComfort';
             btnContent.onclick = () =>{
-                plusContent(index);
+                this.plusContent(index, inputContent.value);
             }
             li.appendChild(inputContent)
             li.appendChild(btnContent)
 
             ul.appendChild(li)
 
-            document.body.appendChild(ul);
+            general!.appendChild(ul);
         },
-        plusContent(chapter) {
+        plusContent(chapter: number, text: string = '') {
             let index = chapters[chapter].contents.length
             const ul = document.getElementById("ulId_" + chapter); 
             const li = document.createElement("li");
             const inputContent = document.createElement("input");
             const btnContent = document.createElement("button");
+            chapters[chapter].contents[index] = inputContent
 
             li.id = 'contId_' + index;
             li.className = 'ulInfo-item'
@@ -369,10 +444,11 @@ export default defineComponent({
             inputContent.type = "text";
             inputContent.className = 'ulInfo-input';
             inputContent.placeholder = "Содержание";
+            inputContent.value = text
             
             btnContent.textContent = "-";
             btnContent.id = 'btnContentId_' + index;
-            btnContent.className = 'btn';
+            btnContent.className = 'btnComfort';
             btnContent.onclick = () =>{
                 chapters[chapter].contents.splice(index, 1)
                 li.remove()
@@ -381,7 +457,7 @@ export default defineComponent({
             li.appendChild(inputContent);
             li.appendChild(btnContent);
             
-            ul.appendChild(li)
+            ul!.appendChild(li)
         }
     }
 })

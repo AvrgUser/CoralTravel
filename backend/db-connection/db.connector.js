@@ -1,4 +1,4 @@
-//#region 
+ //#region 
 let sql = require('mysql').createConnection({
     host: '78.46.109.73',
     port: '3311',
@@ -55,6 +55,7 @@ function updateQuery(board, conditions, params, callback){
             if(i<keys.length-1) query +=' AND '
         }
     }
+    console.log(query)
     return sendQuery(query, callback)
 }
 
@@ -130,7 +131,7 @@ module.exports = {
         selectionQuery('tours', 'id', '', callback)
     },
 
-    updateTour( id, name, city, hotel, date, length, service, description, price, info, callback){
+    updateTour( id, name, city, hotel, date, length, service, description, price, comforts, info, callback){
         updateQuery('tours',
         {
             id: `"${id}"`,
@@ -144,7 +145,8 @@ module.exports = {
             length: `"${length}"`,
             description: `"${description}"`,
             price: `"${price}"`,
-            info: `"${info}"`
+            info: `"${info}"`,
+            comforts: `"${comforts}"`
         }, callback)
     },
 

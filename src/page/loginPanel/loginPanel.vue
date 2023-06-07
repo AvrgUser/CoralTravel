@@ -5,13 +5,14 @@
     </div>
     <div class="modal-body">
       <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1"><img src="" width="14px" alt=""></span>
-        <input type="text" class="form-control" id="login" placeholder="Логин" aria-label="Login" aria-describedby="basic-addon1">
+        <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/login.svg" width="14px" alt=""></span>
+        <input type="text" class="form-control" id="login" placeholder="Логин" autofocus="autofocus" aria-label="Login" aria-describedby="basic-addon1">
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1"><img src="" width="14px" alt=""></span>
-        <input type="password" class="form-control" id="password" placeholder="Пароль" aria-label="Password" aria-describedby="basic-addon1">
+        <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/password.svg" width="14px" alt=""></span>
+        <input type="password" class="form-control" id="password" autocorrect="off"
+        placeholder="Пароль" aria-label="Password" aria-describedby="basic-addon1">
       </div>
     </div>
     <div class="modal-footer">

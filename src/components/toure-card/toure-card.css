@@ -1,6 +1,9 @@
 .card{
     box-shadow: 0 3px 3px #5755553d inset;
     margin: 20px;
+    border: 1px solid #0d6efd !important;
+    background-color: #161e32;
+    color: #1c8bcb;
 }
 .card-body{
     text-align: center;
@@ -10,4 +13,9 @@
 }
 .card-title{
     margin-bottom: 0px !important;
+}
+.list-group-item{
+    background-color: #161e32;
+    color: #1c8bcb;
+    border-color: #0d6efd;
 }

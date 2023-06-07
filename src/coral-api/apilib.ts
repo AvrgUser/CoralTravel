@@ -60,13 +60,13 @@ export class Api {
     }
 
     static updateTourInfo(id:Number, name:string, city:string, hotel:Number, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
-      return fetch("/updtour", {
+      return fetch("/updtour?id="+id, {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
         body: JSON.stringify(
-          {id: id, name: name, city: city, hotel: hotel, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
+          {name: name, city: city, hotel: hotel, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
     }).then(res=>res.json())
     }
 
