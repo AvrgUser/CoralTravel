@@ -131,7 +131,7 @@ module.exports = {
         selectionQuery('tours', 'id', '', callback)
     },
 
-    updateTour( id, name, city, hotel, date, length, service, description, price, comforts, info, callback){
+    updateTour( id, name, city, date, length, service, description, price, comforts, info, callback){
         updateQuery('tours',
         {
             id: `"${id}"`,
@@ -139,7 +139,6 @@ module.exports = {
         {
             name: `"${name}"`,
             city: `"${city}"`,
-            hotel: `"${hotel}"`,
             service: `"${service}"`,
             date: `"${date}"`,
             length: `"${length}"`,
@@ -150,12 +149,11 @@ module.exports = {
         }, callback)
     },
 
-    addTour(name, city, hotel, date, length, service, description, price, info, callback){
+    addTour(name, city, date, length, service, description, price, info, callback){
         insertQuery('tours',
         {
             name: `"${name}"`,
             city: `"${city}"`,
-            hotel: `"${hotel}"`,
             service: `"${service}"`,
             date: `"${date}"`,
             length: `"${length}"`,

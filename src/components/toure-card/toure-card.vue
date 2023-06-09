@@ -6,8 +6,6 @@
         </div>
         
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{hotel}}</li>
-
             <li class="list-group-item">{{city}} {{date}} {{ length}}</li>
             
             <li class="list-group-item">{{service}}</li>
@@ -51,7 +49,6 @@ export default defineComponent({
 
       Api.getTourInfo(this.id).then(res=>{
         this.name = res.name;
-        this.hotel = res.hotel;
         this.city = res.city;
         this.date = res.date;
         this.length = res.length;

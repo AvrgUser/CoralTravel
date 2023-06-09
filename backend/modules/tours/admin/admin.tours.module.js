@@ -8,7 +8,6 @@ module.exports = {
       let id = request.query.id
       let name = request.body.name
       let city = request.body.city
-      let hotel = request.body.hotel
       let date = request.body.date
       let length = request.body.length
       let service = request.body.service
@@ -24,7 +23,7 @@ module.exports = {
           return
         }
         if(result.length==1){
-          dbconnector.updateTour(id, name, city, hotel, date, length, service, description, price, comforts, info, (error)=>{
+          dbconnector.updateTour(id, name, city, date, length, service, description, price, comforts, info, (error)=>{
             if(error) {
               console.log(error)
               response.end(`{"result":"failed", "message": "server error"}`)
@@ -45,14 +44,13 @@ module.exports = {
     app.post('/addtour', (request, response)=>{
       let name = request.body.name
       let city = request.body.city
-      let hotel = request.body.hotel
       let date = request.body.date
       let length = request.body.length
       let service = request.body.service
       let description = request.body.description
       let price = request.body.price
       let info = request.body.info
-      dbconnector.addTour(name, city, hotel, date, length, service, description, price, info, (error)=>{
+      dbconnector.addTour(name, city, date, length, service, description, price, info, (error)=>{
         if(error) {
           console.log(error)
           response.end(`{"result":"failed", "message": "server error"}`)

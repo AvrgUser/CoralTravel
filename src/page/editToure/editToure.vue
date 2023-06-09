@@ -144,6 +144,14 @@
                             <option value="3">Все включено ультра</option>
                         </select>
                     </div>
+                    <div class="date">
+                        <label for="">дата вылета</label><br>
+                        <input type="date" class="editDate" id="date" placeholder="Ночей" :value="length">
+                    </div>
+                    <div class="length">
+                        <label for="">Ночей</label><br>
+                        <input type="number" class="editlength" id="length" placeholder="Ночей" :value="length">
+                    </div>
                     <div class="iprice">
                         <label for="">Цена</label><br>
                         <input type="number" class="editPrice" id="price" placeholder="цена" :value="price">
@@ -155,61 +163,20 @@
             </div>
             <div class="fullInfo">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-general" type="button" role="tab" aria-controls="pills-general" aria-selected="true">Общее</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-services" type="button" role="tab" aria-controls="pills-services" aria-selected="false">Услуги</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-rooms" type="button" role="tab" aria-controls="pills-rooms" aria-selected="false">Номера</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-food" type="button" role="tab" aria-controls="pills-food" aria-selected="false">Еда и напитки</button>
-                    </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-concept" type="button" role="tab" aria-controls="pills-concept" aria-selected="false">Концепция</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-restaurants" type="button" role="tab" aria-controls="pills-restaurants" aria-selected="false">Рестораны</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-bars" type="button" role="tab" aria-controls="pills-bars" aria-selected="false">Бары</button>
+                    <li class="nav-item" role="presentation" v-for="(sect, i) in sections" :key="sect">
+                        <button :class="'nav-link ' + (i==0?'active':'')" data-bs-toggle="pill" :data-bs-target="'#pills-'+i" type="button" role="tab" aria-controls="pills-general" :aria-selected="i==0?'true':'false'"
+                         @click="()=>switchSection(i)">{{sect}}</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab" tabindex="0">
+                    <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel" :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
+                    v-for="(sect, i) in sections" :key="sect">
                         <ul class="ulInfo">
                             <div class="tComfort">
-                                <input type="text" class="ulInfo-input title"  id="ulInfo-input-title" placeholder="Заголовок">
+                                <input type="text" class="ulInfo-input title"  :id="'coreTitle'+i" placeholder="Заголовок">
                                 <button type="button" class="btn btn-outline-info btnComfort" data-bs-placement="top" title="Новый список" @click="plusTitle">+</button>
                             </div>
                         </ul>
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-services" role="tabpanel" aria-labelledby="pills-services-tab" tabindex="0">
-                        services
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-rooms" role="tabpanel" aria-labelledby="pills-rooms-tab" tabindex="0">
-                        rooms
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-food" role="tabpanel" aria-labelledby="pills-food-tab" tabindex="0">
-                        food
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-concept" role="tabpanel" aria-labelledby="pills-concept-tab" tabindex="0">
-                        concept
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-restaurants" role="tabpanel" aria-labelledby="pills-restaurants-tab" tabindex="0">
-                        restaurants
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-bars" role="tabpanel" aria-labelledby="pills-bars-tab" tabindex="0">
-                        bars
                     </div>
                 </div>
             </div>
@@ -223,8 +190,7 @@
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib';
 
-    let chapters : {self: HTMLUListElement, title:HTMLInputElement, addContent: HTMLInputElement, contents:HTMLInputElement[]}[] = []
-
+    let chapters : ({self: HTMLUListElement, title:HTMLInputElement, addContent: HTMLInputElement, contents:HTMLInputElement[]}|undefined) [][] = []
     let title_ : HTMLInputElement
 export default defineComponent({
         
@@ -242,7 +208,8 @@ export default defineComponent({
             hotel: 0,
             service: 0,
             price: 0,
-
+            activeSection: 0,
+            sections: ["Общее", "Услуги", "Номера", "Еда и напитки", "Концепция", "Рестораны", "Бары"],
 
             menu: document.getElementById("r1") as HTMLInputElement,
             pool: document.getElementById("r2") as HTMLInputElement,
@@ -260,7 +227,7 @@ export default defineComponent({
     components: {
     },
     mounted(){
-        title_ = document.getElementById("ulInfo-input-title") as HTMLInputElement
+        this.switchSection(0)
         Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
                 this.title = res.name;
                 this.description = res.description;
@@ -294,19 +261,33 @@ export default defineComponent({
                 this.wiFi.checked = res.comforts.includes(`-wifi;`);
 
                 if(res.info){
-                    let titles = (res.info as string).split('t/')
-                    for(let t = 0;t<titles.length;t++){
-                        let contents = titles[t].split(';')
-                        this.plusTitle(contents[0])
-                        for(let i =1; i<contents.length;i++){
-                            if(contents[i].length>0)
-                            this.plusContent(i-1, contents[i])
+                    let sections = (res.info as string).split('s/')
+                    this.activeSection--
+                    sections.forEach(section => {
+                        console.log(section)
+                        let titles = section.split('t/')
+                        
+                        if(section)for(let t = 1;t<titles.length;t++){                            
+                            let contents = titles[t].split(';')
+                            if(contents[0]!=''){
+                                this.plusTitle(contents[0])
+                                for(let i =1; i<contents.length;i++){
+                                    if(contents[i].length>0)
+                                    this.plusContent(t-1, contents[i])
+                                }
+                            }
                         }
-                    }
+                        this.activeSection++
+                    });
                 }
+                console.log(chapters)
         })
     },
     methods:{
+        switchSection(index: number){
+            this.activeSection = index
+            title_ = document.getElementById("coreTitle"+this.activeSection) as HTMLInputElement
+        },
         save(){
             let comforts = ''
             if(this.menu.checked) {
@@ -351,19 +332,35 @@ export default defineComponent({
             else comforts.replace(`-wifi;`,'')
 
             let info = ''
-            chapters.forEach(chapter=>{
-                info+='t/'+chapter.title.value+';'
-                chapter.contents.forEach(content => {
+            console.log(chapters)
+            for(let i = 0; i<chapters.length;i++){
+                let section = chapters[i]
+                info+='s/'
+                if(section)section.forEach(chapter=>{
+                info+='t/'+chapter!.title.value+';'
+                chapter!.contents.forEach(content => {
                     info+=content.value+';'
                 });
             })
-            Api.updateTourInfo(this.id, this.title, this.city, this.hotel, this.date, 
-            this.length, this.service, this.description, this.price, comforts, info)
-        },
-        plusTitle(text = '') {
-            let index = chapters.length;
+            }
+            const title_ = document.getElementById('title') as HTMLInputElement;
+            const city_ = document.getElementById('select-country') as HTMLSelectElement;
+            const date_ = document.getElementById('date') as  HTMLInputElement;
+            const length_ = document.getElementById('length') as  HTMLInputElement;
+            const service_ = document.getElementById('select-servise')  as HTMLSelectElement;
+            const description_ = document.getElementById('description') as HTMLInputElement;
+            const price_ = document.getElementById('price') as HTMLInputElement;
 
-            const general = document.getElementById("pills-general");
+            Api.updateTourInfo(this.id, title_.value, city_.value, date_.value, 
+            new Number(length_.value),
+            new Number(service_.value), description_.value, 
+            new Number(price_.value), comforts, info)
+        },
+        plusTitle(text : any = '') {
+            if (!chapters[this.activeSection]) chapters[this.activeSection] = []
+            let index = chapters[this.activeSection].length;
+
+            const general = document.getElementById("pills-"+this.activeSection);
 
             const ul = document.createElement("ul");
             const li = document.createElement("li");
@@ -373,26 +370,30 @@ export default defineComponent({
             const btnTitle = document.createElement("button");
             const btnContent = document.createElement("button");
             
-            chapters[index] = {
+            chapters[this.activeSection][index] = {
                 self: ul,
                 title: inputTitle,
                 addContent: inputContent,
                 contents: []
             }
 
-            ul.id = 'ulId_' + index;
+            ul.id = 'ulId_' + index+'of'+this.activeSection
             ul.className = 'ulInfo'
 
-            div.id = 'divId_' + index;
+            div.id = 'divId_' + index+'of'+this.activeSection
             div.className = 'titleComfort'
             ul.appendChild(div)
 
-            inputTitle.id = 'inputTitleId_' + index;
+            inputTitle.id = 'inputTitleId_' + index+'of'+this.activeSection
             inputTitle.type = "text";
             inputTitle.placeholder = "Заголовок";
             inputTitle.className = 'ulInfo-input';
-            if(typeof text != typeof String)inputTitle.value = title_.value;
+            if(typeof text != 'string') {
+                console.log('d')
+                inputTitle.value = title_.value;
+            }
             else inputTitle.value = text;
+            console.log(title_.value)
             inputTitle.style.fontWeight = "bold";
 
             title_.value = '';
@@ -401,26 +402,28 @@ export default defineComponent({
             btnTitle.id = 'btnTitle_' + index;
             btnTitle.className = 'btnComfort';
             btnTitle.onclick = () =>{
-                chapters.slice(index, 1)
+                console.log('deleted:')
+                console.log(chapters[index])
+                chapters.splice(index, 1)
                 ul.remove()
             }
 
             div.appendChild(inputTitle);
             div.appendChild(btnTitle);
 
-            li.id = 'liId_' + index;
+            li.id = 'liId_' + index+'of'+this.activeSection
             li.className = 'ulInfo-item'
 
-            inputContent.id = 'inputContentId_' + index;
+            inputContent.id = 'inputContentId_' + index+'of'+this.activeSection
             inputContent.type = "text";
             inputContent.placeholder = "Содержание";
             inputContent.className = 'ulInfo-input';
 
-            btnContent.textContent = "+";
-            btnContent.id = 'btnTitle_' + index;
-            btnContent.className = 'btnComfort';
+            btnContent.textContent = "+"
+            btnContent.id = 'btnTitle_' + index+'of'+this.activeSection
+            btnContent.className = 'btnComfort'
             btnContent.onclick = () =>{
-                this.plusContent(index, inputContent.value);
+                this.plusContent(index, inputContent.value)
             }
             li.appendChild(inputContent)
             li.appendChild(btnContent)
@@ -430,27 +433,27 @@ export default defineComponent({
             general!.appendChild(ul);
         },
         plusContent(chapter: number, text: string = '') {
-            let index = chapters[chapter].contents.length
-            const ul = document.getElementById("ulId_" + chapter); 
+            let index = chapters[this.activeSection][chapter]!.contents.length
+            const ul = document.getElementById("ulId_" + chapter +'of'+this.activeSection)
             const li = document.createElement("li");
             const inputContent = document.createElement("input");
             const btnContent = document.createElement("button");
-            chapters[chapter].contents[index] = inputContent
+            chapters[this.activeSection][chapter]!.contents[index] = inputContent
 
-            li.id = 'contId_' + index;
+            li.id = 'contId_' + index+'of'+this.activeSection
             li.className = 'ulInfo-item'
 
-            inputContent.id = 'inputContentId_' + index;
-            inputContent.type = "text";
-            inputContent.className = 'ulInfo-input';
-            inputContent.placeholder = "Содержание";
+            inputContent.id = 'inputContentId_' + index +'of'+this.activeSection
+            inputContent.type = "text"
+            inputContent.className = 'ulInfo-input'
+            inputContent.placeholder = "Содержание"
             inputContent.value = text
             
-            btnContent.textContent = "-";
-            btnContent.id = 'btnContentId_' + index;
-            btnContent.className = 'btnComfort';
+            btnContent.textContent = "-"
+            btnContent.id = 'btnContentId_' + index +'of'+this.activeSection
+            btnContent.className = 'btnComfort'
             btnContent.onclick = () =>{
-                chapters[chapter].contents.splice(index, 1)
+                chapters[this.activeSection][chapter]!.contents.splice(index, 1)
                 li.remove()
             }
             

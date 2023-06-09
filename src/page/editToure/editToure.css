@@ -8,6 +8,9 @@ body{
     padding: 0 !important;
     box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
 }
+.collapse{
+    justify-content: flex-end;
+}
 .container-fluid{
     background-color: #161e32!important;
 }
@@ -41,6 +44,7 @@ body{
 .featuresWrap{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .features-item{
     margin: 5px;
@@ -50,7 +54,11 @@ body{
     height: 44px;
 }
 
-.selectpicker, .editPrice{
+.selectpicker, 
+.editPrice, 
+.editlength, 
+.editDate, 
+.editTitle{
     width: 170px !important;
     height: 30px !important;
     margin: 5px !important;
@@ -58,17 +66,41 @@ body{
     margin: 0;
     padding: 0;
     border-radius: 0;
-    border: none;
-    border: 1px solid #327fc3!important;
+    outline: none !important;
+    border: none !important;
+    border: 1px solid #327fc3 !important;
     background-color: #15213f;
     padding: 0 6px;
 }
-.selectpicker::-webkit-outer-spin-button,
-.selectpicker::-webkit-inner-spin-button{
+.editlength::-webkit-outer-spin-button,
+.editlength::-webkit-inner-spin-button,
+.editPrice::-webkit-outer-spin-button,
+.editPrice::-webkit-inner-spin-button{
     -webkit-appearance: none;
     margin: 0;
 }
-.select-country label, .select-servise label,
+.selectpicker:focus{
+    outline: none !important;
+    color: rgb(52, 168, 236);
+    background-color: #15213f;
+    border: 2px solid !important;
+    border-color: #024cba !important;
+    box-shadow: none !important;
+}
+.editTitle:focus, 
+.editDescription:focus,
+.editDate:focus, 
+.editlength:focus,
+.editPrice:focus{
+    outline: none !important;
+    border: 2px solid !important;
+    border-color: #024cba !important;
+    box-shadow: none !important;
+}
+.select-country label, 
+.select-servise label, 
+.date label, 
+.length label,
 .iprice label{
     margin-left: 5px !important;
 }
@@ -120,18 +152,6 @@ body{
     border-radius: 0px !important;
     padding: 0px 10px !important;
 }
-.editTitle, .editPrice{
-    color: #28abf7;
-    margin: 0px;
-    padding: 0px;
-    width: 185px;
-    height: 30px;
-    border-radius: 0px;
-    border: none;
-    border: 1px solid #327fc3 !important;
-    background-color: #15213f;
-    padding: 0px 6px;
-}
 .editDescription{
     color: #28abf7;
     margin: 0px;
@@ -144,12 +164,6 @@ body{
     resize: none;
     box-sizing: border-box;
     width: -webkit-fill-available;
-}
-.editTitle:focus .editDescription:focus, .editPrice:focus{
-    border: none;
-    outline: none;
-    border: 1px solid #0088ff !important;
-    background-color: #15213f;
 }
 .tab-pane{
     display: flex !important;

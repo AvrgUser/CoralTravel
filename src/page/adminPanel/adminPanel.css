@@ -45,6 +45,9 @@ body{
   margin-top: 25px;
   display: flex;
 }
+.container-tour{
+  width: auto !important;
+}
 .c-card{
   flex: 1;
   margin-left: 180px !important;
