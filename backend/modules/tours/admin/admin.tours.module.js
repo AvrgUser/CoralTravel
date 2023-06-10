@@ -41,6 +41,7 @@ module.exports = {
         }
       }, 'id')
     })
+
     app.post('/addtour', (request, response)=>{
       let name = request.body.name
       let city = request.body.city
@@ -50,7 +51,7 @@ module.exports = {
       let description = request.body.description
       let price = request.body.price
       let info = request.body.info
-      dbconnector.addTour(name, city, date, length, service, description, price, info, (error)=>{
+      if(name)dbconnector.addTour(name, city, date, length, service, description, price, info, (error)=>{
         if(error) {
           console.log(error)
           response.end(`{"result":"failed", "message": "server error"}`)
@@ -59,6 +60,11 @@ module.exports = {
         response.end(`{"result":"success"}`)
       })
     })
+
+    app.get('/addtour', (req, res)=>{
+      res.sendFile(directory+'/addTour.html')
+    })
+
     app.get('/edtour', (req, res)=>{
       res.sendFile(directory+'/editToure.html')
     })

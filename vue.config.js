@@ -8,6 +8,7 @@ module.exports = defineConfig({
     account: 'src/page/account/account.ts',
 
     editToure: 'src/page/editToure/editToure.ts',
-    fullInfoToure: 'src/page/fullInfoToure/fullInfoToure.ts'
+    fullInfoToure: 'src/page/fullInfoToure/fullInfoToure.ts',
+    addTour: 'src/page/addTour/addTour.ts'
   }
 })

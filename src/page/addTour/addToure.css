@@ -1,0 +1,217 @@
+*{
+    color: #1c8bcb;
+}
+body{
+    background-color: #0c1324!important;
+}
+.navbar {
+    padding: 0 !important;
+    box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
+}
+.collapse{
+    justify-content: flex-end;
+}
+.container-fluid{
+    background-color: #161e32!important;
+}
+.row {
+    margin: 0 !important;
+}
+
+.title {
+    margin-top: 30px;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.galeryinfo {
+    min-width: 410px;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.hotelinfo {
+    min-width: 300px;
+    width: 400px;
+    flex: 1;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.featuresWrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.features-item{
+    margin: 5px;
+}
+.btn-check{
+    width: 44px;
+    height: 44px;
+}
+
+.selectpicker, 
+.editPrice, 
+.editlength, 
+.editDate, 
+.editTitle{
+    width: 170px !important;
+    height: 30px !important;
+    margin: 5px !important;
+    color: #28abf7;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    outline: none !important;
+    border: none !important;
+    border: 1px solid #327fc3 !important;
+    background-color: #15213f;
+    padding: 0 6px;
+}
+.editlength::-webkit-outer-spin-button,
+.editlength::-webkit-inner-spin-button,
+.editPrice::-webkit-outer-spin-button,
+.editPrice::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+.selectpicker:focus{
+    outline: none !important;
+    color: rgb(52, 168, 236);
+    background-color: #15213f;
+    border: 2px solid !important;
+    border-color: #024cba !important;
+    box-shadow: none !important;
+}
+.editTitle:focus, 
+.editDescription:focus,
+.editDate:focus, 
+.editlength:focus,
+.editPrice:focus{
+    outline: none !important;
+    border: 2px solid !important;
+    border-color: #024cba !important;
+    box-shadow: none !important;
+}
+.select-country label, 
+.select-servise label, 
+.date label, 
+.length label,
+.iprice label{
+    margin-left: 5px !important;
+}
+.subMain{
+    display: grid;
+    width: 100%;
+}
+.save{
+    align-self: flex-end;
+    justify-self: right;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+.comfortLabel{
+    width: 44px;
+    height: 44px;
+    padding: 5px !important;
+}
+.comfortLabel img{
+    width: 32px!important;
+    height: 32px!important;
+}
+.cardinfo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: flex-end;
+}
+.fullInfo{
+    padding: 0px;
+    border: 1px solid #0d6efd !important;
+    flex-shrink: inherit;
+    margin: 20px;
+}
+.nav-item{
+    display: flex;
+    flex: 1;
+    height: 40px;
+}
+.nav-link{
+    border: 1px solid #0d6efd !important;
+    border-bottom: 2px solid #0d6efd !important;
+    flex: 1;
+    padding: 0px !important;
+    height: 40px;
+    white-space: nowrap;
+}
+.nav-link, .active{
+    border-radius: 0px !important;
+    padding: 0px 10px !important;
+}
+.editDescription{
+    color: #28abf7;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 0px;
+    border: none;
+    border: 1px solid #327fc3 !important;
+    background-color: #15213f;
+    padding: 0px 6px;
+    resize: none;
+    box-sizing: border-box;
+    width: -webkit-fill-available;
+}
+.tab-pane{
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+.ulinfo{
+    margin-top: 30px;
+}
+ul{
+    list-style-type: none;
+}
+.tComfort{
+    display: flex;
+    flex-wrap: wrap;
+}
+.ulInfo-input{
+    margin: 5px;
+    height: 35px !important;
+    width: 200px !important;
+    color: #28abf7;
+    margin: 0px;
+    border: 1px solid #327fc3 !important;
+    background-color: #15213f;
+    padding: 0px 6px;
+}
+.ulInfo-input:focus{
+    outline: none;
+    border: none !important;
+    border: 1px solid #0d6efd !important;
+}
+.ulInfo-input::placeholder{
+    color: #28abf7;
+}
+.titleComfort{
+    display: flex;
+}
+.btnComfort{
+    border-radius: 0 !important;
+    border: 1px solid #327fc3 !important;
+    background-color: #1b3b6b;
+    height: 35px;
+    width: 35px;
+    padding: 0px
+}
+.btnComfort:active{
+    background-color: #418dff;
+}
+.ulInfo-item{
+    margin-top: 8px;
+    display: flex;
+}

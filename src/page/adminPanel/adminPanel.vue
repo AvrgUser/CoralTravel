@@ -19,7 +19,9 @@
         <option value="3">Без Скидки</option>
         <option value="3">Популярное</option>
       </select>
-      <button type="button" class="btn btn-primary">Добавить тур</button>
+      <a href="http://localhost:3000/addtour">
+        <button type="button" class="btn btn-primary">Добавить тур</button>
+      </a>
     </nav>
     <div class="container c-card">
       <div class="row col-lg-8 col.xs-8 col-sm-8 container-tour" >

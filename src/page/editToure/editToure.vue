@@ -343,6 +343,7 @@ export default defineComponent({
                 });
             })
             }
+            console.log(info)
             const title_ = document.getElementById('title') as HTMLInputElement;
             const city_ = document.getElementById('select-country') as HTMLSelectElement;
             const date_ = document.getElementById('date') as  HTMLInputElement;
@@ -404,7 +405,7 @@ export default defineComponent({
             btnTitle.onclick = () =>{
                 console.log('deleted:')
                 console.log(chapters[index])
-                chapters.splice(index, 1)
+                chapters[this.activeSection].splice(index, 1)
                 ul.remove()
             }
 
@@ -454,6 +455,7 @@ export default defineComponent({
             btnContent.className = 'btnComfort'
             btnContent.onclick = () =>{
                 chapters[this.activeSection][chapter]!.contents.splice(index, 1)
+                console.log(chapters)
                 li.remove()
             }
             

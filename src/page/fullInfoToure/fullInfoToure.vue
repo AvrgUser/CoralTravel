@@ -65,7 +65,7 @@
                 <div class="hotelinfo">
                     <h6>{{title}}</h6>
                     <p>{{description}}</p>
-                    <div class="featuresWrap">
+                    <div class="featuresWrap" v-if="comforts">
                         <div v-if="comforts.includes(`-kfood;`)" class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детское меню в ресторане">
                             <img src="@/assets/comfort/menu.svg" alt="">
                         </div>
@@ -105,56 +105,21 @@
             </div>
             <div class="fullInfo">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-general" type="button" role="tab" aria-controls="pills-general" aria-selected="true">Общее</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-services" type="button" role="tab" aria-controls="pills-services" aria-selected="false">Услуги</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-rooms" type="button" role="tab" aria-controls="pills-rooms" aria-selected="false">Номера</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-food" type="button" role="tab" aria-controls="pills-food" aria-selected="false">Еда и напитки</button>
-                    </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-concept" type="button" role="tab" aria-controls="pills-concept" aria-selected="false">Концепция</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-restaurants" type="button" role="tab" aria-controls="pills-restaurants" aria-selected="false">Рестораны</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-bars" type="button" role="tab" aria-controls="pills-bars" aria-selected="false">Бары</button>
+                    <li class="nav-item" role="presentation" v-for="(sect, i) in sections" :key="sect">
+                        <button :class="'nav-link ' + (i==0?'active':'')" data-bs-toggle="pill" :data-bs-target="'#pills-'+i" type="button" role="tab" aria-controls="pills-general" :aria-selected="i==0?'true':'false'">{{sect}}</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab" tabindex="0">
-                        general
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-services" role="tabpanel" aria-labelledby="pills-services-tab" tabindex="0">
-                        services
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-rooms" role="tabpanel" aria-labelledby="pills-rooms-tab" tabindex="0">
-                        rooms
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-food" role="tabpanel" aria-labelledby="pills-food-tab" tabindex="0">
-                        food
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-concept" role="tabpanel" aria-labelledby="pills-concept-tab" tabindex="0">
-                        concept
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-restaurants" role="tabpanel" aria-labelledby="pills-restaurants-tab" tabindex="0">
-                        restaurants
-                    </div>
-
-                    <div class="tab-pane fade" id="pills-bars" role="tabpanel" aria-labelledby="pills-bars-tab" tabindex="0">
-                        bars
+                    <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel" :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
+                    v-for="(sect, i) in sections" :key="sect">
+                        
+                        <dl class="ulInfo">
+                            <div style="max-width: 268px;" v-for="(title, t) in chapters[i+1]" :key="title.title">
+                                <dt >{{title.title}}</dt>
+                                <dd style="margin-left: 14px;" v-for="content in chapters[i+1][t].contents" :key="content">{{ content }}</dd>
+                            </div>
+                            
+                        </dl>
                     </div>
                 </div>
             </div>
@@ -167,6 +132,9 @@
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib';
 
+
+    let chapters : {title:string, contents:string[]}[][] = []
+
     import footerComponent from '@/components/footer/footerComponent.vue';
     export default defineComponent({
         
@@ -177,7 +145,14 @@
             isAuth: false,
             title: '',
             description: '',
-            comforts: '',
+            comforts: "",
+            sections: ["Общее", "Услуги", "Номера", "Еда и напитки", "Концепция", "Рестораны", "Бары"],
+            activeSection: 0,
+            
+            get chapters() : {title:string, contents:string[]}[][] {
+                return chapters
+            }
+            
         }
         },
         components: {
@@ -188,8 +163,31 @@
                         this.title = res.name
                         this.description = res.description
                         this.comforts = res.comforts
-                    })
-        }
+
+                        if(res.info){
+                    let sections = (res.info as string).split('s/')
+                    this.activeSection--
+                    for(let s = 0;s<sections.length;s++){
+                        let section = sections[s]
+                        console.log(section)
+                        let titles = section.split('t/')
+                        chapters[s] = []
+                        if(section)for(let t = 1;t<titles.length;t++){                            
+                            let contents = titles[t].split(';')
+                            if(contents&&contents[0]){
+                                chapters[s][t-1] = {title: contents[0], contents: []}
+                                for(let i =1; i<contents.length;i++){
+                                    if(contents[i].length>0)
+                                    chapters[s][t-1].contents[chapters[s][t-1].contents.length] = contents[i]
+                                }
+                            }
+                        }
+                        this.activeSection++
+                    }
+                    console.log(chapters)
+                }
+            })
+        },
     })
     </script>
     
