@@ -5,8 +5,8 @@
                 <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
             </a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <div>
-                    <strong>Профиль: Name</strong>
+                <div v-if="isAuth">
+                    <a href="/account">{{firstName}} {{lastName}}</a>
                 </div>
             </div>
         </div>
@@ -136,12 +136,17 @@
     let chapters : {title:string, contents:string[]}[][] = []
 
     import footerComponent from '@/components/footer/footerComponent.vue';
+    import { Cookie } from '@/cookie/cookieRW';
+    import { User } from '@/userdata';
+
     export default defineComponent({
         
         name: "fullInfoToure",
         
         data(){
         return{
+            firstName: "f",
+            lastName: "f",
             isAuth: false,
             title: '',
             description: '',
@@ -159,6 +164,27 @@
             footerComponent,
         },
         beforeCreate(){
+            User.listen('isAuth', (value: any)=>this.isAuth = value)
+            User.listen('firstName', (value: any)=>this.firstName = value)
+            User.listen('lastName', (value: any)=>this.lastName = value)
+            User.value('update-user-name', ()=>Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
+                User.value('firstName', res.name)
+                User.value('lastName', res.lastname)
+                this.$forceUpdate()
+            }))
+            User.value('update-user-name')()
+            let login = Cookie.get('login')
+            let password = Cookie.get('password')
+            if(login!=''&&password!='')Api.tryAuth(login, password).then(result=>{
+                if(result.message=='authorized') {
+                    User.value('isAuth', true)
+                    console.log('yy')
+                }
+                else{
+                    console.log('nn')
+                }
+            })
+
             Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
                         this.title = res.name
                         this.description = res.description

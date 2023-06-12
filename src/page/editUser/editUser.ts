@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import account from './editToure.vue'
+import editUser from './editUser.vue'
 import { Vue } from 'vue-class-component'
 
-const a = createApp(account)
+const a = createApp(editUser)
 a.mount('#app')

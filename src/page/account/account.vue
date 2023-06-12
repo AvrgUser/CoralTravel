@@ -84,21 +84,13 @@
       </div>
     </div>
     <footerComponent></footerComponent>
-
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <strong class="me-auto">CoralTravel</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-      <div class="toast-body">
-        Данные успешно сохранены.
-      </div>
-    </div>
-</div>
+    <toats></toats>
+    <errToats></errToats>
 </template>
   
   <script lang="ts">
+  import toats from '@/components/toats.vue';
+  import errToats from '@/components/errToats.vue';
   import footerComponent from '@/components/footer/footerComponent.vue';
   import { Api } from '@/coral-api/apilib';
   import { Cookie } from '@/cookie/cookieRW';
@@ -107,7 +99,9 @@
   export default defineComponent({
     name: "accountPanel",
     components: { 
-      footerComponent
+      footerComponent,
+      errToats,
+      toats
     },
     data(){
       return{
@@ -144,6 +138,9 @@
         if(res.gender == 1){ this.man = false; this.woman = true}
         this.$forceUpdate;
       })
+      let toastEl = document.getElementById('liveToast')
+      let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+      toast.show()
     }
      },
     beforeMount(){

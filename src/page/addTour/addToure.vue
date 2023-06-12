@@ -4,11 +4,6 @@
             <a class="navbar-brand" href="#">
                 <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
             </a>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <div>
-                    <strong>Профиль: Name</strong>
-                </div>
-            </div>
         </div>
     </nav>
     <div class="section1">
@@ -185,12 +180,13 @@
                 </div>
             </div>
         </div>
-        <footerComponent></footerComponent>
+        <toats></toats>
     </div>
 
   </template>
     
 <script lang="ts">
+    import toats from '@/components/toats.vue';
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib';
 
@@ -219,6 +215,7 @@ export default defineComponent({
         }
     },
     components: {
+        toats,
     },
     mounted(){
         this.switchSection(0)
@@ -301,6 +298,11 @@ export default defineComponent({
             const service_ = document.getElementById('select-servise')  as HTMLSelectElement;
             const description_ = document.getElementById('description') as HTMLInputElement;
             const price_ = document.getElementById('price') as HTMLInputElement;
+
+            const toats_ = document.getElementById('toast-body')
+            if(title_.value == ""){toats_!.textContent = " Заполните название"; return;}
+            if(description_.value == ""){ toats_!.textContent = " Заполните описание"; return;}
+            if(price_.value == ""){ toats_!.textContent = "Укажите цену"; return;}
 
             Api.addTour(title_.value, city_.value, date_.value, 
             new Number(length_.value),

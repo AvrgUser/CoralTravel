@@ -1,8 +1,12 @@
 const express = require('express')
+const fileUpload = require('express-fileupload');
 const app = express()
 app.set('view engine', 'ejs')
 
 app.use(express.json())
+app.use(fileUpload({
+  createParentPath: true
+}));
 
 const data = require('./server.data')
 const directory = data.directory
@@ -16,8 +20,6 @@ adminmodule.init(app)
 const tourmodule = require('./modules/tours/tours.module')
 tourmodule.init(app)
 
-const dbconnector = data.dbconnector
-
 app.use(express.static(directory))
 
 
@@ -30,9 +32,8 @@ app.get('/',(req,res)=>{
   res.sendFile(directory+'/index.html')
 })
 
-app.get('/cities',(req, res) => {
-  res.setHeader('Content-Type', 'text/plain')
-  res.end(dbconnector.getCitiesList())
+app.get('/eduser',(req, res)=>{
+  res.sendFile(directory+'/editUser.html')
 })
 
 // Запускаем сервер на порту 3000

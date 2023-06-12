@@ -9,7 +9,6 @@ module.exports = {
     }),
     app.get('/tourinfo',(req,res)=>{
         let id
-      
         if(req.query.id){
       
           id = req.query.id

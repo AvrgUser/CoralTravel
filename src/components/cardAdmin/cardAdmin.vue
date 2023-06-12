@@ -6,8 +6,6 @@
         </div>
         
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{hotel}}</li>
-
             <li class="list-group-item">{{city}} {{date}} {{ length}}</li>
             
             <li class="list-group-item">{{service}}</li>

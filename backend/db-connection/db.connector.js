@@ -79,7 +79,7 @@ module.exports = {
     // },
 
     getClientsList(callback){
-        selectionQuery('clients', '*', '', callback)
+        selectionQuery('clients', 'id, login', '', callback)
     },
 
     getClientInfo(login, callback, column='*'){
@@ -101,6 +101,14 @@ module.exports = {
             birthdate: `"${birth}"`,
             gender: `"${gender}"`,
         }, callback)
+    },
+
+    getUserInfo(id, callback, column='*'){
+        selectionQuery('clients', column,
+            {
+                id: `${id}`
+            },
+        callback)
     },
 
     updateUser(login, name, lastname, email, birth, gender, phone, callback){

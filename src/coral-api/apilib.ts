@@ -1,8 +1,8 @@
 export class Api {
     
-    static getCities() {
-        return fetch('/cities').
-        then(res=>res.text())
+    static getClientsList() {
+        return fetch('/users').
+        then(res=>res.json())
     }
     
     //message: "authorized"/"not authorized"
@@ -45,6 +45,10 @@ export class Api {
 
     static getClientInfo(login:string, password:string){
       return fetch(`/account?login=${login}&password=${password}`).then(res=>res.json())
+    }
+
+    static getUserInfo(id:Number){
+      return fetch(`/userinfo?id=${id}`).then(res=>res.json())
     }
 
     static getTourInfo(id:Number){

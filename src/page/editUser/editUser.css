@@ -1,0 +1,89 @@
+*{
+    color: #1c8bcb;
+  }
+  body{
+    min-width: 490px;
+    background-color: #0c1324 !important;
+  }
+  .navbar {
+    box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    background-color: #161e32 !important;
+  }
+  
+  .navbar-brand img{
+    width: 140px;
+  }
+  
+  .user-c {
+    justify-content: end !important;
+    margin-right: 15px !important;
+  }
+  
+  .d-flex {
+    margin-top: 25px;
+    margin-left: 20px;
+  }
+  
+  .content {
+    border: 1px solid #0d6efd !important;
+    border-radius: 6px;
+    padding: 20px !important;
+    margin-right: 20px;
+    max-width: 900px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 40px;
+
+  }
+  
+  .row {
+    margin-top: 20px !important;
+  }
+  
+  .form-last-name,
+  .form-first-name,
+  .form-email,
+  .form-date,
+  .form-number {
+    color: #28abf7;
+    border: none;
+    border: 1px solid #327fc3!important;
+    background-color: #15213f;
+    border-radius: 6px !important;
+    max-width: max-content !important;
+    min-width: 260px;
+    margin: 5px;
+    height: 35px;
+  }
+  .form-number:focus,
+  .form-last-name:focus,
+  .form-first-name:focus,
+  .form-date:focus {
+    border: 2px solid #0d6efd !important;
+    outline: none;
+  }
+  
+  .form-last-name,
+  .form-first-name,
+  .form-email,
+  .form-number,
+  .form-date {
+    padding-left: 10px !important;
+  }
+  
+  .input-group {
+    max-width: min-content !important;
+    padding: 0px !important;
+    margin: 5px;
+  }
+  
+  .button-save {
+    margin-bottom: 0px !important;
+  }
+  
+  .button-save button {
+    float: right;
+  }
