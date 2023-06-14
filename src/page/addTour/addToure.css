@@ -1,8 +1,8 @@
 *{
-    color: #1c8bcb;
+    color: #000000;
 }
 body{
-    background-color: #0c1324!important;
+    background-color: #ffffff!important;
 }
 .navbar {
     padding: 0 !important;
@@ -12,7 +12,7 @@ body{
     justify-content: flex-end;
 }
 .container-fluid{
-    background-color: #161e32!important;
+    background-color: #ffffff!important;
 }
 .row {
     margin: 0 !important;
@@ -20,6 +20,7 @@ body{
 
 .title {
     margin-top: 30px;
+    display: grid;
 }
 
 .main {
@@ -59,17 +60,18 @@ body{
 .editlength, 
 .editDate, 
 .editTitle{
+    font-weight: 600;
     width: 170px !important;
     height: 30px !important;
     margin: 5px !important;
-    color: #28abf7;
+    color: #000000;
     margin: 0;
     padding: 0;
     border-radius: 0;
     outline: none !important;
     border: none !important;
     border: 1px solid #327fc3 !important;
-    background-color: #15213f;
+    background-color: #d5d5d5;
     padding: 0 6px;
 }
 .editlength::-webkit-outer-spin-button,
@@ -81,8 +83,8 @@ body{
 }
 .selectpicker:focus{
     outline: none !important;
-    color: rgb(52, 168, 236);
-    background-color: #15213f;
+    color: #000000;
+    background-color: #d5d5d5;
     border: 2px solid !important;
     border-color: #024cba !important;
     box-shadow: none !important;
@@ -103,6 +105,9 @@ body{
 .length label,
 .iprice label{
     margin-left: 5px !important;
+}
+.editPrice::placeholder, .editlength::placeholder{
+    color: black
 }
 .subMain{
     display: grid;
@@ -144,6 +149,8 @@ body{
     border: 1px solid #0d6efd !important;
     border-bottom: 2px solid #0d6efd !important;
     flex: 1;
+    color: #000000 !important;
+    font-weight: bold;
     padding: 0px !important;
     height: 40px;
     white-space: nowrap;
@@ -153,17 +160,20 @@ body{
     padding: 0px 10px !important;
 }
 .editDescription{
-    color: #28abf7;
+    color: #000000;
     margin: 0px;
     padding: 0px;
     border-radius: 0px;
     border: none;
     border: 1px solid #327fc3 !important;
-    background-color: #15213f;
+    background-color: #d5d5d5;
     padding: 0px 6px;
     resize: none;
     box-sizing: border-box;
     width: -webkit-fill-available;
+}
+label{
+    font-weight: bold;
 }
 .tab-pane{
     display: flex !important;
@@ -183,10 +193,10 @@ ul{
     margin: 5px;
     height: 35px !important;
     width: 200px !important;
-    color: #28abf7;
+    color: #000000;
     margin: 0px;
     border: 1px solid #327fc3 !important;
-    background-color: #15213f;
+    background-color: #d5d5d5;
     padding: 0px 6px;
 }
 .ulInfo-input:focus{
@@ -195,7 +205,7 @@ ul{
     border: 1px solid #0d6efd !important;
 }
 .ulInfo-input::placeholder{
-    color: #28abf7;
+    color: #000000;
 }
 .titleComfort{
     display: flex;
@@ -203,13 +213,13 @@ ul{
 .btnComfort{
     border-radius: 0 !important;
     border: 1px solid #327fc3 !important;
-    background-color: #1b3b6b;
+    background-color: #0d6efd;
     height: 35px;
     width: 35px;
     padding: 0px
 }
 .btnComfort:active{
-    background-color: #418dff;
+    background-color: #ffffff;
 }
 .ulInfo-item{
     margin-top: 8px;

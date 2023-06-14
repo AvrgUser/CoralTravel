@@ -1,12 +1,9 @@
 *{
-    color: #1c8bcb;
-}
-body{
-    background-color: #0c1324 !important;
+    color: black;
 }
 .login-content{
     width: 402px;
-    border: solid 1px #0d6efd;
+    border: solid 1px #adadad;
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
     padding: 20px;
     position: relative;
@@ -16,18 +13,17 @@ body{
     border-radius: 6px;
 }
 .input-group-text, .form-control{
-    border-color: #327fc3 !important;
-    background-color: #15213f !important;
-    color: #1c8bcb;
+    border-color: #a0a0a0 !important;
+    background-color: #ffffff !important;
+    color: #000000;
 }
 .form-control:focus{
     border: 2px solid #0d6efd !important;
 }
 .form-control::placeholder{
-    background-color: #15213f !important;
-    color: #1c8bcb;
+    background-color: #afafaf !important;
+    color: #000000;
 }
-.form-control:-internal-autofill-fill{
-    background-color: #15213f !important;
-    color: #1c8bcb !important;
+.panelinput img{
+    width: 15px !important;
 }

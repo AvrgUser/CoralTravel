@@ -58,8 +58,8 @@
 </template>
   
   <script lang="ts">
-  import errToats from '@/components/errToats.vue';
   import toats from '@/components/toats.vue';
+  import errToats from '@/components/errToats.vue';
   import { Api } from '@/coral-api/apilib';
   import { Cookie } from '@/cookie/cookieRW';
   import { defineComponent } from 'vue';
@@ -67,8 +67,8 @@
   export default defineComponent({
     name: "accountPanel",
     components: { 
-        toats,
-        errToats
+      errToats,
+      toats
     },
     data(){
       return{
@@ -94,6 +94,10 @@
         Api.updateClientInfo(Cookie.get("login"), Cookie.get("password"), firstName_!.value , LastName_!.value, email_!.value, date_!.value, man_.checked?'male':'female', phone_!.value).then(res=>{
           if(res.result=='success') this.update()
         })
+        let toastEl = document.getElementById('liveToast')
+        let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+        document.getElementById('toastBody')!.textContent = "Изминения успешно сохранены"
+        toast.show()
       },
       update(){
       Api.getUserInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res=>{

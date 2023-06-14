@@ -1,15 +1,8 @@
 <template>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
-            </a>
-        </div>
-    </nav>
     <div class="section1">
         <div class="row">
             <div class="title">
-                <label for="" style="margin-left: 5px;">Название</label><br>
+                <label for="">Название</label>
                 <input type="text" class="editTitle" id="title">
             </div>
             <div class="main">
@@ -55,8 +48,8 @@
                 </div>
 
                 <div class="hotelinfo">
-                    <div class="desc">
-                        <label for="">Описание</label><br>
+                    <div>
+                        <label for="">Описание</label>
                         <textarea name="" id="description" class="editDescription" cols="30" rows="10"></textarea>
                     </div>
                     <div class="featuresWrap ">
@@ -181,12 +174,14 @@
             </div>
         </div>
         <toats></toats>
+        <errToats></errToats>
     </div>
 
   </template>
     
 <script lang="ts">
     import toats from '@/components/toats.vue';
+    import errToats from '@/components/errToats.vue';
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib';
 
@@ -216,6 +211,7 @@ export default defineComponent({
     },
     components: {
         toats,
+        errToats,
     },
     mounted(){
         this.switchSection(0)
@@ -308,6 +304,10 @@ export default defineComponent({
             new Number(length_.value),
             new Number(service_.value), description_.value, 
             new Number(price_.value), comforts, info)
+            let toastEl = document.getElementById('liveToast')
+            let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+            document.getElementById('toastBody')!.textContent = "Тур успешно добавлен"
+            toast.show()
         },
         plusTitle(text : any = '') {
             if (!chapters[this.activeSection]) chapters[this.activeSection] = []

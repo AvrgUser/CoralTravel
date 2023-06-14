@@ -1,13 +1,5 @@
 <template>
-    <div class="tab-pane fade" id="tour-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        <div class="sections options-tour">
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btncheck1">Скидки</label>
-            </div>
-            <br>
-            <button type="button" class="btn btn-primary btn-search">Найти</button>
-        </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
 
         <div class="row col-lg-8 col.xs-8 col-sm-8 container-tour" >
             <toureCard v-for="index in idToure" :key="index" :id="index"></toureCard>
