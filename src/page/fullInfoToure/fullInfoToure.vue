@@ -24,31 +24,12 @@
                 <div class="galeryinfo">
                     <div id="carouselExampleIndicators" class="carousel slide">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                            <button v-for="(photo,i) in photos" :key="photo" type="button" data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="i" :aria-label="'Slide '+i"
+                            :class="i==0?'active':''" aria-current="false"></button>
                         </div>
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="1.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="2.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="3.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="4.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="5.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="6.jpg" class="d-block w-100" alt="...">  
+                            <div :class="'carousel-item' + (i==0?' active':'')" v-for="(photo, i) in photos" :key="photo">
+                                <img :src="'/media/photo/tour/'+id+'/'+photo" class="d-block w-100" alt="...">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -134,6 +115,7 @@
 
 
     let chapters : {title:string, contents:string[]}[][] = []
+    let photos: string[] = []
 
     import footerComponent from '@/components/footer/footerComponent.vue';
     import { Cookie } from '@/cookie/cookieRW';
@@ -153,11 +135,17 @@
             comforts: "",
             sections: ["Общее", "Услуги", "Номера", "Еда и напитки", "Концепция", "Рестораны", "Бары"],
             activeSection: 0,
+            id: 0,
             
             get chapters() : {title:string, contents:string[]}[][] {
                 return chapters
-            }
+            },
             
+            get photos() : string[] {
+                return photos
+            }
+
+
         }
         },
         components: {
@@ -184,13 +172,16 @@
                     console.log('nn')
                 }
             })
+            this.id = (new URL(window.location.href).searchParams.get('id') as unknown as number)
 
-            Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
-                        this.title = res.name
-                        this.description = res.description
-                        this.comforts = res.comforts
+            Api.getTourInfo(this.id).then(res =>{
+                this.title = res.name
+                this.description = res.description
+                this.comforts = res.comforts
+                photos = res.media.split(';')
+                console.log('ph: '+photos)
 
-                        if(res.info){
+                if(res.info){
                     let sections = (res.info as string).split('s/')
                     this.activeSection--
                     for(let s = 0;s<sections.length;s++){
@@ -198,7 +189,7 @@
                         console.log(section)
                         let titles = section.split('t/')
                         chapters[s] = []
-                        if(section)for(let t = 1;t<titles.length;t++){                            
+                        if(section)for(let t = 1;t<titles.length;t++){
                             let contents = titles[t].split(';')
                             if(contents&&contents[0]){
                                 chapters[s][t-1] = {title: contents[0], contents: []}

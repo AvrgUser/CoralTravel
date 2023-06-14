@@ -15,31 +15,12 @@
                 <div class="galeryinfo">
                     <div id="carouselExampleIndicators" class="carousel slide">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                            <button v-for="(photo,i) in photos" :key="photo" type="button" data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="i" :aria-label="'Slide '+i"
+                            :class="i==0?'active':''" aria-current="false"></button>
                         </div>
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="1.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="2.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="3.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="4.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="5.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="6.jpg" class="d-block w-100" alt="...">  
+                            <div :class="'carousel-item' + (i==0?' active':'')" v-for="(photo, i) in photos" :key="photo">
+                                <img :src="'/media/photo/tour/'+id+'/'+photo" class="d-block w-100" alt="...">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -188,7 +169,7 @@
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib'
     
-
+    let photos: string[] = []
     let chapters : ({self: HTMLUListElement, title:HTMLInputElement, addContent: HTMLInputElement, contents:HTMLInputElement[]}|undefined) [][] = []
     let title_ : HTMLInputElement
 export default defineComponent({
@@ -209,6 +190,10 @@ export default defineComponent({
             price: 0,
             activeSection: 0,
             sections: ["Общее", "Услуги", "Номера", "Еда и напитки", "Концепция", "Рестораны", "Бары"],
+            
+            get photos() : string[] {
+                return photos
+            },
 
             menu: document.getElementById("r1") as HTMLInputElement,
             pool: document.getElementById("r2") as HTMLInputElement,
@@ -229,7 +214,8 @@ export default defineComponent({
     },
     mounted(){
         this.switchSection(0)
-        Api.getTourInfo(new URL(window.location.href).searchParams.get('id') as unknown as Number).then(res =>{
+
+        Api.getTourInfo(this.id).then(res =>{
                 this.title = res.name;
                 this.description = res.description;
                 this.city = res.city;
@@ -238,6 +224,9 @@ export default defineComponent({
                 this.hotel = res.hotel;
                 this.service = res.service;
                 this.price = res.price;
+                
+                photos = res.media.split(';')
+                console.log('ph: '+photos)
 
                 this.menu = document.getElementById("r1") as HTMLInputElement
                 this.pool = document.getElementById("r2") as HTMLInputElement

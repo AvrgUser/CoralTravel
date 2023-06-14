@@ -84,4 +84,13 @@ export class Api {
           {name: name, city: city, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
     }).then(res=>res.json())
     }
+
+    static uploadFile(file:File, id:number, category:string|number){
+      const data = new FormData()
+      data.append('file', file, file.type)
+      fetch('/save/photo/'+(category==0||category=='tour')?'tour':'user'+'/'+id, {
+        method: 'POST',
+        body: data
+      }).then(res => res.json())
+    }
 }

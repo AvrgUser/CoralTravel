@@ -20,6 +20,9 @@ adminmodule.init(app)
 const tourmodule = require('./modules/tours/tours.module')
 tourmodule.init(app)
 
+const mediamodule = require('./modules/media/media.module')
+mediamodule.init(app)
+
 app.use(express.static(directory))
 
 
@@ -34,6 +37,21 @@ app.get('/',(req,res)=>{
 
 app.get('/eduser',(req, res)=>{
   res.sendFile(directory+'/editUser.html')
+})
+
+app.post('/save/:type/:category/:id',(req, res)=>{
+  
+  let d1 = req.params.type=='video'?data.videos:req.params.type=='photo'?data.photos:undefined
+  let d2 = req.params.category=='tour'?'tours':req.params.type=='user'?'users':undefined
+  
+  console.log(req.body)
+  let file = req.files.file
+  let route = d1+`/${d2}/${req.params.id}/${file.name}`
+  if(!d1||!d2) res.end(JSON.stringify({result: 'error', message: 'wrong request query'}))
+  
+  console.log(route)
+
+  file.mv(route)
 })
 
 // Запускаем сервер на порту 3000
