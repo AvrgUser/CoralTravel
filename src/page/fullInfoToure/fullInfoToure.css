@@ -1,15 +1,18 @@
 *{
-    color: #1c8bcb;
+    color: #000000;
 }
 body{
-    background-color: #0c1324!important;
+    background-color: #ffffff!important;
 }
 .navbar {
     padding: 0 !important;
     box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
 }
+.collapse{
+    justify-content: flex-end;
+}
 .container-fluid{
-    background-color: #161e32!important;
+    background-color: #ffffff!important;
 }
 .row {
     margin: 0 !important;
@@ -17,16 +20,7 @@ body{
 
 .title {
     margin-top: 30px;
-}
-
-.title h4 {
-    max-width: fit-content;
-    float: left;
-}
-
-.option {
-    float: right;
-    margin-right: 20px;
+    display: grid;
 }
 
 .main {
@@ -51,26 +45,94 @@ body{
 .featuresWrap{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .features-item{
-    padding: 5px;
-    margin: 2px;
-    width: 44px; 
+    margin: 5px;
+}
+.btn-check{
+    width: 44px;
     height: 44px;
-    border: 1px solid;
-    border-color: #0d6efd;
-    border-radius: 6px;
 }
-.features-item img{
-    width: 32px; 
-    height: 32px;
+
+.selectpicker, 
+.editPrice, 
+.editlength, 
+.editDate, 
+.editTitle{
+    font-weight: 600;
+    width: 170px !important;
+    height: 30px !important;
+    margin: 5px !important;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    outline: none !important;
+    border: none !important;
+    border: 1px solid #327fc3 !important;
+    background-color: #d5d5d5;
+    padding: 0 6px;
 }
-.buy{
-    margin-top: 10px;
-    float: right;
+.editlength::-webkit-outer-spin-button,
+.editlength::-webkit-inner-spin-button,
+.editPrice::-webkit-outer-spin-button,
+.editPrice::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
 }
-.buy button{
-    margin-left: 5px;
+.selectpicker:focus{
+    outline: none !important;
+    color: #000000;
+    background-color: #d5d5d5;
+    border: 2px solid !important;
+    border-color: #024cba !important;
+    box-shadow: none !important;
+}
+.editTitle:focus, 
+.editDescription:focus,
+.editDate:focus, 
+.editlength:focus,
+.editPrice:focus{
+    outline: none !important;
+    border: 2px solid !important;
+    border-color: #024cba !important;
+    box-shadow: none !important;
+}
+.select-country label, 
+.select-servise label, 
+.date label, 
+.length label,
+.iprice label{
+    margin-left: 5px !important;
+}
+.editPrice::placeholder, .editlength::placeholder{
+    color: black
+}
+.subMain{
+    display: grid;
+    width: 100%;
+}
+.save{
+    align-self: flex-end;
+    justify-self: right;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+.comfortLabel{
+    width: 44px;
+    height: 44px;
+    padding: 5px !important;
+}
+.comfortLabel img{
+    width: 32px!important;
+    height: 32px!important;
+}
+.cardinfo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: flex-end;
 }
 .fullInfo{
     padding: 0px;
@@ -87,6 +149,8 @@ body{
     border: 1px solid #0d6efd !important;
     border-bottom: 2px solid #0d6efd !important;
     flex: 1;
+    color: #000000 !important;
+    font-weight: bold;
     padding: 0px !important;
     height: 40px;
     white-space: nowrap;
@@ -94,4 +158,70 @@ body{
 .nav-link, .active{
     border-radius: 0px !important;
     padding: 0px 10px !important;
+}
+.editDescription{
+    color: #000000;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 0px;
+    border: none;
+    border: 1px solid #327fc3 !important;
+    background-color: #d5d5d5;
+    padding: 0px 6px;
+    resize: none;
+    box-sizing: border-box;
+    width: -webkit-fill-available;
+}
+label{
+    font-weight: bold;
+}
+.tab-pane{
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+.ulinfo{
+    margin-top: 30px;
+}
+ul{
+    list-style-type: none;
+}
+.tComfort{
+    display: flex;
+    flex-wrap: wrap;
+}
+.ulInfo-input{
+    margin: 5px;
+    height: 35px !important;
+    width: 200px !important;
+    color: #000000;
+    margin: 0px;
+    border: 1px solid #327fc3 !important;
+    background-color: #d5d5d5;
+    padding: 0px 6px;
+}
+.ulInfo-input:focus{
+    outline: none;
+    border: none !important;
+    border: 1px solid #0d6efd !important;
+}
+.ulInfo-input::placeholder{
+    color: #000000;
+}
+.titleComfort{
+    display: flex;
+}
+.btnComfort{
+    border-radius: 0 !important;
+    border: 1px solid #327fc3 !important;
+    background-color: #0d6efd;
+    height: 35px;
+    width: 35px;
+    padding: 0px
+}
+.btnComfort:active{
+    background-color: #ffffff;
+}
+.ulInfo-item{
+    margin-top: 8px;
+    display: flex;
 }

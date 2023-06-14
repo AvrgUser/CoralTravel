@@ -5,8 +5,7 @@
                 <strong class="me-auto">CoralTravel</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
-                Успешно сохранено
+            <div class="toast-body" id="toastBody">
             </div>
         </div>
     </div>

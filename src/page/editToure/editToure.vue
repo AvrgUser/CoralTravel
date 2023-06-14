@@ -1,14 +1,8 @@
 <template>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
-            </a>
-        </div>
-    </nav>
     <div class="section1">
         <div class="row">
             <div class="title">
+                <label for="">Название</label>
                 <input type="text" class="editTitle" id="title" :value="title">
             </div>
             <div class="main">
@@ -35,7 +29,10 @@
                 </div>
 
                 <div class="hotelinfo">
-                    <textarea name="" id="description" class="editDescription" cols="30" rows="10" :value="description"></textarea>
+                    <div>
+                        <label for="">Описание</label>
+                        <textarea name="" id="description" class="editDescription" cols="30" rows="10" :value="description"></textarea>
+                    </div>
                     <div class="featuresWrap ">
 
                         <div class="features-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Детское меню в ресторане">
@@ -356,6 +353,7 @@ export default defineComponent({
             
             let toastEl = document.getElementById('liveToast')
             let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+            document.getElementById('toastBody')!.textContent = "Изминения успешно сохранены"
             toast.show()
         },
         plusTitle(text : any = '') {

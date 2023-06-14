@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
         appContacts
     </div>
 </template>

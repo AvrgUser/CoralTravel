@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-color: #161e32;
+    background-color: #ffffff;
 }
 .f-logo{
     max-width: fit-content;
@@ -13,7 +13,7 @@
     margin-top: 10px;
 }
 .f-logo a{
-    color: black;
+    color: #000000;
     font-weight: 600;
     text-decoration: underline !important;
 }

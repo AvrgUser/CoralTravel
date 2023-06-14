@@ -4,12 +4,12 @@
       <h3 class="modal-title fs-5" id="exampleModalToggleLabel">Вход:</h3>
     </div>
     <div class="modal-body">
-      <div class="input-group mb-3">
+      <div class="input-group mb-3 panelinput">
         <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/login.svg" width="14px" alt=""></span>
-        <input type="text" class="form-control" id="login" placeholder="Логин" autofocus="autofocus" aria-label="Login" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" id="login" placeholder="Логин" autofocus aria-label="Login" aria-describedby="basic-addon1">
       </div>
 
-      <div class="input-group mb-3">
+      <div class="input-group mb-3 panelinput">
         <span class="input-group-text" id="basic-addon1"><img src="@/assets/auth/password.svg" width="14px" alt=""></span>
         <input type="password" class="form-control" id="password" autocorrect="off"
         placeholder="Пароль" aria-label="Password" aria-describedby="basic-addon1">

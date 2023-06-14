@@ -1,71 +1,30 @@
 <template>
-  <div class="header">
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
+  <nav class="header">
+    <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Главная</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Туры</button>
+      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Контакты</button>
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Меню
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
-                type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Главная</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#tour-tab-pane" type="button"
-                role="tab" aria-controls="tour-tab-pane" aria-selected="false">Туры</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#stock-tab-pane"
-                type="button" role="tab" aria-controls="stock-tab-pane" aria-selected="false">Акции</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane"
-                type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Контакты</button>
-            </li>
-            <li class="nav-item dropdown dropstart">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Меню
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a type="button" data-bs-target="#userAgreement" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Правила обработки данных</a>
-                </li>
-                <li>
-                  <a type="button" data-bs-target="#privacyPolicy" data-bs-toggle="modal" style="padding-left: 15px; padding-right: 15px;">Политика конфиденциальности</a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Город</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" v-if="!isAuth" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Войти/Регистрация</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" v-if="isAuth" @click="logOut">Выйти</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <div v-if="isAuth">
-            <a href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
-          </div>
-        </div>
+        <ul class="dropdown-menu">
+          <li class="dropdown-item"><a type="button" data-bs-target="#userAgreement" data-bs-toggle="modal">Правила обработки данных</a></li>
+          <li class="dropdown-item"><a type="button" data-bs-target="#privacyPolicy" data-bs-toggle="modal">Политика конфиденциальности</a></li>
+          <li class="dropdown-item"><a href="#">Город</a></li>
+          <li class="dropdown-item"><a v-if="!isAuth" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Войти/Регистрация</a></li>
+        </ul>
       </div>
-    </nav>
-  </div>
+      <div v-if="isAuth">
+        <a href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
+      </div>
+    </div>
+  </nav>
 
   <div class="tab-content" id="myTabContent">
     <appMain></appMain>
     <appToure></appToure>
-    <appAction></appAction>
     <appContacts></appContacts>
   </div>
 
@@ -92,7 +51,6 @@ import userAgreement from "./components/user-agreement/userAgreement.vue";
 
 import appMain from "./components/appComponents/main.vue"
 import appToure from  "./components/appComponents/tour.vue"
-import appAction from  "./components/appComponents/action.vue"
 import appContacts from  "./components/appComponents/contacts.vue"
 
 import { Cookie } from "./cookie/cookieRW";
@@ -132,7 +90,6 @@ export default defineComponent({
     userAgreement,
     appMain,
     appToure,
-    appAction,
     appContacts
   },
   beforeCreate(){

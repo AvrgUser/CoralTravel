@@ -126,6 +126,11 @@
         Api.updateClientInfo(Cookie.get("login"), Cookie.get("password"), firstName_!.value , LastName_!.value, email_!.value, date_!.value, man_.checked?'male':'female', phone_!.value).then(res=>{
           if(res.result=='success') this.update()
         })
+        
+        let toastEl = document.getElementById('liveToast') as HTMLElement
+        let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+        document.getElementById('toastBody')!.textContent = "Изминение успешно сохранены";
+        toast.show()
       },
       update(){
       Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
@@ -138,9 +143,6 @@
         if(res.gender == 1){ this.man = false; this.woman = true}
         this.$forceUpdate;
       })
-      let toastEl = document.getElementById('liveToast')
-      let toast = new  (window as any)["bootstrap"].Toast(toastEl)
-      toast.show()
     }
      },
     beforeMount(){
