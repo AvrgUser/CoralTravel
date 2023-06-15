@@ -177,7 +177,11 @@
                 this.title = res.name
                 this.description = res.description
                 this.comforts = res.comforts
-                photos = res.media.split(';')
+                photos = []
+                let media = res.media as string[]
+                media.forEach(file => {
+                    if(file!='')photos.push(file)
+                });
                 console.log('ph: '+photos)
 
                 if(res.info){
