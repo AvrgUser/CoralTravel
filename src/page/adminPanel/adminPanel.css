@@ -89,19 +89,26 @@ body{
   border: 1px solid #327fc3!important;
   background-color: #e5e5e5;
   padding: 0 6px;
+  box-shadow: none !important;
+}
+.form-select::placeholder{
+  color: #000000 !important;
+}
+.search,
+.form-select{
+  height: 35px;
 }
 .form-select:focus {
-  color: #34a8ec;
+  color: #000000;
   background-color: #e5e5e5;
 }
 .add-t button{
-  height: 30px;
-  display: flex;
-}
-.add-t button{
-  height: 30px;
+  height: 35px;
+  align-items: center;
+  border-radius: 0;
   border-radius: 0px;
   padding: 0px 11px;
+
 }
 .row{
   display: flex;
@@ -109,4 +116,21 @@ body{
 }
 .users{
   display: grid;
+  margin-top: 20px;
+  justify-content: space-around;
+  grid-template-columns: repeat(auto-fill,160px);
+  text-align: left;
+}
+.users a{
+  text-decoration: none;
+  font-size: 20px;
+  color: #000;
+  border: 1px solid blue;
+  max-width: -moz-fit-content;
+  max-width: 150px;
+  padding: 4px 8px;
+  margin: 5px;
+  border-radius: 4px;
+  background-color: #e7e7e7;
+  white-space: pre;
 }

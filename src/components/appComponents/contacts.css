@@ -1,0 +1,30 @@
+.content-c{
+    display: flex !important;
+    justify-content: space-around;
+    margin: 40px;
+    border: 1px solid lightgrey;
+    border-radius: 6px;
+    padding: 31px;
+    flex-wrap: wrap;
+}
+.contacts strong{
+    font-size: 20px;
+}
+.set{
+    width: 45px !important;
+}
+.fc{
+    margin-top: 40px !important;
+}
+.mail{
+    display: grid;
+    font-size: 21px;
+    font-weight: 500;
+}
+.mail label{
+    font-size: 20px;
+    font-weight: bold;
+}
+.frame{
+    border: 5px solid lightgrey;
+}

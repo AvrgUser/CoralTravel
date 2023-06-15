@@ -9,8 +9,11 @@
                 <div class="galeryinfo">
                     <div id="carouselExampleIndicators" class="carousel slide">
                         <div class="carousel-indicators">
-                            <button v-for="(photo,i) in photos" :key="photo" type="button" data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="i" :aria-label="'Slide '+i"
-                            :class="i==0?'active':''" aria-current="false"></button>
+                            <button v-for="(photo,i) in photos" :key="photo" type="button" 
+                            data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="i" 
+                            :aria-label="'Slide '+i"
+                            :class="i==0?'active':''" aria-current="false">
+                            </button>
                         </div>
                         <div class="carousel-inner">
                             <div :class="'carousel-item' + (i==0?' active':'')" v-for="(photo, i) in photos" :key="photo">
@@ -28,8 +31,8 @@
                         </button>
                     </div>
                     <div>
-                        <input id = 'filepick' type="file">
-                        <button @click="addPhoto">Добавить</button>
+                        <input id = 'filepick' class="imgFile" type="file">
+                        <button class="btn btn-outline-primary" @click="addPhoto">Добавить</button>
                     </div>
                 </div>
 

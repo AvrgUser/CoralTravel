@@ -1,6 +1,6 @@
 <template>
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-
+        <search></search>
         <div class="row col-lg-12 col.xs-12 col-sm-12 container-tour">
             <toureCard v-for="index in idToure" :key="index" :id="index"></toureCard>
         </div>
@@ -13,8 +13,8 @@ import { defineComponent } from "vue";
 
 import toureCard from "../toure-card/toure-card.vue";
 
-import { Api
- } from "@/coral-api/apilib";
+import { Api } from "@/coral-api/apilib";
+import search from "../search/search.vue";
 export default defineComponent({
     name: "appTour",
     data(){
@@ -28,6 +28,7 @@ export default defineComponent({
     
     components: {
         toureCard,
+        search
     },
     beforeCreate(){
         Api.getToursList().then(res=>{

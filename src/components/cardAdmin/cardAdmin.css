@@ -8,6 +8,10 @@
 .card-body{
     text-align: center;
 }
+.card-body a{
+    text-align: center;
+    margin-left: 5px;
+}
 .list-group-flush{
     text-align: center;
 }

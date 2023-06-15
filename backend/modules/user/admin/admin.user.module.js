@@ -1,5 +1,5 @@
 const data = require('../../../server.data')
-const directory = data.directory
+// const directory = data.directory
 const dbconnector = data.dbconnector
 
 module.exports = {

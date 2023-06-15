@@ -10,13 +10,13 @@
             
             <li class="list-group-item">{{service}}</li>
             
-            <li class="list-group-item"><b>{{price}}₽</b></li>
+            <li class="list-group-item"><b>{{price}}₽/Чел</b></li>
         </ul>
         <div class="card-body">
             <a :href="link">
-                <button type="button" class="btn btn-primary">Редактировать</button>
+                <button type="button" style="margin-right: 5px;" class="btn btn-primary">Редактировать</button>
             </a>
-            <button type="button" class="btn btn-danger">Удалить</button>
+            <button type="button" class="btn btn-danger" @click="deleteMe">Удалить</button>
         </div>
     </div>
 </template>
@@ -43,10 +43,18 @@ import { defineComponent } from 'vue';
         }
     },
     methods:{
+      deleteMe(){
+        console.log('trying delete')
+        Api.deleteTour(this.id).then(res=>{
+          if(res.result=='success') {
+            this.ondelete()
+            console.log('deleted tour')
+          }
+        })
+      }
     },
-    props:['id'],
+    props:['id', 'ondelete'],
     created(){
-
       Api.getTourInfo(this.id).then(res=>{
         this.name = res.name;
         this.hotel = res.hotel;

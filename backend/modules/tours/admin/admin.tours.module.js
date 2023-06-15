@@ -1,10 +1,11 @@
 const data = require('../../../server.data')
+
 const directory = data.directory
 const dbconnector = data.dbconnector
 
 module.exports = {
   init(app){
-    app.post('/updtour', (request, response)=>{
+    app.put('/updtour', (request, response)=>{
       let id = request.query.id
       let name = request.body.name
       let city = request.body.city
@@ -66,7 +67,24 @@ module.exports = {
     })
 
     app.get('/edtour', (req, res)=>{
-      res.sendFile(directory+'/editToure.html')
+      if(req.query.id) res.sendFile(directory+'/editToure.html')
+      else{
+        res.statusCode = 404
+        res.end('you trying to access unexisting resource')
+      }
+    })
+
+    app.delete('/deltour', (req, res)=>{
+      let id = req.query.id
+      if(id){
+        data.dbconnector.deleteTour(id, (err)=>{
+          if(err){
+            console.log(err)
+            res.end(JSON.stringify({result:'fail', message: err.message}))
+          }
+          else res.end(JSON.stringify({result:'success'}))
+        })
+      }
     })
   }
 }

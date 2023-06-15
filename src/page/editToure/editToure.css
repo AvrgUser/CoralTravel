@@ -54,7 +54,14 @@ body{
     width: 44px;
     height: 44px;
 }
-
+.imgFile::file-selector-button {
+    background-color: #0167ff69;
+    border: 3px solid #0d6efd;
+}
+.imgFile::file-selector-button:hover {
+    background-color: #0167ff;
+    color: wheat;
+}
 .selectpicker, 
 .editPrice, 
 .editlength, 

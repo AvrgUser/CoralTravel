@@ -34,7 +34,7 @@ export class Api {
     static updateClientInfo(login:string, password:string, name:string, lname:string, email: string,
       birthdate:string, gender:string, phone: string) : Promise<any>{
       return fetch("/updateacc", {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
@@ -65,7 +65,7 @@ export class Api {
 
     static updateTourInfo(id:Number, name:string, city:string, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
       return fetch("/updtour?id="+id, {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
@@ -83,6 +83,12 @@ export class Api {
         body: JSON.stringify(
           {name: name, city: city, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
     }).then(res=>res.json())
+    }
+
+    static deleteTour(id:number){
+      return fetch('/deltour?id='+id,{
+        method: 'DELETE'
+      }).then(res=>res.json())
     }
 
     static uploadFile(file:File, name:string, id:number, category:string|number, type:string|number='photo'){

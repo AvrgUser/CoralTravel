@@ -59,6 +59,22 @@ function updateQuery(board, conditions, params, callback){
     return sendQuery(query, callback)
 }
 
+function deleteQuery(board, conditions, callback){
+    let query = `DELETE FROM \`${board}\` WHERE `
+    if(conditions!=''){
+        let keys = Object.keys(conditions)
+        for(let i=0;i<keys.length;i++){
+            query += `${keys[i]} = ${conditions[keys[i]]}`
+            if(i<keys.length-1) query +=' AND '
+        }
+    }else {
+        callback(new Error('Wrong conditions: '+conditions))
+        return
+    }
+    console.log(query)
+    return sendQuery(query, callback)
+}
+
 function sendQuery(query, callback){
     try{
         sql.query(query, callback)
@@ -74,8 +90,6 @@ module.exports = {
 
         return 'Moscow Saint-Petersburg Bryansk'
     },
-
-    // getToursList(params){
     // },
 
     getClientsList(callback){
@@ -199,6 +213,12 @@ module.exports = {
             description: `"${description}"`,
             price: `"${price}"`,
             info: `"${info}"`
+        }, callback)
+    },
+
+    deleteTour(id, callback){
+        deleteQuery('tours', {
+            id: `"${id}"`
         }, callback)
     },
 }

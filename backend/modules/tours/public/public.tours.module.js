@@ -5,8 +5,13 @@ const dbconnector = data.dbconnector
 module.exports = {
   init(app){
     app.get('/tour', (req, res)=>{
-      res.sendFile(directory+'/fullInfoToure.html')
-    }),
+      if(req.query.id) res.sendFile(directory+'/fullInfoToure.html')
+      else{
+        res.statusCode = 404
+        res.end('you trying to access unexisting resource')
+      }
+    })
+    
     app.get('/tourinfo',(req,res)=>{
         let id
         if(req.query.id){
@@ -20,9 +25,9 @@ module.exports = {
         else{
           console.log('no data')
         }
-      }),
+    })
       
-      app.get('/tours',(req,res)=>{
+    app.get('/tours',(req,res)=>{
         //let filters
         console.log(req.query)
 
@@ -37,6 +42,6 @@ module.exports = {
         else{
           console.log('no data')
         }
-      })
+    })
   }
 }

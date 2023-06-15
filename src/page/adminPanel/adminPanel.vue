@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand navbar-light bg-light">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
         </a>
       </nav>
       <div class="row">
-        <cardAdmin v-for="index in idToure" :key="index" :id="index"></cardAdmin>
+        <cardAdmin v-for="(id, i) in tours" :key="id" :id="id" :ondelete="()=>deleteTour(i)"></cardAdmin>
       </div>
     </div>
 
@@ -46,23 +46,23 @@
         <input type="search" placeholder="Найти" id="searchUser" class="search">
       </nav>
       <div class="users">
-        <a :href="'/eduser?id='+ user.id" v-for="user in loginUser" :key="user" :id="user.id">{{user.login}}</a>
+        <a :href="'/eduser?id='+ user.id" v-for="user in userlogins" :key="user" :id="user.id">{{user.login}}</a>
       </div>
     </div>
   </div>
 </template>
   
-  <script lang="ts">
+  <script>
   import cardAdmin from '@/components/cardAdmin/cardAdmin.vue';
   import { Api } from '@/coral-api/apilib';
-import { defineComponent } from 'vue';
+  import { defineComponent } from 'vue';
 
   export default defineComponent({
     name: "AdminPanel",
     data(){
       return{
-        idToure: new Array(),
-        loginUser: new Array()
+        tours: new Array(),
+        userlogins: new Array()
       }
     },
     components: { 
@@ -71,14 +71,19 @@ import { defineComponent } from 'vue';
     beforeCreate(){
         Api.getToursList().then(res=>{
             for(let i = 0; i < res.length;i++){
-                this.idToure[i] = res[i].id
+                this.tours[i] = res[i].id
             }
         })
         Api.getClientsList().then(res =>{
           for(let i = 0; i < res.length;i++){
-                this.loginUser[i] = {login:res[i].login, id:res[i].id}
+                this.userlogins[i] = {login:res[i].login, id:res[i].id}
             }
         })
+    },
+    methods:{
+      deleteTour(i){
+        this.tours.splice(i,1)
+      }
     }
   })
   </script>

@@ -1,5 +1,6 @@
 <template>
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+        <search></search>
         <div id="carouselExampleCaptions" class="carousel slide">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -99,13 +100,14 @@
   
 <script>
 import { defineComponent } from "vue";
-
+import search from "../search/search.vue";
 export default defineComponent({
     name: "appMain",
     methods:{
     
     },
     components: {
+        search
     }
 })
 </script>

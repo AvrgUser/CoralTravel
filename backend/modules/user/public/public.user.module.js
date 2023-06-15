@@ -78,7 +78,7 @@ module.exports = {
       }, 'password')
     })
 
-    app.post('/updateacc', (request, response)=>{
+    app.put('/updateacc', (request, response)=>{
       let login = request.body.login
       let password = request.body.password
       let name = request.body.name

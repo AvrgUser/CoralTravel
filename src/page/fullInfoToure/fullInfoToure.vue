@@ -90,15 +90,17 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel" :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
+                    <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel"
+                    :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
                     v-for="(sect, i) in sections" :key="sect">
                         
                         <dl class="ulInfo">
-                            <div style="max-width: 268px;" v-for="(title, t) in chapters[i+1]" :key="title.title">
+                            <div style="max-width: 268px;" 
+                            v-for="(title, t) in chapters[i+1]" :key="title.title">
                                 <dt >{{title.title}}</dt>
-                                <dd style="margin-left: 14px;" v-for="content in chapters[i+1][t].contents" :key="content">{{ content }}</dd>
+                                <dd style="margin-left: 14px;" 
+                                v-for="content in chapters[i+1][t].contents" :key="content">{{ content }}</dd>
                             </div>
-                            
                         </dl>
                     </div>
                 </div>
