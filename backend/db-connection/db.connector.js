@@ -153,8 +153,36 @@ module.exports = {
             description: `"${description}"`,
             price: `"${price}"`,
             info: `"${info}"`,
-            comforts: `"${comforts}"`
+            comforts: `"${comforts}"`,
         }, callback)
+    },
+
+    appendTourMedia(id, media){
+        updateQuery('tours',
+        {
+            id: `"${id}"`,
+        },
+        {
+            media: `CONCAT(media, ";${media}")`
+        })
+    },
+
+    reduceTourMedia(id, files){
+        if(!files.length) files = [files]
+        this.getTourInfo(id, (error, result)=>{
+            let media = result[0].media.split(';')
+            let leave = ''
+            media.forEach(file=>{
+                if(!files.includes(file))leave+=file+';'
+            })
+            updateQuery('tours',
+                {
+                    id: `"${id}"`,
+                },
+                {
+                    media: `"${leave}"`
+                })
+        }, 'media')
     },
 
     addTour(name, city, date, length, service, description, price, info, callback){

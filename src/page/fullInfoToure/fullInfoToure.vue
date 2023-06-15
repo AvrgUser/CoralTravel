@@ -79,7 +79,6 @@
                         </div>
                     </div>
                     <div class="buy">
-                        <button type="button" class="btn btn-outline-primary">Забронировать</button>
                         <button type="button" class="btn btn-outline-primary">Купить</button>
                     </div>
                 </div>

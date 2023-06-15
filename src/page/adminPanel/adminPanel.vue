@@ -2,9 +2,6 @@
   <div class="header">
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
-        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -25,13 +22,14 @@
 
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-      <nav class="nav flex-column nav-T">
+      <nav class="nav nav-T">
+
         <input type="search" placeholder="Найти" id="search" class="search">
-        <h6>Тип тура:</h6>
+
         <select class="form-select" aria-label="Default select example">
+          <option value="" hidden>Тип тура</option>
           <option value="1">Все</option>
           <option value="2">Скидки</option>
-          <option value="3">Без Скидки</option>
           <option value="3">Популярное</option>
         </select>
         <a href="/addtour" class="add-t">

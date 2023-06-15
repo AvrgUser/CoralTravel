@@ -15,6 +15,7 @@
                         <div class="carousel-inner">
                             <div :class="'carousel-item' + (i==0?' active':'')" v-for="(photo, i) in photos" :key="photo">
                                 <img :src="'/media/photo/tour/'+id+'/'+photo" class="d-block w-100" alt="...">
+                                <button style="margin-top: 50%;" @click="()=>deletePhoto(i)">Удалить</button>
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -25,6 +26,10 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
+                    </div>
+                    <div>
+                        <input id = 'filepick' type="file">
+                        <button @click="addPhoto">Добавить</button>
                     </div>
                 </div>
 
@@ -167,6 +172,7 @@
     import { Api } from '@/coral-api/apilib'
     
     let photos: string[] = []
+    let input : HTMLInputElement
     let chapters : ({self: HTMLUListElement, title:HTMLInputElement, addContent: HTMLInputElement, contents:HTMLInputElement[]}|undefined) [][] = []
     let title_ : HTMLInputElement
 export default defineComponent({
@@ -175,7 +181,7 @@ export default defineComponent({
         
     data(){
         return{
-            id: new URL(window.location.href).searchParams.get('id') as unknown as Number,
+            id: new URL(window.location.href).searchParams.get('id') as unknown as number,
             isAuth: false,
             title: '',
             description: '',
@@ -211,7 +217,7 @@ export default defineComponent({
     },
     mounted(){
         this.switchSection(0)
-
+        input = document.getElementById('filepick') as HTMLInputElement
         Api.getTourInfo(this.id).then(res =>{
                 this.title = res.name;
                 this.description = res.description;
@@ -222,7 +228,10 @@ export default defineComponent({
                 this.service = res.service;
                 this.price = res.price;
                 
-                photos = res.media.split(';')
+                let media = res.media.split(';') as string[]
+                media.forEach(file => {
+                    if(file!='')photos.push(file)
+                });
                 console.log('ph: '+photos)
 
                 this.menu = document.getElementById("r1") as HTMLInputElement
@@ -344,17 +353,41 @@ export default defineComponent({
             if(title_.value == ""){toats_!.textContent = " Заполните название"; return;}
             if(description_.value == ""){ toats_!.textContent = " Заполните описание"; return;}
             if(price_.value == ""){ toats_!.textContent = "Укажите цену"; return;}
-
-
             Api.updateTourInfo(this.id, title_.value, city_.value, date_.value, 
             new Number(length_.value),
-            new Number(service_.value), description_.value, 
+            new Number(service_.value), description_.value,
             new Number(price_.value), comforts, info)
             
             let toastEl = document.getElementById('liveToast')
-            let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+            let toast = new (window as any)["bootstrap"].Toast(toastEl)
             document.getElementById('toastBody')!.textContent = "Изминения успешно сохранены"
             toast.show()
+        },
+        addPhoto(){
+            let file = input.files![0]
+            let number = photos.length+1
+            Api.uploadFile(file, 'r'+number,this.id, 'tour').then(res=>{
+                if(res.result == 'success'){
+                    const ext = file.name.split('.')
+                    const filename = 'r'+number+'.'+ext[ext.length-1]
+                    photos.push(filename)
+                    console.log(photos)
+                    this.$forceUpdate()
+                }
+            })
+            
+        },
+        deletePhoto(photo:number){
+            let car = new (window as any)["bootstrap"].Carousel(document.querySelector('#carouselExampleIndicators'))
+            car.next()
+            Api.deleteFile(photos[photo], this.id ,'tour').then(res=>{
+                if(res.result == 'success'){
+                    console.log('deleted')
+                }
+            })
+            photos.splice(photo, 1)
+            console.log(photos)
+            this.$forceUpdate()
         },
         plusTitle(text : any = '') {
             if (!chapters[this.activeSection]) chapters[this.activeSection] = []

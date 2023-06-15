@@ -299,7 +299,6 @@ export default defineComponent({
             if(title_.value == ""){toats_!.textContent = " Заполните название"; return;}
             if(description_.value == ""){ toats_!.textContent = " Заполните описание"; return;}
             if(price_.value == ""){ toats_!.textContent = "Укажите цену"; return;}
-
             Api.addTour(title_.value, city_.value, date_.value, 
             new Number(length_.value),
             new Number(service_.value), description_.value, 

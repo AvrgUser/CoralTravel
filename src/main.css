@@ -67,3 +67,10 @@ body{
 .feature-box p{
     color: #000000;
 }
+
+
+.container-tour{
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+}

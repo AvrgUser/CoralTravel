@@ -50,6 +50,11 @@ body{
 .features-item{
     margin: 5px;
 }
+.features-item img{
+    width: 40px;
+    height: 40px;
+
+}
 .btn-check{
     width: 44px;
     height: 44px;

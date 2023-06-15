@@ -7,7 +7,7 @@
       </div>
       <div class="container user-c">
         <div class="user">
-          <strong>Личный кабинет: </strong>
+          <strong>Профиль: </strong>
           <strong>{{LastName}}</strong>&nbsp;
           <strong>{{firstName}}</strong>
         </div>
@@ -15,15 +15,20 @@
     </nav>
 
     <div class="d-flex align-items-start">
-      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Профиль</button>
-        <button class="nav-link" id="v-pills-tour-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tour" type="button" role="tab" aria-controls="v-pills-tour" aria-selected="false">Мои туры</button>
-        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favourites" type="button" role="tab" aria-controls="v-pills-favourites" aria-selected="false">Избранное</button>
-      </div>
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Профиль</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Избранное</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Мои туры</button>
+        </li>
+      </ul>
 
-      <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
           <div class="formContainer">
             <div class="content">
               <h4>Профиль</h4>
@@ -67,22 +72,23 @@
                 <div class="button-save">
                   <button type="button" class="btn btn-primary" id="liveToastBtn" @click="saveClientInfo()">Сохранить</button>
                 </div>
-
               </div>
             </div>
           </div>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
           
         </div>
-    
-        <div class="tab-pane fade" id="v-pills-tour" role="tabpanel" aria-labelledby="v-pills-tour-tab" tabindex="0">
-
-        </div>
-
-        <div class="tab-pane fade" id="v-pills-favourites" role="tabpanel" aria-labelledby="v-pills-favourites-tab" tabindex="0">
-
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+          
         </div>
       </div>
     </div>
+
+
+
+
+
     <footerComponent></footerComponent>
     <toats></toats>
     <errToats></errToats>

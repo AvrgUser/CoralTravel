@@ -12,8 +12,8 @@
         <ul class="dropdown-menu">
           <li class="dropdown-item"><a type="button" data-bs-target="#userAgreement" data-bs-toggle="modal">Правила обработки данных</a></li>
           <li class="dropdown-item"><a type="button" data-bs-target="#privacyPolicy" data-bs-toggle="modal">Политика конфиденциальности</a></li>
-          <li class="dropdown-item"><a href="#">Город</a></li>
           <li class="dropdown-item"><a v-if="!isAuth" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Войти/Регистрация</a></li>
+          <li class="dropdown-item"><a v-if="isAuth" @click="logOut()">Выйти</a></li>
         </ul>
       </div>
       <div v-if="isAuth">
@@ -21,10 +21,10 @@
       </div>
     </div>
   </nav>
-
   <div class="tab-content" id="myTabContent">
     <appMain></appMain>
     <appToure></appToure>
+    <appAction></appAction>
     <appContacts></appContacts>
   </div>
 

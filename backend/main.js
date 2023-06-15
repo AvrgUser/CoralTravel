@@ -1,5 +1,6 @@
 const express = require('express')
 const fileUpload = require('express-fileupload');
+const fs = require('fs')
 const app = express()
 app.set('view engine', 'ejs')
 
@@ -20,7 +21,7 @@ adminmodule.init(app)
 const tourmodule = require('./modules/tours/tours.module')
 tourmodule.init(app)
 
-const mediamodule = require('./modules/media/media.module')
+const mediamodule = require('./modules/media/media.module');
 mediamodule.init(app)
 
 app.use(express.static(directory))
@@ -39,19 +40,32 @@ app.get('/eduser',(req, res)=>{
   res.sendFile(directory+'/editUser.html')
 })
 
-app.post('/save/:type/:category/:id',(req, res)=>{
+app.delete('/remove/:type/:category/:id/:name',(req, res)=>{
   
   let d1 = req.params.type=='video'?data.videos:req.params.type=='photo'?data.photos:undefined
   let d2 = req.params.category=='tour'?'tours':req.params.type=='user'?'users':undefined
   
   console.log(req.body)
-  let file = req.files.file
-  let route = d1+`/${d2}/${req.params.id}/${file.name}`
-  if(!d1||!d2) res.end(JSON.stringify({result: 'error', message: 'wrong request query'}))
+  let route = d1+`/${d2}/${req.params.id}/${req.params.name}`
+  if(!d1||!d2||!req.params.name||!req.params.id||!fs.existsSync(route)) {
+    console.log(route)
+    res.end(JSON.stringify({result: 'error', message: 'wrong request query'}))
+    return
+  }
   
-  console.log(route)
+  console.log('saved '+route)
 
-  file.mv(route)
+  if(d2=='tours') {
+    data.dbconnector.reduceTourMedia(req.params.id, req.params.name)
+  }
+  else if(d2=='users'){
+    data.dbconnector.reduceTourMedia(req.params.id, req.params.name)
+  }
+  else{
+    res.end(JSON.stringify({result: 'fail', message: 'wrong query'}))
+  }
+  res.end(JSON.stringify({result: 'success'}))
+  fs.unlinkSync(route)
 })
 
 // Запускаем сервер на порту 3000

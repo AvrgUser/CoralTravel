@@ -1,7 +1,7 @@
 <template>
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
 
-        <div class="row col-lg-8 col.xs-8 col-sm-8 container-tour" >
+        <div class="row col-lg-12 col.xs-12 col-sm-12 container-tour">
             <toureCard v-for="index in idToure" :key="index" :id="index"></toureCard>
         </div>
 

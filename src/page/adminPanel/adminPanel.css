@@ -1,15 +1,15 @@
 *{
-  color: #1c8bcb;
+  color: #000000;
 }
 body{
   min-width: 490px;
-  background-color: #0c1324 !important;
+  background-color: white !important;
 }
 .header{
   box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
 }
 .container-fluid{
-  background-color: #161e32;
+  background-color: #ffffff;
 }
 .navbar{
   padding: 0  !important;
@@ -34,35 +34,36 @@ body{
 .nav-link{
   height: 48px;
   border: none !important;
-  color: #1c8bcb !important;
+  color: #000000 !important;
 } 
 .nav-link:hover{
   border: none !important;
-  color: #00a2ff !important;
+  color: #000000 !important;
 } 
 .active{
-  background-color: #0c1324 !important;
+  background-color: #ffffff !important;
   border: none !important;
-  color: #1c8bcb !important;
+  color: #000000 !important;
 }
 .nav-T{
-  max-width: fit-content;
-  float: left;
-  margin-top: 20px !important;
-  margin: 0px 20px;
+  display: flex;
+  flex-wrap: wrap !important;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 .search{
   font-size: 16px;
   height: 30px;
   width: 124px;
-  color: #28abf7;
+  color: #000000;
   margin: 0;
   padding: 0;
   border-radius: 0;
   outline: none!important;
   border: none!important;
   border: 1px solid #327fc3!important;
-  background-color: #15213f;
+  background-color: #e5e5e5;
   padding: 0 6px
 }
 .search:focus{
@@ -72,29 +73,35 @@ body{
   box-shadow: none!important
 }
 .search::placeholder{
-  color: #28abf7;
+  color: #000000;
 }
 .form-select{
   font-size: 16px;
   height: 30px;
   width: 124px;
   margin-top: 5px;
-  color: #28abf7;
+  color: #000000;
   margin: 0;
   padding: 0;
   border-radius: 0;
   outline: none!important;
   border: none!important;
   border: 1px solid #327fc3!important;
-  background-color: #15213f;
+  background-color: #e5e5e5;
   padding: 0 6px;
 }
 .form-select:focus {
   color: #34a8ec;
-  background-color: #15213f
+  background-color: #e5e5e5;
 }
-.add-t{
-  margin-top: 5px;
+.add-t button{
+  height: 30px;
+  display: flex;
+}
+.add-t button{
+  height: 30px;
+  border-radius: 0px;
+  padding: 0px 11px;
 }
 .row{
   display: flex;

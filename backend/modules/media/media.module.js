@@ -1,6 +1,6 @@
 const data = require('../../server.data')
-const directory = data.directory
-const dbconnector = data.dbconnector
+// const directory = data.directory
+// const dbconnector = data.dbconnector
 
 module.exports = {
   init(app){
@@ -16,8 +16,33 @@ module.exports = {
         res.sendFile(route)
       })
       
-    //   app.post('/create/:id', (req, res)=>{
+      app.post('/save/:type/:category/:id',(req, res)=>{
+  
+        let d1 = req.params.type=='video'?data.videos:req.params.type=='photo'?data.photos:undefined
+        let d2 = req.params.category=='tour'?'tours':req.params.type=='user'?'users':undefined
+        
+        console.log(req.body)
+        let file = req.files.file
+        let route = d1+`/${d2}/${req.params.id}/${file.name}`
+        if(!d1||!d2) {
+          res.end(JSON.stringify({result: 'error', message: 'wrong request query'}))
+          return
+        }
+        
+        console.log('saved '+route)
       
-    //   })
+        
+        if(d2=='tours') {
+          data.dbconnector.appendTourMedia(req.params.id, file.name)
+        }
+        else if(d2=='users'){
+          data.dbconnector.appendTourMedia(req.params.id, file.name)
+        }
+        else{
+          res.end(JSON.stringify({result: 'fail', message: 'wrong query'}))
+        }
+        res.end(JSON.stringify({result: 'success'}))
+        file.mv(route)
+      })
   }
 }

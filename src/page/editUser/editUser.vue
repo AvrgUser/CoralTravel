@@ -1,12 +1,8 @@
 <template>
     <nav class="navbar bg-body-tertiary">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" alt="CoralTravel" width="140px">
-            </a>
-        </div>
         <div class="container user-c">
             <div class="user">
+              наме
             </div>
         </div>
     </nav>

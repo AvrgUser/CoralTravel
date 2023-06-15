@@ -85,12 +85,24 @@ export class Api {
     }).then(res=>res.json())
     }
 
-    static uploadFile(file:File, id:number, category:string|number){
+    static uploadFile(file:File, name:string, id:number, category:string|number, type:string|number='photo'){
+      const route = `/save/${type}/${((category==0||category=='tour')?'tour':'user')}/${id}`
+      console.log(route)
       const data = new FormData()
-      data.append('file', file, file.type)
-      fetch('/save/photo/'+(category==0||category=='tour')?'tour':'user'+'/'+id, {
+      const ext = file.name.split('.')
+      const filename = name+'.'+ext[ext.length-1]
+      data.append('file', file, filename)
+      console.log(data.get('file'))
+      return fetch(route, {
         method: 'POST',
         body: data
+      }).then(res => res.json())
+    }
+
+    static deleteFile(name:string, id:number, category:string|number, type:string|number='photo'){
+      const route = `/remove/${type}/${((category==0||category=='tour')?'tour':'user')}/${id}/${name}`
+      return fetch(route, {
+        method: 'DELETE',
       }).then(res => res.json())
     }
 }
