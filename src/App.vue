@@ -19,8 +19,8 @@
         </ul>
       </div>
     </div>
-    <div v-if="isAuth" class="nameProfile">
-        <a href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
+    <div class="nameProfile">
+        <a v-if="isAuth" href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
     </div>
   </nav>
   <div class="tab-content" id="myTabContent">

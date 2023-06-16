@@ -9,6 +9,8 @@ body{
     justify-content: center;
     padding-top: 14px;
     box-shadow: 0 7px 7px -5px rgb(0 0 0 / 50%);
+    position: relative;
+    z-index: 1;
 }
 .header img{    
     width: 170px!important;

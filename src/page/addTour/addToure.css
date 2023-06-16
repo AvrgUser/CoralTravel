@@ -34,7 +34,27 @@ body{
     flex: 1;
     margin-bottom: 20px;
 }
-
+.carousel-item button{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5px;
+    margin: 0px !important;
+}
+.addImg{
+    margin-left: 10px;
+    margin-top: 20px;
+}
+.carousel {
+    min-height: 32px;
+}
+.carousel-control-next-icon {
+    background-image: url(https://cdn.icon-icons.com/icons2/2596/PNG/512/right_icon_154911.png) !important;
+}
+.carousel-control-prev-icon {
+    background-image: url(https://cdn.icon-icons.com/icons2/2596/PNG/512/right_icon_154911.png) !important;
+    transform: rotate(180deg);
+}
 .hotelinfo {
     min-width: 300px;
     width: 400px;
