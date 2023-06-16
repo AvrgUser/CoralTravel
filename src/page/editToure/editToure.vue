@@ -30,7 +30,7 @@
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
-                    <div>
+                    <div class="addImg">
                         <input id = 'filepick' class="imgFile" type="file">
                         <button class="btn btn-outline-primary" @click="addPhoto">Добавить</button>
                     </div>
