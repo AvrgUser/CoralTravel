@@ -1,6 +1,6 @@
 <template>
     <div class="card" style="width: 18rem;">
-        <img src="" class="card-img-top" alt="...">
+        <img v-if="photo!=undefined" :src="'/media/photo/tour/'+id+'/'+photo" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{name}}</h5>
         </div>
@@ -39,6 +39,7 @@ import { defineComponent } from 'vue';
           length: '',
           service: '',
           price: '',
+          photo: '',
           link: 'http://localhost:3000/edtour?id=' + this.id,
         }
     },
@@ -61,6 +62,13 @@ import { defineComponent } from 'vue';
         this.city = res.city;
         this.date = res.date;
         this.length = res.length;
+        let photos = res.media.split(';')
+        photos.forEach((photo: string) => {
+          if(photo!=''){
+            this.photo = photo
+            return
+          }
+        });
         switch(res.service){
           case 0:
             this.service = 'Самообслуживание'

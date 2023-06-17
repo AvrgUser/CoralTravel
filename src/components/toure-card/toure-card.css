@@ -27,4 +27,21 @@
     background-color: rgb(253, 253, 253) !important; 
     color: #000000 !important;
     border-color: #999999 !important;
+    display: flex;
+    justify-content: center;
+}
+.list-group-item-city img,
+.list-group-item-date img,
+.list-group-item-length img,
+.list-group-item-service img{
+    width: 24px;
+    margin: 0px 5px;
+}
+.list-group-item-city ,
+.list-group-item-date ,
+.list-group-item-length ,
+.list-group-item-service {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
 }
