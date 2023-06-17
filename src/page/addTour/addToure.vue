@@ -9,31 +9,16 @@
                 <div class="galeryinfo">
                     <div id="carouselExampleIndicators" class="carousel slide">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                            <button v-for="(photo,i) in photos" :key="photo.source" type="button" 
+                            data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="i" 
+                            :aria-label="'Slide '+i"
+                            :class="i==0?'active':''" aria-current="false">
+                            </button>
                         </div>
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="1.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="2.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="3.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="4.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="5.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="6.jpg" class="d-block w-100" alt="...">  
+                            <div :class="'carousel-item' + (i==0?' active':'')" v-for="(photo, i) in photos" :key="photo.source">
+                                <img :src="photo.source" class="d-block w-100" alt="...">
+                                <button style="margin-top: 50%;" @click="()=>deletePhoto(i)">Удалить</button>
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -44,6 +29,10 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
+                        <div class="addImg">
+                        <input id = 'filepick' class="imgFile" type="file">
+                        <button class="btn btn-outline-primary" @click="addPhoto">Добавить</button>
+                    </div>
                     </div>
                 </div>
 
@@ -157,18 +146,20 @@
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation" v-for="(sect, i) in sections" :key="sect">
                         <button :class="'nav-link ' + (i==0?'active':'')" data-bs-toggle="pill" :data-bs-target="'#pills-'+i" type="button" role="tab" aria-controls="pills-general" :aria-selected="i==0?'true':'false'"
-                         @click="()=>switchSection(i)">{{sect}}</button>
+                        @click="()=>switchSection(i)">{{sect}}</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel" :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
-                    v-for="(sect, i) in sections" :key="sect">
-                        <ul class="ulInfo">
-                            <div class="tComfort">
-                                <input type="text" class="ulInfo-input title"  :id="'coreTitle'+i" placeholder="Заголовок">
-                                <button type="button" class="btn btn-outline-info btnComfort" data-bs-placement="top" title="Новый список" @click="plusTitle">+</button>
-                            </div>
-                        </ul>
+                        v-for="(sect, i) in sections" :key="sect">
+                        <div class="fullInfoContent" :id="'tabcontent'+i">
+                            <ul class="ulInfo">
+                                <div class="tComfort">
+                                    <input type="text" class="ulInfo-input title"  :id="'coreTitle'+i" placeholder="Заголовок">
+                                    <button type="button" class="btn btn-outline-info btnComfort" data-bs-placement="top" title="Новый список" @click="plusTitle">+</button>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,6 +176,8 @@
     import { defineComponent } from 'vue';
     import { Api } from '@/coral-api/apilib';
 
+    let input : HTMLInputElement
+
     let chapters : ({self: HTMLUListElement, title:HTMLInputElement, addContent: HTMLInputElement, contents:HTMLInputElement[]}|undefined) [][] = []
     let title_ : HTMLInputElement
 export default defineComponent({
@@ -196,6 +189,7 @@ export default defineComponent({
             id: new URL(window.location.href).searchParams.get('id') as unknown as Number,
             activeSection: 0,
             sections: ["Общее", "Услуги", "Номера", "Еда и напитки", "Концепция", "Рестораны", "Бары"],
+            photos: [] as {file: File, source:any}[],
 
             menu: document.getElementById("r1") as HTMLInputElement,
             pool: document.getElementById("r2") as HTMLInputElement,
@@ -214,6 +208,7 @@ export default defineComponent({
         errToats,
     },
     mounted(){
+        input = document.getElementById('filepick') as HTMLInputElement
         this.switchSection(0)
         this.menu = document.getElementById("r1") as HTMLInputElement
         this.pool = document.getElementById("r2") as HTMLInputElement
@@ -302,17 +297,53 @@ export default defineComponent({
             Api.addTour(title_.value, city_.value, date_.value, 
             new Number(length_.value),
             new Number(service_.value), description_.value, 
-            new Number(price_.value), comforts, info)
-            let toastEl = document.getElementById('liveToast')
-            let toast = new  (window as any)["bootstrap"].Toast(toastEl)
-            document.getElementById('toastBody')!.textContent = "Тур успешно добавлен"
-            toast.show()
+            new Number(price_.value), comforts, info).then(res=>{
+                if(res.result=='success'){
+                    this.photos.forEach((photo, i) => {
+                        Api.uploadFile(photo.file, 'r'+i, res.id, 0)
+                    });
+                    let toastEl = document.getElementById('liveToast')
+                    let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+                    document.getElementById('toastBody')!.textContent = "Тур успешно добавлен"
+                    toast.show()
+                }
+                else{
+                    let toastEl = document.getElementById('liveErrToast')
+                    let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+                    document.getElementById('errToastBody')!.textContent = "Оибка при добавке тура"
+                    toast.show()
+                }
+            })
+            
+        },
+        addPhoto(){
+            let file = input.files![0]
+            let reader = new FileReader()
+            let source
+            reader.onload = (ev)=>{
+                source = ev.target?.result
+                this.photos[this.photos.length] ={file: file, source: source}
+                this.$forceUpdate()
+                this.$nextTick().then(()=>{
+                    let car = new (window as any)["bootstrap"].Carousel(document.querySelector('#carouselExampleIndicators'))
+                    car.to(this.photos.length-1)
+                })
+            }
+
+            reader.readAsDataURL(file)
+        },
+        deletePhoto(i:number){
+
+            this.photos.splice(i, 1)
+            this.$forceUpdate()
+            let car = new (window as any)["bootstrap"].Carousel(document.querySelector('#carouselExampleIndicators'))
+            car.next()
         },
         plusTitle(text : any = '') {
             if (!chapters[this.activeSection]) chapters[this.activeSection] = []
             let index = chapters[this.activeSection].length;
 
-            const general = document.getElementById("pills-"+this.activeSection);
+            const general = document.getElementById("tabcontent"+this.activeSection);
 
             const ul = document.createElement("ul");
             const li = document.createElement("li");

@@ -93,15 +93,16 @@
                     <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel"
                     :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
                     v-for="(sect, i) in sections" :key="sect">
-                        
-                        <dl class="ulInfo">
-                            <div style="max-width: 268px;" 
-                            v-for="(title, t) in chapters[i+1]" :key="title.title">
-                                <dt >{{title.title}}</dt>
-                                <dd style="margin-left: 14px;" 
-                                v-for="content in chapters[i+1][t].contents" :key="content">{{ content }}</dd>
-                            </div>
-                        </dl>
+                        <div class="fullInfoContent">
+                            <dl class="ulInfo" v-for="(title, t) in chapters[i+1]" :key="title.title">
+                                <div style="max-width: 268px;" 
+                                >
+                                    <dt >{{title.title}}</dt>
+                                    <dd style="margin-left: 14px;" 
+                                    v-for="content in chapters[i+1][t].contents" :key="content">{{ content }}</dd>
+                                </div>
+                            </dl>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,7 +181,7 @@
                 this.description = res.description
                 this.comforts = res.comforts
                 photos = []
-                let media = res.media as string[]
+                let media = res.media.split(';') as string[]
                 media.forEach(file => {
                     if(file!='')photos.push(file)
                 });
@@ -208,6 +209,7 @@
                     }
                     console.log(chapters)
                 }
+                this.$forceUpdate()
             })
         },
     })

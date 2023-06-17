@@ -52,13 +52,13 @@ module.exports = {
       let description = request.body.description
       let price = request.body.price
       let info = request.body.info
-      if(name)dbconnector.addTour(name, city, date, length, service, description, price, info, (error)=>{
+      if(name)dbconnector.addTour(name, city, date, length, service, description, price, info, (error, result)=>{
         if(error) {
           console.log(error)
           response.end(`{"result":"failed", "message": "server error"}`)
           return
         }
-        response.end(`{"result":"success"}`)
+        response.end(JSON.stringify({result:'success', id:result.insertId}))
       })
     })
 

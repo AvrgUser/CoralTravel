@@ -4,12 +4,18 @@
     border: 1px solid #adadad!important;
     background-color: rgb(253, 253, 253) !important;
     color: #000000 !important;
+    padding: 0 !important;
 }
 .card-body{
     text-align: center;
 }
 .card-body a{
     padding: 5px;
+}
+.card-img-top{
+    width: 100% !important;
+    object-fit: cover !important;
+    height: 220px !important;
 }
 .list-group-flush{
     text-align: center;

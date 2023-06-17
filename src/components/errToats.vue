@@ -5,7 +5,7 @@
                 <strong class="me-auto">Ошибка</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body" id="toast-body">
+            <div class="toast-body" id="errToastbody">
             </div>
         </div>
     </div>

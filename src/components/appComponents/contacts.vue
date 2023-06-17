@@ -5,16 +5,16 @@
                 <strong>Мы в соцсктях</strong>
                 <div class="f-contact fc">
                     <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Вконтакте">
-                        <img class="set" src="/img/vk.ef869e2b.svg" width="45px" alt="">
+                        <img class="set" src="@/assets/footer/vk.svg" width="45px" alt="">
                     </a>
                     <a href="" class="set" data-bs-toggle="tooltip" data-bs-placement="top" title="Одноклассники">
-                        <img class="set" src="/img/ok.23ea0e35.svg" width="45px" alt="">
+                        <img class="set" src="@/assets/footer/ok.svg" width="45px" alt="">
                     </a>
                     <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Ватсап">
-                        <img class="set" src="/img/whatsapp.8b675dcb.svg" width="45px" alt="">
+                        <img class="set" src="@/assets/footer/whatsapp.svg" width="45px" alt="">
                     </a>
                     <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Вайбер">
-                        <img class="set" src="/img/viber.aed90a30.svg" width="45px" alt="">
+                        <img class="set" src="@/assets/footer/viber.svg" width="45px" alt="">
                     </a>
                 </div>
                 <div class="mail">

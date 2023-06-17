@@ -33,6 +33,7 @@ body{
     min-width: 410px;
     flex: 1;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 .carousel-item button{
     position: absolute;
@@ -47,6 +48,12 @@ body{
 }
 .carousel {
     min-height: 32px;
+}
+.carousel-item{
+    padding: 0px 5px !important;
+}
+.active{
+    padding: 0px;
 }
 .carousel-control-next-icon {
     background-image: url(https://cdn.icon-icons.com/icons2/2596/PNG/512/right_icon_154911.png) !important;
@@ -167,6 +174,10 @@ body{
     flex-shrink: inherit;
     margin: 20px;
 }
+.fullInfoContent{
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
 .nav-item{
     display: flex;
     flex: 1;
@@ -182,7 +193,7 @@ body{
     height: 40px;
     white-space: nowrap;
 }
-.nav-link, .active{
+.nav-link{
     border-radius: 0px !important;
     padding: 0px 10px !important;
 }
@@ -201,10 +212,6 @@ body{
 }
 label{
     font-weight: bold;
-}
-.tab-pane{
-    display: flex !important;
-    flex-wrap: wrap !important;
 }
 .ulinfo{
     margin-top: 30px;

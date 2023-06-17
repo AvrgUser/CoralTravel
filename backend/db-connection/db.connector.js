@@ -186,12 +186,13 @@ module.exports = {
         this.getTourInfo(id, (error, result)=>{
             let media = result[0].media.split(';')
             let leave = ''
-            media.forEach((file, i)=>{
-                if(!files.includes(file)){
+            for(let i = 0; i< media.length;i++){
+                let file = media[i]
+                if(!files.includes(file)&&file!=''){
                     leave+=file
-                    if(i!=media.length-1)leave+=';'
+                    if(i<media.length-1)leave+=';'
                 }
-            })
+            }
             updateQuery('tours',
                 {
                     id: `"${id}"`,

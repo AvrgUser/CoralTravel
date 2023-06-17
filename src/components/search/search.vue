@@ -22,9 +22,9 @@
             
             <div class="dropdown">
               <!-- Кнопка для открытия модального окна -->
-              <input class="form-control" type="text" placeholder="Введите куда" data-bs-toggle="modal" data-bs-target="#cityModal" autocomplete="off" id="citymodalinput">
+              <input class="form-control" type="text" placeholder="Введите куда" data-bs-toggle="modal" :data-bs-target="'#cityModal'+id" autocomplete="off" :id="'citymodalinput'+id">
               <!-- Модальное окно -->
-              <div class="modal fade" id="cityModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
+              <div class="modal fade" :id="'cityModal'+id" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -64,33 +64,33 @@
                         <button class="btn cal-btn" type="button">
                           &lt;
                         </button>
-                        <strong class="cal-month-name">June</strong>
+                        <strong class="cal-month-name">июнь</strong>
                         <select class="form-select cal-month-name d-none">
-                          <option value="January">January</option>
-                          <option value="February">February</option>
-                          <option value="March">March</option>
-                          <option value="April">April</option>
-                          <option value="May">May</option>
-                          <option selected value="June">June</option>
-                          <option value="July">July</option>
-                          <option value="August">August</option>
-                          <option value="September">September</option>
-                          <option value="October">October</option>
-                          <option value="November">November</option>
-                          <option value="December">December</option>
+                          <option value="January">Январь</option>
+                          <option value="February">Февраль</option>
+                          <option value="March">Март</option>
+                          <option value="April">Апрель</option>
+                          <option value="May">Май</option>
+                          <option selected value="June">Июнь</option>
+                          <option value="July">Июль</option>
+                          <option value="August">Август</option>
+                          <option value="September">Сентябрь</option>
+                          <option value="October">октябрь</option>
+                          <option value="November">Ноябрь</option>
+                          <option value="December">Декабрь</option>
                         </select>
                         <button class="btn cal-btn" type="button">
                           &gt;
                         </button>
                       </div>
                       <div class="cal-weekdays text-body-secondary">
-                        <div class="cal-weekday">Sun</div>
-                        <div class="cal-weekday">Mon</div>
-                        <div class="cal-weekday">Tue</div>
-                        <div class="cal-weekday">Wed</div>
-                        <div class="cal-weekday">Thu</div>
-                        <div class="cal-weekday">Fri</div>
-                        <div class="cal-weekday">Sat</div>
+                        <div class="cal-weekday">ПН</div>
+                        <div class="cal-weekday">ВТ</div>
+                        <div class="cal-weekday">СР</div>
+                        <div class="cal-weekday">ЧТ</div>
+                        <div class="cal-weekday">ПТ</div>
+                        <div class="cal-weekday">СБ</div>
+                        <div class="cal-weekday">ВС</div>
                       </div>
                       <div class="cal-days">
                         <button class="btn cal-btn" disabled type="button">30</button>
@@ -206,16 +206,17 @@ export default defineComponent({
       selectedCity: ''
     }
   },
+  props: ['id'],
   
   methods:{
     changeButtonText(city:any) {
       if (this.selectedCity == city) {
         this.selectedCity = ''
-        const citymodalinput = document.getElementById('citymodalinput') as HTMLInputElement
+        const citymodalinput = document.getElementById('citymodalinput'+this.id) as HTMLInputElement
         citymodalinput.value=''
       }else{
         this.selectedCity = city;
-        const citymodalinput = document.getElementById('citymodalinput') as HTMLInputElement
+        const citymodalinput = document.getElementById('citymodalinput'+this.id) as HTMLInputElement
         citymodalinput.value=city
       }
     }

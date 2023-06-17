@@ -24,26 +24,38 @@ module.exports = {
         
         console.log(req.body)
         let file = req.files.file
-        let route = d1+`/${d2}/${req.params.id}/${file.name}`
+        let route = ''
         if(!d1||!d2) {
           res.end(JSON.stringify({result: 'error', message: 'wrong request query'}))
           return
         }
         
-        console.log('saved '+route)
-      
+        console.log('saving')
+        
+        route = d1+`/${d2}/${req.params.id}/`
+        let number = 0
+        d1+`/${d2}/${req.params.id}/`
+        let filename =file.name
+        while(fs.existsSync(route+filename)){
+          number++
+          filename=`(${number})${file.name}`
+        }
+        route+=filename
         
         if(d2=='tours') {
-          data.dbconnector.appendTourMedia(req.params.id, file.name)
+          data.dbconnector.appendTourMedia(req.params.id, filename)
         }
         else if(d2=='users'){
-          data.dbconnector.appendTourMedia(req.params.id, file.name)
+          data.dbconnector.appendTourMedia(req.params.id, filename)
         }
         else{
           res.end(JSON.stringify({result: 'fail', message: 'wrong query'}))
+          return
         }
-        res.end(JSON.stringify({result: 'success'}))
+        
+        res.end(JSON.stringify({result: 'success', name: filename}))
         file.mv(route)
+        console.log('saved ' + route)
       })
 
       app.delete('/remove/:type/:category/:id/:name',(req, res)=>{
@@ -53,7 +65,7 @@ module.exports = {
         
         console.log(req.body)
         let route = d1+`/${d2}/${req.params.id}/${req.params.name}`
-        if(!d1||!d2||!req.params.name||!req.params.id||!fs.existsSync(route)) {
+        if(!d1||!d2||!req.params.name||!req.params.id) {
           console.log(route)
           res.end(JSON.stringify({result: 'error', message: 'wrong request query'}))
           return

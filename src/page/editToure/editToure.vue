@@ -144,20 +144,22 @@
             </div>
             <div class="fullInfo">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation" v-for="(sect, i) in sections" :key="sect">
-                        <button :class="'nav-link ' + (i==0?'active':'')" data-bs-toggle="pill" :data-bs-target="'#pills-'+i" type="button" role="tab" aria-controls="pills-general" :aria-selected="i==0?'true':'false'"
-                         @click="()=>switchSection(i)">{{sect}}</button>
-                    </li>
-                </ul>
+                        <li class="nav-item" role="presentation" v-for="(sect, i) in sections" :key="sect">
+                            <button :class="'nav-link ' + (i==0?'active':'')" data-bs-toggle="pill" :data-bs-target="'#pills-'+i" type="button" role="tab" aria-controls="pills-general" :aria-selected="i==0?'true':'false'"
+                            @click="()=>switchSection(i)">{{sect}}</button>
+                        </li>
+                    </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel" :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
-                    v-for="(sect, i) in sections" :key="sect">
-                        <ul class="ulInfo">
-                            <div class="tComfort">
-                                <input type="text" class="ulInfo-input title"  :id="'coreTitle'+i" placeholder="Заголовок">
-                                <button type="button" class="btn btn-outline-info btnComfort" data-bs-placement="top" title="Новый список" @click="plusTitle">+</button>
-                            </div>
-                        </ul>
+                        v-for="(sect, i) in sections" :key="sect">
+                        <div class="fullInfoContent" :id="'tabcontent'+i">
+                            <ul class="ulInfo">
+                                <div class="tComfort">
+                                    <input type="text" class="ulInfo-input title"  :id="'coreTitle'+i" placeholder="Заголовок">
+                                    <button type="button" class="btn btn-outline-info btnComfort" data-bs-placement="top" title="Новый список" @click="plusTitle">+</button>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -171,10 +173,8 @@
 
     import errToats from '@/components/errToats.vue';
     import toats from '@/components/toats.vue';
-    import { defineComponent } from 'vue';
+    import { defineComponent, nextTick } from 'vue';
     import { Api } from '@/coral-api/apilib'
-    
-    let photos: string[] = []
     let input : HTMLInputElement
     let chapters : ({self: HTMLUListElement, title:HTMLInputElement, addContent: HTMLInputElement, contents:HTMLInputElement[]}|undefined) [][] = []
     let title_ : HTMLInputElement
@@ -197,9 +197,7 @@ export default defineComponent({
             activeSection: 0,
             sections: ["Общее", "Услуги", "Номера", "Еда и напитки", "Концепция", "Рестораны", "Бары"],
             
-            get photos() : string[] {
-                return photos
-            },
+            photos : [] as string[], 
 
             menu: document.getElementById("r1") as HTMLInputElement,
             pool: document.getElementById("r2") as HTMLInputElement,
@@ -233,9 +231,9 @@ export default defineComponent({
                 
                 let media = res.media.split(';') as string[]
                 media.forEach(file => {
-                    if(file!='')photos.push(file)
+                    if(file!='')this.photos.push(file)
                 });
-                console.log('ph: '+photos)
+                console.log('ph: '+this.photos)
 
                 this.menu = document.getElementById("r1") as HTMLInputElement
                 this.pool = document.getElementById("r2") as HTMLInputElement
@@ -368,35 +366,43 @@ export default defineComponent({
         },
         addPhoto(){
             let file = input.files![0]
-            let number = photos.length+1
+            let number = this.photos.length+1
+            
             Api.uploadFile(file, 'r'+number,this.id, 'tour').then(res=>{
                 if(res.result == 'success'){
-                    const ext = file.name.split('.')
-                    const filename = 'r'+number+'.'+ext[ext.length-1]
-                    photos.push(filename)
-                    console.log(photos)
+                    const filename = res.name
+                    this.photos.push(filename)
+                    console.log(this.photos)
+                    
                     this.$forceUpdate()
+                    nextTick().then(()=>{
+                        let car = new (window as any)["bootstrap"].Carousel(document.querySelector('#carouselExampleIndicators'))
+                        console.log(car._getItems())
+                        car.to(this.photos.length-1)
+                    })
+                    
                 }
+                else console.log('cant delete')
             })
-            
         },
         deletePhoto(photo:number){
-            let car = new (window as any)["bootstrap"].Carousel(document.querySelector('#carouselExampleIndicators'))
-            car.next()
-            Api.deleteFile(photos[photo], this.id ,'tour').then(res=>{
+            Api.deleteFile(this.photos[photo], this.id ,'tour').then(res=>{
                 if(res.result == 'success'){
                     console.log('deleted')
                 }
+                this.photos.splice(photo, 1)
+                console.log(this.photos)
+                this.$forceUpdate()
+                let car = new (window as any)["bootstrap"].Carousel(document.querySelector('#carouselExampleIndicators'))
+                car.next()
             })
-            photos.splice(photo, 1)
-            console.log(photos)
-            this.$forceUpdate()
+            
         },
         plusTitle(text : any = '') {
             if (!chapters[this.activeSection]) chapters[this.activeSection] = []
             let index = chapters[this.activeSection].length;
 
-            const general = document.getElementById("pills-"+this.activeSection);
+            const general = document.getElementById("tabcontent"+this.activeSection);
 
             const ul = document.createElement("ul");
             const li = document.createElement("li");
