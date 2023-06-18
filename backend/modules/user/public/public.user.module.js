@@ -4,12 +4,13 @@ const dbconnector = data.dbconnector
 
 module.exports = {
   init(app){
-    app.get('/users',(request, response) => {
-      response.setHeader('Content-Type', 'text/plain;charset=utf8')
-      dbconnector.getClientsList((error, result)=>{
-        if(error)console.log(error)
-        response.end(JSON.stringify(result))
-      })
+    app.get('/users',(req,res)=>{
+        //let filters
+        console.log(req.query)
+
+        dbconnector.getClientsList(req.query, (err, result)=>{
+          if(result) res.end(JSON.stringify(result))
+        })
     })
 
     app.get('/account', (request, response)=>{
@@ -112,5 +113,7 @@ module.exports = {
         }
       }, 'password')
     })
+
+    
   }
 }

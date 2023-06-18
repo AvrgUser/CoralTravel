@@ -8,6 +8,8 @@
 }
 .card-body{
     text-align: center;
+    display: flex;
+    align-items: center;
 }
 .card-body a{
     padding: 5px;
@@ -44,4 +46,23 @@
     display: flex;
     flex-wrap: wrap;
     align-content: center;
+    align-items: center;
+}
+
+
+.list-group-item-length label{
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin-right: 5px;
+    background: #dbdbdb;
+}
+.list-group-item{
+    margin: 6px;
+}
+.list-group-item-length{
+    margin-left: 5px;
+}
+.list-group-item{
+    display: flex;
+    flex-wrap: wrap;
 }

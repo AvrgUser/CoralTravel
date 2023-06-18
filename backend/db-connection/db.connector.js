@@ -7,9 +7,9 @@ let sql = require('mysql').createConnection({
     database: 'reil',
 })
 
-function selectionQuery(board, column, params, callback){
+function selectionQuery(board, column, params, callback, autoParseParams = true){
     let query = `SELECT ${column} FROM \`${board}\``
-    if(params!=''){
+    if(params!=''&&params!=undefined) {if(autoParseParams){
         query+=' WHERE '
         let keys = Object.keys(params)
         for(let i=0;i<keys.length;i++){
@@ -17,6 +17,8 @@ function selectionQuery(board, column, params, callback){
             if(i<keys.length-1) query +=' AND '
         }
     }
+    else query+=' WHERE '+params
+}
     console.log(query)
     return sendQuery(query, callback)
 }
@@ -92,8 +94,13 @@ module.exports = {
     },
     // },
 
-    getClientsList(callback){
-        selectionQuery('clients', 'id, login', '', callback)
+    getClientsList(filters, callback){
+        let params = ''
+        Object.keys(filters).forEach((param, i)=>{
+            if(param == 'login') params+=`login LIKE "%${filters[param]}%" `
+            if(i<filters.length-1)params+='AND '
+        })
+        selectionQuery('clients', 'id, login', params, callback, false)
     },
 
     getClientInfo(login, callback, column='*'){
@@ -141,6 +148,40 @@ module.exports = {
         }, callback)
     },
 
+    addFavourite(id, tour, callback){
+        updateQuery('clients',
+        {
+            id: `"${id}"`,
+        },
+        {
+            favourites: `CONCAT(favourites, ";${tour}")`
+        }, callback)
+    },
+
+    removeFavourite(id, tour, callback){
+        
+        if(!tour.length) tour = [''+tour]
+        console.log(tour[0])
+        this.getUserInfo(id, (error, result)=>{
+            let favourites = result[0].favourites.split(';')
+            let leave = ''
+            for(let i = 0; i< favourites.length;i++){
+                let file = favourites[i]
+                if(!tour.includes(file)&&file!=''){
+                    leave+=file
+                    if(i<favourites.length-1)leave+=';'
+                }
+            }
+            updateQuery('clients',
+                {
+                    id: `"${id}"`,
+                },
+                {
+                    favourites: `"${leave}"`
+                }, callback)
+        }, 'favourites')
+    },
+
     getTourInfo(id, callback, column='*'){
         selectionQuery('tours', column,
             {
@@ -149,8 +190,20 @@ module.exports = {
         callback)
     },
 
-    getToursList(callback){
-        selectionQuery('tours', 'id', '', callback)
+    getToursList(filters ,callback){
+
+        let params = ''
+        let keys = Object.keys(filters)
+        keys.forEach((param, i)=>{
+            if(param == 'name') params+=`name LIKE "%${filters[param]}%" `
+            else if(param == 'lengthMin') params+=`length >= ${filters[param]} `
+            else if(param == 'lengthMax') params+=`length <= ${filters[param]} `
+            else if(param == 'priceMin') params+=`price >= ${filters[param]} `
+            else if(param == 'priceMax') params+=`price <= ${filters[param]} `
+            else params+=`${param} = "${filters[param]}" `
+            if(i<keys.length-1)params+='AND '
+        })
+        selectionQuery('tours', 'id', params, callback, false)
     },
 
     updateTour( id, name, city, date, length, service, description, price, comforts, info, callback){

@@ -1,8 +1,13 @@
 export class Api {
     
-    static getClientsList() {
-        return fetch('/users').
-        then(res=>res.json())
+    static getClientsList(...args : {name:string, value: string|number}[]){
+      let query = ""
+      args.forEach((element:any, i)=>{
+        const key = Object.keys(element)[0]
+        query+=key+'='+element[key]
+        if(i<args.length-1) query+='&'
+      })
+      return fetch(`/users?${query}`).then(res=>res.json())
     }
     
     //message: "authorized"/"not authorized"
@@ -55,12 +60,37 @@ export class Api {
       return fetch(`/tourinfo?id=${id}`).then(res=>res.json())
     }
 
-    static getToursList(...args : string[]){
-      let query = " "
-      args.forEach(element=>{
-        query+=element[0]+':'+element[1]+';'
+    static addToFavourites(login:string, password:string, tourId:string){
+      return fetch("/addfav", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(
+          {login: login, password: password, tour: tourId})
+      }).then(res=>res.json())
+    }
+
+    static removeFavourite(login:string, password:string, tourId:string){
+      return fetch("/remfav", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(
+          {login: login, password: password, tour: tourId})
+      }).then(res=>res.json())
+    }
+
+    static getToursList(...args : {name:string, value: string|number}[]){
+      let query = ""
+      args.forEach((element:any, i)=>{
+        if(!element) return
+        const key = Object.keys(element)[0]
+        query+=key+'='+element[key]
+        if(i<args.length-1) query+='&'
       })
-      return fetch(`/tours?filters=${query}`).then(res=>res.json())
+      return fetch(`/tours?${query}`).then(res=>res.json())
     }
 
     static updateTourInfo(id:Number, name:string, city:string, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){

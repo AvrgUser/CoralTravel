@@ -1,6 +1,6 @@
 <template>
-    <div class="card" style="width: 18rem;">
-        <img v-if="photo!=undefined" :src="'/media/photo/tour/'+id+'/'+photo" class="card-img-top" alt="...">
+    <div class="card" id="tourCardBlock" style="width: 18rem;">
+        <img v-if="photo!=''" :src="'/media/photo/tour/'+id+'/'+photo" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{name}}</h5>
         </div>
@@ -17,7 +17,8 @@
                 {{date}}
               </div>
               <div class="list-group-item-length">
-                {{length}} Ночей
+                <label for="">{{length}}</label>
+                Ночей
               </div>
             </li>
             
@@ -34,6 +35,8 @@
             <a :href="link">
               <button type="button" class="btn btn-outline-primary">Подробнее</button>
             </a>
+            <button class="btn btn-outline-primary" v-if="!favourite" @click="addFav">Добавить в Избранное</button>
+            <button class="btn btn-outline-primary" v-else @click="delFav">Удалить из Избранного</button>
         </div>
     </div>
 </template>
@@ -59,13 +62,28 @@ export default defineComponent({
           price: '',
           photo: '',
           link: 'http://localhost:3000/tour?id=' + this.id,
+          favourite: false,
         }
     },
     methods:{
+      addFav(){
+        this.onFav(true, (result)=>{
+          if(result=='success') this.favourite = true
+          this.$forceUpdate()
+        })
+        
+      },
+      delFav(){
+        this.onFav(false, (result)=>{
+          if(result=='success') this.favourite = false
+          this.$forceUpdate()
+        })
+        
+      }
     },
-    props:['id'],
+    props:['id', 'inFavourites', 'onFav'],
     created(){
-
+      this.favourite = this.inFavourites
       Api.getTourInfo(this.id).then(res=>{
         this.name = res.name;
         this.city = res.city;
@@ -73,11 +91,11 @@ export default defineComponent({
         this.length = res.length;
         let photos = res.media.split(';')
         photos.forEach(photo => {
-          if(photo!=''){
+          if(photo!=''&&this.photo==''){
             this.photo = photo
             return
           }
-        });
+        })
         switch(res.service){
           case 0:
             this.service = 'Самообслуживание'
@@ -94,7 +112,7 @@ export default defineComponent({
         }
         
         this.price = res.price;
-        
+        this.$forceUpdate()
       })
     }
   })

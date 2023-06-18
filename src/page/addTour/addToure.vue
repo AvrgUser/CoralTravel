@@ -309,12 +309,11 @@ export default defineComponent({
                 }
                 else{
                     let toastEl = document.getElementById('liveErrToast')
-                    let toast = new  (window as any)["bootstrap"].Toast(toastEl)
+                    let toast = new (window as any)["bootstrap"].Toast(toastEl)
                     document.getElementById('errToastBody')!.textContent = "Оибка при добавке тура"
                     toast.show()
                 }
             })
-            
         },
         addPhoto(){
             let file = input.files![0]

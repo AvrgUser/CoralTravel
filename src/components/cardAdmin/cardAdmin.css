@@ -29,3 +29,37 @@
     color: #000000 !important;
     border-color: #999999 !important;
 }
+
+.list-group-item-city img,
+.list-group-item-date img,
+.list-group-item-length img,
+.list-group-item-service img{
+    width: 24px;
+    margin: 0px 5px;
+}
+.list-group-item-city ,
+.list-group-item-date ,
+.list-group-item-length ,
+.list-group-item-service {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+.list-group-item-length label{
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin-right: 5px;
+    background: #dbdbdb;
+}
+.list-group-item{
+    margin: 6px;
+    justify-content: center;
+}
+.list-group-item-length{
+    margin-left: 5px;
+}
+.list-group-item{
+    display: flex;
+    flex-wrap: wrap;
+}

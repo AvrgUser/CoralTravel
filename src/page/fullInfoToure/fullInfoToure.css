@@ -25,7 +25,13 @@ body{
     margin-top: 30px;
     display: grid;
 }
-
+.title h4{
+    display: flex;
+}
+.option button, .option strong{
+    margin: 12px;
+    float: right;
+}
 .main {
     display: flex;
     flex-wrap: wrap;
@@ -58,6 +64,11 @@ body{
     height: 40px;
 
 }
+.buy button{
+    float: right;
+    margin-top: 30px;
+}
+
 .btn-check{
     width: 44px;
     height: 44px;

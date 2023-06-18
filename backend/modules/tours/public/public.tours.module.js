@@ -31,11 +31,8 @@ module.exports = {
         //let filters
         console.log(req.query)
 
-        if(req.query.filters != undefined){
-      
-          //filters = req.query.filters
-      
-          dbconnector.getToursList((err, result)=>{
+        if(req.query != undefined){
+          dbconnector.getToursList(req.query, (err, result)=>{
             if(result) res.end(JSON.stringify(result))
           })
         }

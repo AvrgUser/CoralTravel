@@ -25,7 +25,7 @@
   </nav>
   <div class="tab-content" id="myTabContent">
     <appMain></appMain>
-    <appToure></appToure>
+    <appToure :favTours="favTours"></appToure>
     <appAction></appAction>
     <appContacts></appContacts>
   </div>
@@ -67,6 +67,7 @@ export default defineComponent({
       isAuth: false,
       firstName: "f",
       lastName: "f",
+      favTours: [] as string[]
     }
   },
   
@@ -110,6 +111,9 @@ export default defineComponent({
       if(result.message=='authorized') {
         User.value('isAuth', true)
         console.log('yy')
+        Api.getClientInfo(login, password).then(res=>{
+          this.favTours = res.favourites
+        })
       }
       else{
         console.log('nn')

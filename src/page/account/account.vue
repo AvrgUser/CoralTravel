@@ -77,10 +77,11 @@
           </div>
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-          
+          <div class="inFavourites">
+            <toureCard v-for="tour in favTours" :key="tour" :id="tour" :inFavourites="true" :onFav="(add = false, callback=()=>{})=>changeFav(tour, add, callback)"></toureCard>
+          </div>
         </div>
-        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-          
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">          
         </div>
       </div>
     </div>
@@ -98,6 +99,7 @@
   import toats from '@/components/toats.vue';
   import errToats from '@/components/errToats.vue';
   import footerComponent from '@/components/footer/footerComponent.vue';
+  import toureCard from '@/components/toure-card/toure-card.vue';
   import { Api } from '@/coral-api/apilib';
   import { Cookie } from '@/cookie/cookieRW';
   import { defineComponent } from 'vue';
@@ -107,7 +109,8 @@
     components: { 
       footerComponent,
       errToats,
-      toats
+      toats,
+      toureCard
     },
     data(){
       return{
@@ -118,6 +121,7 @@
         date: "",
         man: false,
         woman: false,
+        favTours: [] as string[]
       }
      },
      methods:{
@@ -138,6 +142,21 @@
         document.getElementById('toastBody')!.textContent = "Изминение успешно сохранены";
         toast.show()
       },
+      changeFav(tour: string, add:boolean, callback:Function){
+        if(add) Api.addToFavourites(Cookie.get("login"), Cookie.get("password"), tour).then(res=>{
+          if(res.result=='success'){
+            console.log('added')
+            callback(res.result)
+          }
+        })
+        else
+        Api.removeFavourite(Cookie.get("login"), Cookie.get("password"), tour).then(res=>{
+          if(res.result=='success'){
+            console.log('deleted')
+            callback(res.result)
+          }
+        })
+      },
       update(){
       Api.getClientInfo(Cookie.get("login"), Cookie.get("password")).then(res=>{
         this.firstName = res.name;
@@ -147,7 +166,11 @@
         this.date = res.birthdate;
         if(res.gender == 0){ this.man = true; this.woman = false}
         if(res.gender == 1){ this.man = false; this.woman = true}
-        this.$forceUpdate;
+        let tours = res.favourites.split(';') as string[]
+        tours.forEach(tour=>{
+          if(tour)this.favTours.push(tour)
+        })
+        this.$forceUpdate();
       })
     }
      },

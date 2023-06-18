@@ -195,6 +195,7 @@
 </template>
 
 <script lang="ts">
+import { Api } from "@/coral-api/apilib";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -219,6 +220,9 @@ export default defineComponent({
         const citymodalinput = document.getElementById('citymodalinput'+this.id) as HTMLInputElement
         citymodalinput.value=city
       }
+    },
+    beforeCreate(){
+      Api.getToursList();
     }
   }
 })

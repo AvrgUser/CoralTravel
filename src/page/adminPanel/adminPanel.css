@@ -102,13 +102,17 @@ body{
   color: #000000;
   background-color: #e5e5e5;
 }
-.add-t button{
+
+.add-t button, .search-a button{
   height: 35px;
   align-items: center;
   border-radius: 0;
   border-radius: 0px;
   padding: 0px 11px;
 
+}
+.add-t{
+  margin-left: 10px;
 }
 .row{
   display: flex;

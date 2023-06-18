@@ -6,7 +6,21 @@
         </div>
         
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{city}} {{date}} {{ length}}</li>
+          <li class="list-group-item">
+              <div class="list-group-item-city">
+                <img src="https://cdn.icon-icons.com/icons2/1642/PNG/512/airplanetakeoffboardtransportation_109793.png" width="10px" alt="">
+                <!-- {{city}}  -->
+                Екатеринбург
+              </div>
+              <div class="list-group-item-date">
+                <img src="https://cdn.icon-icons.com/icons2/936/PNG/512/calendar-with-spring-binder-and-date-blocks_icon-icons.com_73645.png" width="10px" alt="">
+                {{date}}
+              </div>
+              <div class="list-group-item-length">
+                <label for="">{{length}}</label>
+                Ночей
+              </div>
+            </li>
             
             <li class="list-group-item">{{service}}</li>
             
