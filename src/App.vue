@@ -25,7 +25,7 @@
   </nav>
   <div class="tab-content" id="myTabContent">
     <appMain></appMain>
-    <appToure :favTours="favTours"></appToure>
+    <appToure v-if="favTours.length>0" :favTours="favTours"></appToure>
     <appAction></appAction>
     <appContacts></appContacts>
   </div>
@@ -67,7 +67,7 @@ export default defineComponent({
       isAuth: false,
       firstName: "f",
       lastName: "f",
-      favTours: [] as string[]
+      favTours: ''
     }
   },
   
@@ -95,7 +95,7 @@ export default defineComponent({
     appToure,
     appContacts
   },
-  beforeCreate(){
+  created(){
     User.listen('isAuth', (value: any)=>this.isAuth = value)
     User.listen('firstName', (value: any)=>this.firstName = value)
     User.listen('lastName', (value: any)=>this.lastName = value)
@@ -113,6 +113,8 @@ export default defineComponent({
         console.log('yy')
         Api.getClientInfo(login, password).then(res=>{
           this.favTours = res.favourites
+          console.log(this.favTours)
+          this.$forceUpdate()
         })
       }
       else{

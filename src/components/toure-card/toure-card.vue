@@ -112,7 +112,6 @@ export default defineComponent({
         }
         
         this.price = res.price;
-        this.$forceUpdate()
       })
     }
   })

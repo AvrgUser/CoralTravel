@@ -2,7 +2,7 @@
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
         <search id="tour"></search>
         <div class="row col-lg-12 col.xs-12 col-sm-12 container-tour">
-            <toureCard v-for="tour in idToure" :key="tour" :id="tour" :inFavourites="favTours&&favTours.length!=undefined&&favTours.split(';').includes(''+tour)" :onFav="(add = false, callback = ()=>{})=>changeFav(tour, add, callback)"></toureCard>
+            <toureCard v-for="tour in idToure" :key="tour" :id="tour" :inFavourites="favTours&&favTours.split!=undefined&&favTours.split(';').includes(''+tour)" :onFav="(add = false, callback = ()=>{})=>changeFav(tour, add, callback)"></toureCard>
         </div>
 
     </div>
