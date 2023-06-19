@@ -14,7 +14,7 @@
     <div class="section1">
         <div class="row">
             <div class="title">
-                <h4>{{title}} <rating></rating></h4> 
+                <h4>{{title}}</h4> 
                 <div class="option">
                     <Button class="btn btn-outline-primary" v-if="!inFavourites" @click="addFav">Добавить в избранное</Button>
                     <Button class="btn btn-outline-primary" v-else @click="remFav">Убрать из избранного</Button>
@@ -80,7 +80,53 @@
                         </div>
                     </div>
                     <div class="buy">
-                        <button type="button" class="btn btn-outline-primary">Забронировать</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Забронировать</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">CoralTravel</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Cтоимость бронирования тура {{ title }} состовляет {{ price }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalSucces">Забронировать</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="exampleModalSucces" tabindex="-1" aria-labelledby="exampleModalSuccesLable" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">CoralTravel</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Тур {{ title }} успешно забронирован и добавлин в личный кабинет.
+                                    Ожидайте звонок консультаната в течении 2 часов.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="coment">
+                <div class="coments" id="coments">
+
+                </div>
+                <div class="addComent">
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <div>
+                        <rating></rating>
+                        <button type="button" class="btn btn-outline-primary btnAddCom">Отправить</button>
                     </div>
                 </div>
             </div>
@@ -142,6 +188,7 @@
             activeSection: 0,
             id: 0,
             inFavourites: false,
+            price: '',
             
             get chapters() : {title:string, contents:string[]}[][] {
                 return chapters
@@ -201,6 +248,7 @@
                 this.title = res.name
                 this.description = res.description
                 this.comforts = res.comforts
+                this.price = res.price
                 photos = []
                 let media = res.media.split(';') as string[]
                 media.forEach(file => {

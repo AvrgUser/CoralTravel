@@ -244,3 +244,32 @@ ul{
     margin-top: 8px;
     display: flex;
 }
+
+.coment{
+    margin: 10px 10px;
+}
+.addComent{
+    display: grid;
+    max-width: 585px;
+    margin-right: 20px;
+}
+.addComent input{
+    height: 40px;
+    width: 100%;
+}
+.addComent textarea{
+    border: 1px solid;
+    border-color: #0d6efd;
+    max-height: 120px;
+    min-height: 120px;
+    
+}
+.addComent textarea:focus{
+    outline: none;
+    border: 3px solid;
+    border-color: #0052cc
+}
+.btnAddCom{
+    float: right !important;
+    border-radius: 0px !important;
+}

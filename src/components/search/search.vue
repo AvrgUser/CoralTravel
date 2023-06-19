@@ -49,9 +49,33 @@
         </div>
         <div class="col">
           <div class="mt-3">
-            <input class="form-control" type="text" placeholder="Введите куда" autocomplete="off">
+            <div class="dropdown">
+              <!-- Кнопка для открытия модального окна -->
+              <input class="form-control" type="text" placeholder="Введите куда" data-bs-toggle="modal" :data-bs-target="'#countryModal'+id" autocomplete="off" :id="'countryModalinput'+id">
+              <!-- Модальное окно -->
+              <div class="modal fade" :id="'countryModal'+id" tabindex="-1" aria-labelledby="countryModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="countryModalLabel">Выберите город</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="country" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="container">
+                        <div class="row" id="cityGrid">
+                          <button v-for="country in countryes" :key="country" type="button" class="btn btn-secondary m-1" data-bs-dismiss="country" @click="changeButtonText2(country)">
+                            {{ country }}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="col">
           <div class="mt-3">
             <div class="dropdown">
@@ -203,8 +227,10 @@ export default defineComponent({
 
   data(){
     return{
+      countryes: ['Турция','Россия'],
       cities: ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Челябинск', 'Самара', 'Омск', 'Ростов-на-Дону'],
-      selectedCity: ''
+      selectedCity: '',
+      selectedCountryes: ''
     }
   },
   props: ['id'],
@@ -219,6 +245,17 @@ export default defineComponent({
         this.selectedCity = city;
         const citymodalinput = document.getElementById('citymodalinput'+this.id) as HTMLInputElement
         citymodalinput.value=city
+      }
+    },
+    changeButtonText2(country:any) {
+      if (this.selectedCountryes == country) {
+        this.selectedCountryes = ''
+        const countryModalinput = document.getElementById('countryModalinput'+this.id) as HTMLInputElement
+        countryModalinput.value=''
+      }else{
+        this.selectedCountryes = country;
+        const countryModalinput = document.getElementById('countryModalinput'+this.id) as HTMLInputElement
+        countryModalinput.value=country
       }
     },
     beforeCreate(){
