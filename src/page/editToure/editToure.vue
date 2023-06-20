@@ -362,7 +362,7 @@ export default defineComponent({
 
             
             const cityText = city_.options[city_.selectedIndex].textContent as string
-            const countryText = city_.options[country_.selectedIndex].textContent as string
+            const countryText = country_.options[country_.selectedIndex].textContent as string
 
             const toats_ = document.getElementById('toast-body')
             if(title_.value == ""){toats_!.textContent = " Заполните название"; return;}
