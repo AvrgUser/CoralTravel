@@ -52,7 +52,8 @@ module.exports = {
       let description = request.body.description
       let price = request.body.price
       let info = request.body.info
-      if(name)dbconnector.addTour(name, city, date, length, service, description, price, info, (error, result)=>{
+      let country = request.body.country
+      if(name)dbconnector.addTour(name, city, country, date, length, service, description, price, info, (error, result)=>{
         if(error) {
           console.log(error)
           response.end(`{"result":"failed", "message": "server error"}`)

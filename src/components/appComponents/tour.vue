@@ -12,6 +12,7 @@
 import { defineComponent } from "vue";
 import { Cookie } from "@/cookie/cookieRW";
 import toureCard from "../toure-card/toure-card.vue";
+import { User } from "@/userdata";
 
 import { Api } from "@/coral-api/apilib";
 import search from "../search/search.vue";
@@ -46,6 +47,12 @@ export default defineComponent({
         search
     },
     beforeCreate(){
+        
+        User.listen('tours', (v:string[])=>{
+            this.idToure = v
+            console.log(this.idToure)
+            this.$forceUpdate()
+        })
         console.log(this.favTours)
         Api.getToursList().then(res=>{
             for(let i = 0; i < res.length;i++){

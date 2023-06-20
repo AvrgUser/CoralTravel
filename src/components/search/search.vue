@@ -8,12 +8,6 @@
         <div class="col">
           <h4>Куда:</h4>
         </div>
-        <div class="col">
-          <h4>Период вылета:</h4>
-        </div>
-        <div class="col">
-          <h4>Ночей:</h4>
-        </div>
         <div class="col"></div>
       </div>
       <div class="row">
@@ -33,8 +27,8 @@
                     </div>
                     <div class="modal-body">
                       <div class="container">
-                        <div class="row" id="cityGrid">
-                          <button v-for="city in cities" :key="city" type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal" @click="changeButtonText(city)">
+                        <div v-if="cities.length>0" class="row" id="cityGrid">
+                          <button  v-for="city in cities" :key="city" type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal" @click="changeButtonText(city)">
                             {{ city }}
                           </button>
                         </div>
@@ -57,13 +51,13 @@
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="countryModalLabel">Выберите город</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="country" aria-label="Close"></button>
+                      <h5 class="modal-title" id="countryModalLabel">Выберите страну</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <div class="container">
-                        <div class="row" id="cityGrid">
-                          <button v-for="country in countryes" :key="country" type="button" class="btn btn-secondary m-1" data-bs-dismiss="country" @click="changeButtonText2(country)">
+                        <div v-if="countries.length>0" class="row" id="cityGrid">
+                          <button v-for="country in countries" :key="country" type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal" @click="changeButtonText2(country)">
                             {{ country }}
                           </button>
                         </div>
@@ -75,142 +69,9 @@
             </div>
           </div>
         </div>
-
-        <div class="col">
-          <div class="mt-3">
-            <div class="dropdown">
-              <input class="form-control dropdown-toggle" type="text" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off" placeholder="Введите период вылета">
-              <div id="dropdown-menu1" class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="event=>event.stopPropagation()">
-                <div class="d-block position-static p-2 mx-0 shadow rounded-3 w-340px" data-bs-theme="light">
-                  <div class="d-grid gap-1">
-                    <div class="cal">
-                      <div class="cal-month">
-                        <button class="btn cal-btn" type="button">
-                          &lt;
-                        </button>
-                        <strong class="cal-month-name">июнь</strong>
-                        <select class="form-select cal-month-name d-none">
-                          <option value="January">Январь</option>
-                          <option value="February">Февраль</option>
-                          <option value="March">Март</option>
-                          <option value="April">Апрель</option>
-                          <option value="May">Май</option>
-                          <option selected value="June">Июнь</option>
-                          <option value="July">Июль</option>
-                          <option value="August">Август</option>
-                          <option value="September">Сентябрь</option>
-                          <option value="October">октябрь</option>
-                          <option value="November">Ноябрь</option>
-                          <option value="December">Декабрь</option>
-                        </select>
-                        <button class="btn cal-btn" type="button">
-                          &gt;
-                        </button>
-                      </div>
-                      <div class="cal-weekdays text-body-secondary">
-                        <div class="cal-weekday">ПН</div>
-                        <div class="cal-weekday">ВТ</div>
-                        <div class="cal-weekday">СР</div>
-                        <div class="cal-weekday">ЧТ</div>
-                        <div class="cal-weekday">ПТ</div>
-                        <div class="cal-weekday">СБ</div>
-                        <div class="cal-weekday">ВС</div>
-                      </div>
-                      <div class="cal-days">
-                        <button class="btn cal-btn" disabled type="button">30</button>
-                        <button class="btn cal-btn" disabled type="button">31</button>
-                        <button class="btn cal-btn" type="button">1</button>
-                        <button class="btn cal-btn" type="button">2</button>
-                        <button class="btn cal-btn" type="button">3</button>
-                        <button class="btn cal-btn" type="button">4</button>
-                        <button class="btn cal-btn" type="button">5</button>
-                        <button class="btn cal-btn" type="button">6</button>
-                        <button class="btn cal-btn" type="button">7</button>
-                        <button class="btn cal-btn" type="button">8</button>
-                        <button class="btn cal-btn" type="button">9</button>
-                        <button class="btn cal-btn" type="button">10</button>
-                        <button class="btn cal-btn" type="button">11</button>
-                        <button class="btn cal-btn" type="button">12</button>
-                        <button class="btn cal-btn" type="button">13</button>
-                        <button class="btn cal-btn" type="button">14</button>
-                        <button class="btn cal-btn" type="button">15</button>
-                        <button class="btn cal-btn" type="button">16</button>
-                        <button class="btn cal-btn" type="button">17</button>
-                        <button class="btn cal-btn" type="button">18</button>
-                        <button class="btn cal-btn" type="button">19</button>
-                        <button class="btn cal-btn" type="button">20</button>
-                        <button class="btn cal-btn" type="button">21</button>
-                        <button class="btn cal-btn" type="button">22</button>
-                        <button class="btn cal-btn" type="button">23</button>
-                        <button class="btn cal-btn" type="button">24</button>
-                        <button class="btn cal-btn" type="button">25</button>
-                        <button class="btn cal-btn" type="button">26</button>
-                        <button class="btn cal-btn" type="button">27</button>
-                        <button class="btn cal-btn" type="button">28</button>
-                        <button class="btn cal-btn" type="button">29</button>
-                        <button class="btn cal-btn" type="button">30</button>
-                        <button class="btn cal-btn" type="button">31</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div class="col">
-          <div class="mt-3">
-            <div class="dropdown">
-              <input class="form-control dropdown-toggle" type="text" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" autocomplete="new-data" placeholder="Ночей">
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="event=>event.stopPropagation()">
-                <div class="container">
-                  <h5>Выберите кол-во дней</h5>
-                  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3" @click="event=>{
-                    const trg = event.target
-                    if (!trg.className.includes('btn-dis')) {
-                      console.log('active')
-                    }
-                  }">
-                      <button class="btn cal-btn" type="button">1</button>
-                      <button class="btn cal-btn btn-dis" type="button">2</button>
-                      <button class="btn cal-btn btn-dis" type="button">3</button>
-                      <button class="btn cal-btn btn-dis" type="button">4</button>
-                      <button class="btn cal-btn btn-dis" type="button">5</button>
-                      <button class="btn cal-btn btn-dis" type="button">6</button>
-                      <button class="btn cal-btn btn-dis" type="button">7</button>
-                      <button class="btn cal-btn btn-dis" type="button">8</button>
-                      <button class="btn cal-btn btn-dis" type="button">9</button>
-                      <button class="btn cal-btn btn-dis" type="button">10</button>
-                      <button class="btn cal-btn btn-dis" type="button">11</button>
-                      <button class="btn cal-btn btn-dis" type="button">12</button>
-                      <button class="btn cal-btn btn-dis" type="button">13</button>
-                      <button class="btn cal-btn btn-dis" type="button">14</button>
-                      <button class="btn cal-btn btn-dis" type="button">15</button>
-                      <button class="btn cal-btn btn-dis" type="button">16</button>
-                      <button class="btn cal-btn btn-dis" type="button">17</button>
-                      <button class="btn cal-btn btn-dis" type="button">18</button>
-                      <button class="btn cal-btn btn-dis" type="button">19</button>
-                      <button class="btn cal-btn btn-dis" type="button">20</button>
-                      <button class="btn cal-btn btn-dis" type="button">21</button>
-                      <button class="btn cal-btn btn-dis" type="button">22</button>
-                      <button class="btn cal-btn btn-dis" type="button">23</button>
-                      <button class="btn cal-btn btn-dis" type="button">24</button>
-                      <button class="btn cal-btn btn-dis" type="button">25</button>
-                      <button class="btn cal-btn btn-dis" type="button">26</button>
-                      <button class="btn cal-btn btn-dis" type="button">27</button>
-                      <button class="btn cal-btn btn-dis" type="button">28</button>
-                      <button class="btn cal-btn btn-dis" type="button">29</button>
-                      <button class="btn cal-btn btn-dis" type="button">30</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="col">
           <div class="mt-3 search">
-            <button class="btn btn-primary">Поиск</button> <!-- Кнопка "Поиск" -->
+            <button class="btn btn-primary" @click="search">Поиск</button> <!-- Кнопка "Поиск" -->
           </div>
         </div>
       </div>
@@ -220,6 +81,7 @@
 
 <script lang="ts">
 import { Api } from "@/coral-api/apilib";
+import { User } from "@/userdata";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -227,8 +89,8 @@ export default defineComponent({
 
   data(){
     return{
-      countryes: ['Турция','Россия'],
-      cities: ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Челябинск', 'Самара', 'Омск', 'Ростов-на-Дону'],
+      countries: [] as string[],
+      cities: [] as string[],
       selectedCity: '',
       selectedCountryes: ''
     }
@@ -236,6 +98,19 @@ export default defineComponent({
   props: ['id'],
   
   methods:{
+    search(){
+      let tours = [] as string[]
+      let city = document.getElementById('citymodalinput'+this.id) as HTMLInputElement
+      let country = document.getElementById('countryModalinput'+this.id) as HTMLInputElement
+        Api.getToursList({city: city.value?city.value:undefined}, {country: country.value?country.value:undefined}).then(res=>{
+            for(let i = 0; i < res.length;i++){
+                tours[i] = res[i].id
+            }
+            User.value('tours', tours)
+            document.getElementById('nav-home')!.setAttribute('class', 'tab-pane fade')
+            document.getElementById('nav-profile')!.setAttribute('class', 'tab-pane fade active show')
+        })
+    },
     changeButtonText(city:any) {
       if (this.selectedCity == city) {
         this.selectedCity = ''
@@ -258,9 +133,26 @@ export default defineComponent({
         countryModalinput.value=country
       }
     },
-    beforeCreate(){
-      Api.getToursList();
-    }
+  },
+  created(){
+    Api.getCities().then(res=>{
+        this.cities = [];
+        (res.cities as {city:string}[]).forEach(element => {
+          this.cities[this.cities.length] = element.city
+          
+        });
+        console.log(this.cities, res)
+        this.$forceUpdate()
+      })
+      Api.getCountries().then(res=>{
+        this.countries = [];
+        
+        (res.countries as {country:string}[]).forEach(element => {
+          this.countries[this.countries.length] = element.country
+        });
+        console.log(this.countries, res)
+        this.$forceUpdate()
+      })
   }
 })
 

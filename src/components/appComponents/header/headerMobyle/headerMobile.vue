@@ -1,11 +1,13 @@
 <template>
-    <nav class="header">
-    <div class="logoimg">
-      <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
-    </div>
-    <div class="nameProfile">
-        <a v-if="isAuth" href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
-    </div>
+    <nav class="mobile">
+    <div class="content-l-p">
+      <div class="logoimg">
+        <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" style="cursor: pointer;" @click="main()" width="140px !important">
+      </div>
+      <div class="nameProfile">
+          <a v-if="isAuth" href="/account">{{lastName}} {{firstName}}</a>
+      </div>
+    </div><br>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Главная</button>
       <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Туры</button>
@@ -25,20 +27,36 @@
   </nav>
 </template>
   
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
+import { Cookie } from "@/cookie/cookieRW";
+import { User } from "@/userdata";
 
 export default defineComponent({
-    name: "appTour",
+    name: "headerMobile",
     data(){
     return{
-      isAuth: false,
+        isAuth: false,
+        firstName: "f",
+        lastName: "f",
     }
   },
     methods:{
+      logOut(){
+        console.log('clearing')
+        Cookie.clear('login')
+        Cookie.clear('password')
+        window.location.replace(window.location.href)
+      },
+      main(){
+        window.location.replace(`http://${window.location.host}/`);
+      },
     },
-    props:['favTours'],
-
+      created(){
+        User.listen('isAuth', (value)=>this.isAuth = value)
+        User.listen('firstName', (value)=>this.firstName = value)
+        User.listen('lastName', (value)=>this.lastName = value)
+      },
 })
 </script>
   

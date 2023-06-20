@@ -1,0 +1,10 @@
+*{
+    color: #000000;
+}
+.navbar{
+  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
+}
+  body{
+    min-width: 490px;
+    background-color: #ffffff !important;
+  }

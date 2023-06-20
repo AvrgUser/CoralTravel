@@ -86,7 +86,8 @@ body{
 .editPrice, 
 .editlength, 
 .editDate, 
-.editTitle{
+.editTitle,
+.editCountry{
     font-weight: 600;
     width: 170px !important;
     height: 30px !important;
@@ -120,7 +121,8 @@ body{
 .editDescription:focus,
 .editDate:focus, 
 .editlength:focus,
-.editPrice:focus{
+.editPrice:focus
+.editCountry:focus{
     outline: none !important;
     border: 2px solid !important;
     border-color: #024cba !important;
@@ -130,10 +132,13 @@ body{
 .select-servise label, 
 .date label, 
 .length label,
-.iprice label{
+.iprice label,
+.icountry label{
     margin-left: 5px !important;
 }
-.editPrice::placeholder, .editlength::placeholder{
+.editPrice::placeholder, 
+.editlength::placeholder
+.editCountry::placeholder{
     color: black
 }
 .subMain{

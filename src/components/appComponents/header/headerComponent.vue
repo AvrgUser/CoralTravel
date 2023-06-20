@@ -1,7 +1,7 @@
 <template>
-    <nav class="header">
+  <nav class="header">
     <div class="logoimg">
-      <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
+      <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" style="cursor: pointer;" @click="main()" width="140px !important">
     </div>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Главная</button>
@@ -20,25 +20,42 @@
       </div>
     </div>
     <div class="nameProfile">
-        <a v-if="isAuth" href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
+        <a v-if="isAuth" href="/account">{{lastName}} {{firstName}}</a>
     </div>
   </nav>
 </template>
   
-<script lang="ts">
-import { defineComponent } from "vue";
+<script>
+import { defineComponent } from 'vue';
+import { Cookie } from '@/cookie/cookieRW';
+import { User } from "@/userdata";
+
 
 export default defineComponent({
-    name: "appTour",
+    name: "headerComponent",
     data(){
-    return{
-      isAuth: false,
-    }
-  },
-    methods:{
+      return{
+        isAuth: false,
+        firstName: "f",
+        lastName: "f",
+      }
     },
-    props:['favTours'],
-
+    methods:{
+    logOut(){
+        console.log('clearing')
+        Cookie.clear('login')
+        Cookie.clear('password')
+        window.location.replace(window.location.href)
+      },
+      main(){
+        window.location.replace(`http://${window.location.host}/`);
+      },
+    },
+    created(){
+      User.listen('isAuth', (value)=>{this.isAuth = value; this.$forceUpdate(); console.log('ddf ', value, this.isAuth)})
+      User.listen('firstName', (value)=>{this.firstName = value; this.$forceUpdate()})
+      User.listen('lastName', (value)=>this.lastName = value)
+    },
 })
 </script>
   

@@ -109,12 +109,20 @@
             <div class="subMain">
                 <div class="cardinfo">
                     <div class="select-country">
-                        <label for="">Город</label>
-                        <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                            <option value="0">China</option>
-                            <option value="1">Malayasia</option>
-                            <option value="2">Singapore</option>
-                        </select>  
+                        <label for="">Город вылета</label>
+                        <select class="form-control selectpicker" id="city" data-live-search="true">
+                            <option :value="i" v-for="(citys,i) in cities" :key="citys">
+                                {{citys}}
+                            </option>
+                        </select> 
+                    </div>
+                    <div class="icountry">
+                        <label for="">Страна назначения</label><br>
+                        <select class="form-control selectpicker" id="country" data-live-search="true">
+                            <option :value="i" v-for="(country,i) in countries" :key="country">
+                                {{country}}
+                            </option>
+                        </select> 
                     </div>
                     <div class="select-servise">
                         <label for="">Сервис</label>
@@ -135,7 +143,7 @@
                     </div>
                     <div class="iprice">
                         <label for="">Цена</label><br>
-                        <input type="number" class="editPrice" id="price" placeholder="цена">
+                        <input type="number" class="editPrice" id="price" placeholder="Цена">
                     </div>
                 </div>
                 <div class="save">
@@ -186,6 +194,8 @@ export default defineComponent({
         
     data(){
         return{
+            cities: ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 'Казань', 'Нижний Новгород', 'Челябинск', 'Самара', 'Омск', 'Ростов-на-Дону'] as string[],
+            countries: [ "Турция ","Таиланд","Мальдивы","Куба","ОАЭ","Египет",] as string[],
             id: new URL(window.location.href).searchParams.get('id') as unknown as Number,
             activeSection: 0,
             sections: ["Общее", "Услуги", "Номера", "Еда и напитки", "Концепция", "Рестораны", "Бары"],
@@ -283,18 +293,23 @@ export default defineComponent({
             }
             console.log(info)
             const title_ = document.getElementById('title') as HTMLInputElement;
-            const city_ = document.getElementById('select-country') as HTMLSelectElement;
+            const city_ = document.getElementById('city') as HTMLSelectElement;
             const date_ = document.getElementById('date') as  HTMLInputElement;
             const length_ = document.getElementById('length') as  HTMLInputElement;
             const service_ = document.getElementById('select-servise')  as HTMLSelectElement;
             const description_ = document.getElementById('description') as HTMLInputElement;
             const price_ = document.getElementById('price') as HTMLInputElement;
+            const country_ = document.getElementById('country') as HTMLSelectElement;
+
+            const cityText = city_.options[city_.selectedIndex].textContent as string
+            const countryText = city_.options[country_.selectedIndex].textContent as string
 
             const toats_ = document.getElementById('toast-body')
             if(title_.value == ""){toats_!.textContent = " Заполните название"; return;}
             if(description_.value == ""){ toats_!.textContent = " Заполните описание"; return;}
             if(price_.value == ""){ toats_!.textContent = "Укажите цену"; return;}
-            Api.addTour(title_.value, city_.value, date_.value, 
+
+            Api.addTour(title_.value, cityText, countryText, date_.value, 
             new Number(length_.value),
             new Number(service_.value), description_.value, 
             new Number(price_.value), comforts, info).then(res=>{
@@ -314,6 +329,7 @@ export default defineComponent({
                     toast.show()
                 }
             })
+            window.location.replace(`http://${window.location.host}/admin?login=admin&password=admin`);
         },
         addPhoto(){
             let file = input.files![0]

@@ -11,8 +11,9 @@ body{
 .navbar-brand img{
     width: 170px !important;
 }
-.collapse{
+.navbar-collapse{
     justify-content: flex-end;
+    max-width: fit-content;
 }
 .container-fluid{
     background-color: #ffffff!important;
@@ -43,7 +44,10 @@ body{
     flex: 1;
     margin-bottom: 20px;
 }
-
+.w-100{
+    max-width: 100% !important;
+    max-height: 350px !important;
+}
 .hotelinfo {
     min-width: 300px;
     width: 400px;
@@ -258,7 +262,7 @@ ul{
     width: 100%;
 }
 .addComent textarea{
-    border: 1px solid;
+    border: 2px solid;
     border-color: #0d6efd;
     max-height: 120px;
     min-height: 120px;
@@ -272,4 +276,25 @@ ul{
 .btnAddCom{
     float: right !important;
     border-radius: 0px !important;
+}
+.coments{
+    overflow: auto;
+    max-height: 450px;
+    border: 2px solid #0d6efd;
+    max-width: 585px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-bottom: 10px;
+}
+.comentUser{
+    border-bottom: 2px solid #0d6efd;
+    padding: 8px;
+    margin: 7px;
+    height: auto;   
+}
+.comentUser a{
+    margin: 0px;
+}
+.addComent textarea::placeholder{
+    color: #444444;
 }

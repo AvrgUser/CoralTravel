@@ -1,28 +1,7 @@
 <template>
-  <nav class="header">
-    <div class="logoimg">
-      <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
-    </div>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Главная</button>
-      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Туры</button>
-      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Контакты</button>
-      <div class="dropdown">
-        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Меню
-        </a>
-        <ul class="dropdown-menu">
-          <li class="dropdown-item"><a type="button" data-bs-target="#userAgreement" data-bs-toggle="modal">Правила обработки данных</a></li>
-          <li class="dropdown-item"><a type="button" data-bs-target="#privacyPolicy" data-bs-toggle="modal">Политика конфиденциальности</a></li>
-          <li class="dropdown-item"><a v-if="!isAuth" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Войти/Регистрация</a></li>
-          <li class="dropdown-item"><a v-if="isAuth" @click="logOut()">Выйти</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="nameProfile">
-        <a v-if="isAuth" href="http://localhost:3000/account.html">{{lastName}} {{firstName}}</a>
-    </div>
-  </nav>
+  <headerMobile v-if="mobile"></headerMobile>
+  <headerComponent v-else></headerComponent>
+
   <div class="tab-content" id="myTabContent">
     <appMain></appMain>
     <appToure v-if="favTours.length>0" :favTours="favTours"></appToure>
@@ -54,6 +33,8 @@ import userAgreement from "./components/user-agreement/userAgreement.vue";
 import appMain from "./components/appComponents/main.vue"
 import appToure from  "./components/appComponents/tour.vue"
 import appContacts from  "./components/appComponents/contacts.vue"
+import headerComponent from "./components/appComponents/header/headerComponent.vue"
+import headerMobile from "./components/appComponents/header/headerMobyle/headerMobile.vue"
 
 import { Cookie } from "./cookie/cookieRW";
 import { Api } from "./coral-api/apilib";
@@ -67,7 +48,8 @@ export default defineComponent({
       isAuth: false,
       firstName: "f",
       lastName: "f",
-      favTours: ''
+      favTours: '',
+      mobile: false,
     }
   },
   
@@ -76,12 +58,6 @@ export default defineComponent({
       
       this.$forceUpdate;
     },
-    logOut(){
-        console.log('clearing')
-        Cookie.clear('login')
-        Cookie.clear('password')
-        window.location.replace(window.location.href)
-      },
   },
 
   components: { 
@@ -93,7 +69,21 @@ export default defineComponent({
     userAgreement,
     appMain,
     appToure,
-    appContacts
+    appContacts,
+    headerComponent,
+    headerMobile
+  },
+  beforeCreate(){
+    const userAgent = navigator.userAgent;
+    console.log(userAgent);
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      this.mobile = true
+    } else if (/Windows|Macintosh|Linux|Desktop|PC/i.test(navigator.userAgent)) {
+      this.mobile = false;
+    } else {
+      console.log("Не удалось определить тип устройства");
+    }
+    console.log(this.mobile)
   },
   created(){
     User.listen('isAuth', (value: any)=>this.isAuth = value)
@@ -113,14 +103,22 @@ export default defineComponent({
         console.log('yy')
         Api.getClientInfo(login, password).then(res=>{
           this.favTours = res.favourites
+          if(res.favourites.length==0)this.favTours+=' '
           console.log(this.favTours)
           this.$forceUpdate()
         })
       }
       else{
+        this.favTours+='empty'
         console.log('nn')
+        this.$forceUpdate()
       }
     })
+    else{
+        this.favTours+='empty'
+        
+        this.$forceUpdate()
+      }
   }
 })
 

@@ -82,7 +82,7 @@ export class Api {
       }).then(res=>res.json())
     }
 
-    static getToursList(...args : {name:string, value: string|number}[]){
+    static getToursList(...args : any[]){
       let query = ""
       args.forEach((element:any, i)=>{
         if(!element) return
@@ -93,25 +93,25 @@ export class Api {
       return fetch(`/tours?${query}`).then(res=>res.json())
     }
 
-    static updateTourInfo(id:Number, name:string, city:string, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
+    static updateTourInfo(id:Number, name:string, city:string, country:string, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
       return fetch("/updtour?id="+id, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
         body: JSON.stringify(
-          {name: name, city: city, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
+          {name: name, city: city, country: country, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
     }).then(res=>res.json())
     }
 
-    static addTour(name:string, city:string, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
+    static addTour(name:string, city:string, country:string, date: string, length:Number, service:Number, description:string, price:Number, comforts: string, info:string){
       return fetch("/addtour", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         },
         body: JSON.stringify(
-          {name: name, city: city, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
+          {name: name, city: city, country: country, date: date, length: length, service: service, description: description, price: price, comforts: comforts, info: info})
     }).then(res=>res.json())
     }
 
@@ -140,5 +140,40 @@ export class Api {
       return fetch(route, {
         method: 'DELETE',
       }).then(res => res.json())
+    }
+
+    static postComment(login:string, password:string, tourId:number, mark:number, message:string){
+      return fetch("/comment", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(
+          {author: login, password: password, tour: tourId, mark: mark, message:message})
+    }).then(res=>res.json())
+    }
+
+    static getComments(tour:string){
+      return fetch("/comments?tour="+tour).then(res=>res.json())
+    }
+
+    static addOrder(login :string, password :string, tour :number){
+      return fetch('/order', {
+        method: 'POST',
+        headers:{
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify({
+          login: login, password:password, tour:tour
+        })
+      })
+    }
+
+    static getCountries(){
+      return fetch('/countries').then(res=>res.json())
+    }
+
+    static getCities(){
+      return fetch('/cities').then(res=>res.json())
     }
 }

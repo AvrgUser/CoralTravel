@@ -22,7 +22,7 @@ adminmodule.init(app)
 const tourmodule = require('./modules/tours/tours.module')
 tourmodule.init(app)
 
-const mediamodule = require('./modules/media/media.module')
+const mediamodule = require('./modules/media/media.module');
 mediamodule.init(app)
 
 app.use(express.static(directory))
@@ -41,58 +41,37 @@ app.get('/eduser',(req, res)=>{
   }
 })
 
-app.put('/addfav', (req, res)=>{
-  let login = req.body.login
-  let password = req.body.password
-  let tourId = req.body.tour
-  dbconnector.getClientInfo(login, (error, result)=>{
-    if(error) {
-      console.log(error)
-      return
+app.get('/orders', (req, res)=>{
+  dbconnector.getOrders((err, result)=>{
+    res.end(result)
+  })
+})
+
+app.get('/countries', (req, res)=>{
+  dbconnector.getCountries((err, result)=>{
+    if(err) {
+      console.log(err)
+      res.end(JSON.stringify({result:'fail', message:err.message}))
     }
-    console.log(result)
-    if(result[0]!=undefined&&result[0].password == password&&!result[0].favourites.split(';').includes(""+tourId)) {
-      dbconnector.addFavourite(result[0].id, tourId, (err)=>{
-        if(err) {
-          console.log(err)
-          res.end(JSON.stringify({result: 'fail', message: 'wrong data'}))
-        }
-        else{
-          res.end(JSON.stringify({result: 'success'}))
-        }
-      })
-    } 
     else{
-      res.end(JSON.stringify({result: 'fail', message: 'wrong data'}))
+      res.end(JSON.stringify({result:'success', countries: result}))
     }
   })
 })
 
-app.put('/remfav', (req, res)=>{
-  let login = req.body.login
-  let password = req.body.password
-  let tourId = req.body.tour
-  dbconnector.getClientInfo(login, (error, result)=>{
-    if(error) {
-      console.log(error)
-      return
+app.get('/cities', (req, res)=>{
+  dbconnector.getCities((err, result)=>{
+    if(err) {
+      console.log(err)
+      res.end(JSON.stringify({result:'fail', message:err.message}))
     }
-    console.log(result)
-    if(result[0]!=undefined)if(result[0].password == password) {
-      dbconnector.removeFavourite(result[0].id, tourId, (err)=>{
-        if(err) {
-          console.log('error'+err)
-          res.end(JSON.stringify({result: 'fail', message: 'wrong data'}))
-        }
-        else{
-          res.end(JSON.stringify({result: 'success'}))
-        }
-      })
+    else{
+      res.end(JSON.stringify({result:'success', cities: result}))
     }
-  },)
+  })
 })
 
 // Запускаем сервер на порту 3000
 app.listen(3000, () => {
-  console.log('Сервер запущен: http://local:3000')
+  console.log('Сервер запущен: http://localhost:3000')
 })

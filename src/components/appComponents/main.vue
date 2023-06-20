@@ -15,24 +15,24 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="@/assets/corusel/travel1.jpg" class="d-block w-100" alt="...">
+                    <img src="@/assets/corusel/travel3.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+                        <h1>Турция - лучший отдых</h1>
+                        <h1>на море этим летом</h1>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="@/assets/corusel/travel2.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
+                        <h1>От аллергии к</h1>
+                        <h1>к морскому спокойствию.</h1>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="@/assets/corusel/travel3.jpg" class="d-block w-100" alt="...">
+                    <img src="@/assets/corusel/travel1.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
+                        <h1>Элитный отдых для тех,</h1>
+                        <h1>кто ценит комфорт</h1>
                     </div>
                 </div>
             </div>
@@ -53,8 +53,8 @@
                         <h2 class="header-s text-center sh2 h2">
                             <span>Популярные туры</span>
                         </h2>
-                        <div class="pop-tour" id="ПОПУЛЯРНОЕ СУКА!!!!!!!">
-
+                        <div class="pop-tour" id="popular">
+                            <toureCard v-for="(tour,i) in popTours" :key="i" :id="tour" :inFavourites="false"></toureCard>
                         </div>
                     </div>
                 </div>
@@ -98,16 +98,31 @@
     </div>
 </template>
   
-<script>
+<script lang="ts">
+import { Api } from "@/coral-api/apilib";
 import { defineComponent } from "vue";
 import search from "../search/search.vue";
+import toureCard from "../toure-card/toure-card.vue";
+
 export default defineComponent({
     name: "appMain",
-    methods:{
-    
+    data(){
+        return{
+            popTours: [] as string[]
+        }
     },
     components: {
-        search
+        search,
+        toureCard
+    },
+    beforeCreate(){
+        Api.getToursList().then(res=>{
+            for(let i = 0; i<3&&i<res.length;i++){
+                this.popTours[i] = res[i].id
+                this.$forceUpdate()
+            }
+            
+        })
     }
 })
 </script>

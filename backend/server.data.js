@@ -1,8 +1,8 @@
 const path = require('path')
 
-const directory = path.resolve(__dirname, '..')+'\\dist'
+const directory = path.resolve(__dirname, '..')+'/dist'
 const dbconnector = require('./db-connection/db.connector')
-const media = path.resolve(__dirname, '..')+'\\media'
+const media = path.resolve(__dirname, '..')+'/media'
 const videos = media+'/videos'
 const photos = media+'/photos'
 

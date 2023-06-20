@@ -1,10 +1,10 @@
 <template>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" width="140px !important">
+                <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" style="cursor: pointer;" @click="main()" width="140px !important">
             </a>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class="navbar-collapse" id="navbarTogglerDemo02">
                 <div v-if="isAuth">
                     <a href="/account">{{firstName}} {{lastName}}</a>
                 </div>
@@ -18,7 +18,7 @@
                 <div class="option">
                     <Button class="btn btn-outline-primary" v-if="!inFavourites" @click="addFav">Добавить в избранное</Button>
                     <Button class="btn btn-outline-primary" v-else @click="remFav">Убрать из избранного</Button>
-                    <strong class="btn btn-outline-primary">Поделиться</strong>
+                    <strong class="btn btn-outline-primary" :data-clipboard-text="location" data-bs-placement="top" data-bs-title="Ссылка скопирована" @click="tooltipCopy()" id="copyLink">Поделиться</strong>
                 </div>
             </div>
             <div class="main">
@@ -89,7 +89,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Cтоимость бронирования тура {{ title }} состовляет {{ price }}
+                                    Cтоимость бронирования тура {{ title }} составляет {{ parseInt(''+0.2*parseFloat(price)*100)/100 }}₽ (20% от всей суммы)
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalSucces">Забронировать</button>
@@ -106,27 +106,15 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Тур {{ title }} успешно забронирован и добавлин в личный кабинет.
+                                    Тур {{ title }} успешно забронирован и добавлен в личный кабинет.
                                     Ожидайте звонок консультаната в течении 2 часов.
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Готово</button>
                                 </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="coment">
-                <div class="coments" id="coments">
-
-                </div>
-                <div class="addComent">
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
-                    <div>
-                        <rating></rating>
-                        <button type="button" class="btn btn-outline-primary btnAddCom">Отправить</button>
                     </div>
                 </div>
             </div>
@@ -137,7 +125,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade" :id="'pills-'+i" role="tabpanel"
+                    <div :class="'tab-pane fade'+(i==0?' active show':'')" :id="'pills-'+i" role="tabpanel"
                     :aria-labelledby="'pills-'+i+'-tab'" :tabindex="i"
                     v-for="(sect, i) in sections" :key="sect">
                         <div class="fullInfoContent">
@@ -150,6 +138,23 @@
                                 </div>
                             </dl>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="coment">
+                <strong>Отзывы</strong>
+                <div class="coments" id="coments">
+                    <div class="comentUser" v-for="(comment, i) in comments" :key="i">
+                        <div class="name-rating">
+                            <strong>{{ comment.name }} {{ comment.lastname }}</strong>
+                        </div>
+                        <p>{{ comment.message }}</p>
+                    </div>
+                </div>
+                <div v-if="true/*showCommentField*/" class="addComent">
+                    <textarea id="commentField" cols="30" rows="10" placeholder="Оставить отзыв"></textarea>
+                    <div>
+                        <button type="button" class="btn btn-outline-primary btnAddCom" @click="sendComment">Отправить</button>
                     </div>
                 </div>
             </div>
@@ -166,11 +171,16 @@
     let chapters : {title:string, contents:string[]}[][] = []
     let photos: string[] = []
 
+    let commentText : HTMLTextAreaElement
+
     import footerComponent from '@/components/footer/footerComponent.vue';
-    import rating from '@/components/rating/rating.vue'
 
     import { Cookie } from '@/cookie/cookieRW';
     import { User } from '@/userdata';
+    import ClipboardJS from 'clipboard';
+
+    let tooltip_ : any
+    let tooltip : any
 
     export default defineComponent({
         
@@ -189,6 +199,9 @@
             id: 0,
             inFavourites: false,
             price: '',
+            location: window.location.href,
+            comments: [] as {name:string, lastname:string, mark:number, message:string, login:string}[],
+            showCommentField: false,
             
             get chapters() : {title:string, contents:string[]}[][] {
                 return chapters
@@ -197,15 +210,24 @@
             get photos() : string[] {
                 return photos
             }
-
-
         }
         },
         components: {
-            footerComponent,
-            rating
+            footerComponent
         },
         methods:{
+            main(){
+                window.location.replace(`http://${window.location.host}/`);
+            },
+            tooltipCopy(){
+                tooltip.delay = {
+                    show: '100',
+                    hide: '100'
+                }
+                tooltip.show()
+                
+                setTimeout(()=>tooltip.hide(), 2000)
+            },
             addFav(){
                 Api.addToFavourites(Cookie.get('login'), Cookie.get('password'), ''+this.id).then(res=>{
                     if(res.result=='success') this.inFavourites = true
@@ -217,9 +239,23 @@
                     if(res.result=='success') this.inFavourites = false
                     this.$forceUpdate()
                 })
+            },
+            sendComment(){
+                commentText = document.getElementById('commentField') as HTMLTextAreaElement
+                Api.postComment(Cookie.get('login'), Cookie.get('password'), this.id, 5, commentText.value).then(res=>{
+                    if(res.result == 'success')
+                    Api.getComments(this.id+'').then(res1=>{
+                        commentText.value=''
+                        this.comments = res1.comments
+                        this.showCommentField = false
+                        this.$forceUpdate()
+                    })
+                    else console.log('cant comment')
+                })
             }
         },
         beforeCreate(){
+
             User.listen('isAuth', (value: any)=>this.isAuth = value)
             User.listen('firstName', (value: any)=>this.firstName = value)
             User.listen('lastName', (value: any)=>this.lastName = value)
@@ -233,14 +269,14 @@
             let login = Cookie.get('login')
             let password = Cookie.get('password')
             if(login!=''&&password!='')Api.tryAuth(login, password).then(result=>{
-                if(result.message=='authorized') {
-                    User.value('isAuth', true)
-                    console.log('yy')
-                }
-                else{
-                    console.log('nn')
-                }
-            })
+            if(result.message=='authorized') {
+                User.value('isAuth', true)
+                console.log('yy')
+            }
+            else{
+                console.log('nn')
+            }
+        })
             
             this.id = (new URL(window.location.href).searchParams.get('id') as unknown as number)
 
@@ -280,7 +316,24 @@
                 }
                 this.$forceUpdate()
             })
+
+            Api.getComments(this.id+'').then(res=>{
+                this.comments = res.comments
+                this.showCommentField = true
+                this.comments.forEach(element => {
+                    if(element.login.toUpperCase() == Cookie.get('login').toUpperCase()) this.showCommentField = false
+                })
+                this.$forceUpdate()
+            })
         },
+        mounted(){
+            tooltip_ = document.getElementById("copyLink")
+            tooltip = new (window as any)["bootstrap"].Tooltip(tooltip_, {
+                trigger: 'click'
+            })
+            tooltip.hide()
+            new ClipboardJS('.btn');
+        }
     })
     </script>
     

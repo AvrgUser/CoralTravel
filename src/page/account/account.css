@@ -85,7 +85,10 @@ body{
 }
 .d-flex{
   display: grid !important;
-  justify-content: center;
+}
+.inFavourites {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .inFavourites{

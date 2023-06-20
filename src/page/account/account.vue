@@ -2,7 +2,7 @@
     <nav class="navbar bg-body-tertiary">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" alt="CoralTravel" width="140px">
+          <img src="https://cdn.coral.ru/content/logo-1e92b1a6.svg" style="cursor: pointer;" @click="main()" alt="CoralTravel" width="140px">
         </a>
       </div>
       <div class="container user-c">
@@ -23,7 +23,6 @@
           <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Избранное</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Мои туры</button>
         </li>
       </ul>
 
@@ -125,6 +124,9 @@
       }
      },
      methods:{
+      main(){
+        window.location.replace(`http://${window.location.host}/`);
+      },
       saveClientInfo(){
         const firstName_ = document.getElementById('firstName') as HTMLInputElement;
         const LastName_ = document.getElementById('lastName') as HTMLInputElement;

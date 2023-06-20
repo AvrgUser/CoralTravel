@@ -13,7 +13,8 @@ function selectionQuery(board, column, params, callback, autoParseParams = true)
         query+=' WHERE '
         let keys = Object.keys(params)
         for(let i=0;i<keys.length;i++){
-            query += `${keys[i]} = ${params[keys[i]]}`
+            let value = params[keys[i]]
+            query += `${keys[i]} = ${(value.includes!=undefined&&value.includes('CONCAT'))?value:`"${value}"`}`
             if(i<keys.length-1) query +=' AND '
         }
     }
@@ -29,7 +30,8 @@ function insertQuery(board, params, callback){
     let keys = Object.keys(params)
     for(let i=0;i<keys.length;i++){
         query += `${keys[i]}`
-        values += `${params[keys[i]]}`
+        let value = params[keys[i]]
+        values += `${(value&&value.includes!=undefined&&value.includes('CONCAT'))?value:`"${value}"`}`
         if(i<keys.length-1) {
             query +=', '
             values +=', '
@@ -45,7 +47,8 @@ function updateQuery(board, conditions, params, callback){
     if(params!=''){
         let keys = Object.keys(params)
         for(let i=0;i<keys.length;i++){
-            query += `\`${keys[i]}\` = ${params[keys[i]]}`
+            let value = params[keys[i]]
+            query += `\`${keys[i]}\` = ${(value.includes!=undefined&&value.includes('CONCAT'))?value:`"${value}"`}`
             if(i<keys.length-1) query +=', '
         }
     }
@@ -53,7 +56,8 @@ function updateQuery(board, conditions, params, callback){
         query+=' WHERE '
         let keys = Object.keys(conditions)
         for(let i=0;i<keys.length;i++){
-            query += `${keys[i]} = ${conditions[keys[i]]}`
+            let value = conditions[keys[i]]
+            query += `${keys[i]} = ${(value.includes!=undefined&&value.includes('CONCAT'))?value:`"${value}"`}`
             if(i<keys.length-1) query +=' AND '
         }
     }
@@ -66,7 +70,7 @@ function deleteQuery(board, conditions, callback){
     if(conditions!=''){
         let keys = Object.keys(conditions)
         for(let i=0;i<keys.length;i++){
-            query += `${keys[i]} = ${conditions[keys[i]]}`
+            query += `${keys[i]} = "${conditions[keys[i]]}"`
             if(i<keys.length-1) query +=' AND '
         }
     }else {
@@ -88,11 +92,9 @@ function sendQuery(query, callback){
 
 //#endregion
 module.exports = {
-    getCitiesList(){
-
-        return 'Moscow Saint-Petersburg Bryansk'
+    getCities(callback){
+        sendQuery(`SELECT city FROM tours GROUP BY city`, callback)
     },
-    // },
 
     getClientsList(filters, callback){
         let params = ''
@@ -106,28 +108,28 @@ module.exports = {
     getClientInfo(login, callback, column='*'){
         selectionQuery('clients', column, 
             {
-                login: `"${login}"`
+                login: login
             },
         callback)
     },
 
     addUser(login, password, name, lastname, email, birth, gender, phone, callback){
         insertQuery('clients', {
-            login: `"${login}"`,
-            password: `"${password}"`,
-            name: `"${name}"`,
-            lastname: `"${lastname}"`,
-            email: `"${email}"`,
-            phone: `"${phone}"`,
-            birthdate: `"${birth}"`,
-            gender: `"${gender}"`,
+            login: login,
+            password: password,
+            name: name,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            birthdate: birth,
+            gender: gender,
         }, callback)
     },
 
     getUserInfo(id, callback, column='*'){
         selectionQuery('clients', column,
             {
-                id: `${id}`
+                id:id
             },
         callback)
     },
@@ -135,23 +137,23 @@ module.exports = {
     updateUser(login, name, lastname, email, birth, gender, phone, callback){
         updateQuery('clients',
         {
-            login: `"${login}"`
+            login: login
         },
         {
-            login: `"${login}"`,
-            name: `"${name}"`,
-            lastname: `"${lastname}"`,
-            email: `"${email}"`,
-            phone: `"${phone}"`,
-            birthdate: `"${birth}"`,
-            gender: `"${gender}"`,
+            login: login,
+            name: name,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            birthdate: birth,
+            gender: gender,
         }, callback)
     },
 
     addFavourite(id, tour, callback){
         updateQuery('clients',
         {
-            id: `"${id}"`,
+            id: id,
         },
         {
             favourites: `CONCAT(favourites, ";${tour}")`
@@ -174,10 +176,10 @@ module.exports = {
             }
             updateQuery('clients',
                 {
-                    id: `"${id}"`,
+                    id: id,
                 },
                 {
-                    favourites: `"${leave}"`
+                    favourites: leave
                 }, callback)
         }, 'favourites')
     },
@@ -185,7 +187,7 @@ module.exports = {
     getTourInfo(id, callback, column='*'){
         selectionQuery('tours', column,
             {
-                id: `${id}`
+                id:id
             },
         callback)
     },
@@ -209,25 +211,25 @@ module.exports = {
     updateTour( id, name, city, date, length, service, description, price, comforts, info, callback){
         updateQuery('tours',
         {
-            id: `"${id}"`,
+            id: id,
         },
         {
-            name: `"${name}"`,
-            city: `"${city}"`,
-            service: `"${service}"`,
-            date: `"${date}"`,
-            length: `"${length}"`,
-            description: `"${description}"`,
-            price: `"${price}"`,
-            info: `"${info}"`,
-            comforts: `"${comforts}"`,
+            name: name,
+            city: city,
+            service: service,
+            date: date,
+            length: length,
+            description: description,
+            price: price,
+            info: info,
+            comforts: comforts,
         }, callback)
     },
 
     appendTourMedia(id, media){
         updateQuery('tours',
         {
-            id: `"${id}"`,
+            id: id,
         },
         {
             media: `CONCAT(media, ";${media}")`
@@ -248,31 +250,54 @@ module.exports = {
             }
             updateQuery('tours',
                 {
-                    id: `"${id}"`,
+                    id: id,
                 },
                 {
-                    media: `"${leave}"`
+                    media: leave
                 })
         }, 'media')
     },
 
-    addTour(name, city, date, length, service, description, price, info, callback){
+    addTour(name, city, country, date, length, service, description, price, info, callback){
         insertQuery('tours',
         {
-            name: `"${name}"`,
-            city: `"${city}"`,
-            service: `"${service}"`,
-            date: `"${date}"`,
-            length: `"${length}"`,
-            description: `"${description}"`,
-            price: `"${price}"`,
-            info: `"${info}"`
+            name: name,
+            city: city,
+            service: service,
+            date: date,
+            length: length,
+            description: description,
+            price: price,
+            info: info,
+            country: country
         }, callback)
     },
 
     deleteTour(id, callback){
         deleteQuery('tours', {
-            id: `"${id}"`
+            id: id
         }, callback)
     },
+
+    addComment(author, tour, mark, message, callback){
+        insertQuery('feedback',
+        {
+            author_id: author,
+            tour_id: tour,
+            mark: mark,
+            message: message,
+        }, callback)
+    },
+
+    getComments(tour, callback){
+        sendQuery(`SELECT feedback.id, clients.login, clients.name, clients.lastname, feedback.mark, feedback.message FROM tours JOIN feedback ON tours.id=feedback.tour_id JOIN clients ON clients.id=feedback.author_id WHERE tours.id = ${tour}`, callback)
+    }, 
+
+    getOrders(callback){
+        selectionQuery('orders', '*', '', callback)
+    },
+
+    getCountries(callback){
+        sendQuery(`SELECT country FROM tours GROUP BY country`, callback)
+    }
 }

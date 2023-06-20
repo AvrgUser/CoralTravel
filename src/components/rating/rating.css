@@ -1,16 +1,22 @@
 .rating {
-  font-size: 24px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  margin-left: 10px;
 }
 
-.star {
-  font-size: 24px;
-  color: rgb(148, 148, 148);
+.rating li {
   cursor: pointer;
+  margin-right: 10px;
+  font-size: 24px;
+  color: #ffd700;
 }
 
-.star.active,
-.star:hover{
-  color: gold;
+.rating li i.fa-star-o {
+  color: #ddd;
+}
+
+.rating li.selected i.fa-star-o,
+.rating li:hover i.fa-star-o {
+  color: #ffbf00;
 }

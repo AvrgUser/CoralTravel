@@ -16,9 +16,9 @@
                 <img src="https://cdn.icon-icons.com/icons2/936/PNG/512/calendar-with-spring-binder-and-date-blocks_icon-icons.com_73645.png" width="10px" alt="">
                 {{date}}
               </div>
-              <div class="list-group-item-length">
-                <label for="">{{length}}</label>
-                Ночей
+              <div class="list-group-item-date">
+                <label for="">Страна назначения:</label>
+                 {{ country }}
               </div>
             </li>
             
@@ -26,6 +26,10 @@
               <div class="list-group-item-service">
                 <img src="https://cdn.icon-icons.com/icons2/390/PNG/512/knife-fork_39057.png" width="10px" alt="">
                 {{service}}
+              </div>
+              <div class="list-group-item-length">
+                <label for="">{{length}}</label>
+                Ночей
               </div>
             </li>
             
@@ -61,8 +65,9 @@ export default defineComponent({
           service: '',
           price: '',
           photo: '',
-          link: 'http://localhost:3000/tour?id=' + this.id,
+          link: '/tour?id=' + this.id,
           favourite: false,
+          country: ''
         }
     },
     methods:{
@@ -89,6 +94,7 @@ export default defineComponent({
         this.city = res.city;
         this.date = res.date;
         this.length = res.length;
+        this.country = res.country;
         let photos = res.media.split(';')
         photos.forEach(photo => {
           if(photo!=''&&this.photo==''){
